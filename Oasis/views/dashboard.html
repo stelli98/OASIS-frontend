@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">        
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Palanquin:400,500,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/css/style.css">
+        <link rel="shortcut icon" type="image/png" href="../assets/img/favicon.png">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="../assets/js/base.js"></script>
+        <title>OASIS &mdash; Office Asset Inventory System</title>
+    </head>
+    <body>
+
+        <nav class="navbar">
+            <div class="navbar__logo">
+                <img src="../assets/img/logo.png" alt="Logo" class="logo__pic">
+            </div>
+            <div class="navbar__user">
+                <img src="../assets/img/user.jpg" alt="" class="user__pic" id="navbar__picture">
+                <p class="user__name" id="navbar__username">Silvia Chen</p>
+            </div>    
+        </nav>
+        <div class="content">
+            <div class="sidebar"></div>
+            <main class="main-content">
+                <div class="dashboard">
+                    <div class="status">
+                        <h2 class="title status__title">Status</h2>
+                        <div class="status__content">
+                            <div class="status__content__detail">
+                                <h3 class="status__number">1221</h3>
+                                <p class="status__text">New Asset Request</p>
+                            </div>
+                            <div class="status__content__detail">
+                                <h3 class="status__number">9283</h3>
+                                <p class="status__text">Pending Asset Handover</p>
+                            </div>
+                            <div class="status__content__detail">
+                                <h3 class="status__number">1238</h3>
+                                <p class="status__text">Available Asset</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-request">
+                        <div class="new-request__top">
+                            <h2 class="title new-request__title">New Asset Request</h2>
+                            <p class="new-request__notif">5</p>
+                        </div>
+                        <div class="new-request__down">
+                            <div class="table-request">
+                                <div class="table-title table-title-name">Name</div>
+                                <div class="table-title table-title-asset">Requested Asset</div>
+                                <div class="table-title table-title-qty">Qty</div>
+                                <div class="table-title table-title-note">Notes</div>
+                                <div class="table-title table-title-accept"></div>
+                                <div class="table-title table-title-reject"></div>
+                                <hr>
+                            </div>   
+                                <div class="table-request-list" id="table-request-list-id">
+                                    <div class="table-content table-content-photo">
+                                            <img src="../assets/img/user.jpg" alt="photo" class="user__pic">
+                                    </div>
+                                    <div class="table-content table-content-name" id="asset-request-employee--1">Steven Tan</div>
+                                    <div class="table-content table-content-asset" id="asset-request-asset--1">Laptop</div>
+                                    <div class="table-content table-content-qty" id="asset-request-qty--1">21</div>
+                                    <div class="table-content table-content-note" id="asset-request-note--1">As a global concierge that provides best-in-class products and superior services to the shipping and offshore industry, we strive to create solutions.</div>
+                                    <div class="table-content table-content-icon table-content-icon-accept" id="asset-request-accept">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="action-button action-button-accept">
+                                                <path d="M30.331 4.917l-18.83 18.83-9.833-9.833-1.669 1.669 11.502 11.501 20.498-20.498z"></path>
+                                            </svg>
+                                    </div>
+                                    <div class="table-content table-content-icon table-content-icon-reject" id="asset-request-reject">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="action-button action-button-reject">     
+                                                <path d="M32 1.979l-1.979-1.979-14.021 14.021-14.021-14.021-1.979 1.979 14.021 14.021-14.021 14.021 1.979 1.979 14.021-14.021 14.021 14.021 1.979-1.979-14.021-14.021z"></path>
+                                            </svg>   
+                                    </div>
+                                </div>  
+                                <div class="table-request-list" id="table-request-list-id">
+                                    <div class="table-content table-content-photo">
+                                            <img src="../assets/img/user.jpg" alt="photo" class="user__pic">
+                                    </div>
+                                    <div class="table-content table-content-name" id="asset-request-employee--1">Steven Tan</div>
+                                    <div class="table-content table-content-asset" id="asset-request-asset--1">Laptop</div>
+                                    <div class="table-content table-content-qty" id="asset-request-qty--1">21</div>
+                                    <div class="table-content table-content-note" id="asset-request-note--1">As a global concierge that provides best-in-class products and superior services to the shipping and offshore industry, we strive to create solutions.</div>
+                                    <div class="table-content table-content-icon table-content-icon-accept" id="asset-request-accept">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="action-button action-button-accept">
+                                                <path d="M30.331 4.917l-18.83 18.83-9.833-9.833-1.669 1.669 11.502 11.501 20.498-20.498z"></path>
+                                            </svg>
+                                    </div>
+                                    <div class="table-content table-content-icon table-content-icon-reject" id="asset-request-reject">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="action-button action-button-reject">     
+                                                <path d="M32 1.979l-1.979-1.979-14.021 14.021-14.021-14.021-1.979 1.979 14.021 14.021-14.021 14.021 1.979 1.979 14.021-14.021 14.021 14.021 1.979-1.979-14.021-14.021z"></path>
+                                            </svg>   
+                                    </div>
+                                </div>  
+                                <div class="table-request-list" id="table-request-list-id">
+                                    <div class="table-content table-content-photo">
+                                            <img src="../assets/img/user.jpg" alt="photo" class="user__pic">
+                                    </div>
+                                    <div class="table-content table-content-name" id="asset-request-employee--1">Steven Tan</div>
+                                    <div class="table-content table-content-asset" id="asset-request-asset--1">Laptop</div>
+                                    <div class="table-content table-content-qty" id="asset-request-qty--1">21</div>
+                                    <div class="table-content table-content-note" id="asset-request-note--1">As a global concierge that provides best-in-class products and superior services to the shipping and offshore industry, we strive to create solutions.</div>
+                                    <div class="table-content table-content-icon table-content-icon-accept" id="asset-request-accept">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="action-button action-button-accept">
+                                                <path d="M30.331 4.917l-18.83 18.83-9.833-9.833-1.669 1.669 11.502 11.501 20.498-20.498z"></path>
+                                            </svg>
+                                    </div>
+                                    <div class="table-content table-content-icon table-content-icon-reject" id="asset-request-reject">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="action-button action-button-reject">     
+                                                <path d="M32 1.979l-1.979-1.979-14.021 14.021-14.021-14.021-1.979 1.979 14.021 14.021-14.021 14.021 1.979 1.979 14.021-14.021 14.021 14.021 1.979-1.979-14.021-14.021z"></path>
+                                            </svg>   
+                                    </div>
+                                </div>  
+                                <div class="table-request-list" id="table-request-list-id">
+                                    <div class="table-content table-content-photo">
+                                            <img src="../assets/img/user.jpg" alt="photo" class="user__pic">
+                                    </div>
+                                    <div class="table-content table-content-name" id="asset-request-employee--1">Steven Tan</div>
+                                    <div class="table-content table-content-asset" id="asset-request-asset--1">Laptop</div>
+                                    <div class="table-content table-content-qty" id="asset-request-qty--1">21</div>
+                                    <div class="table-content table-content-note" id="asset-request-note--1">As a global concierge that provides best-in-class products and superior services to the shipping and offshore industry, we strive to create solutions.</div>
+                                    <div class="table-content table-content-icon table-content-icon-accept" id="asset-request-accept">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="action-button action-button-accept">
+                                                <path d="M30.331 4.917l-18.83 18.83-9.833-9.833-1.669 1.669 11.502 11.501 20.498-20.498z"></path>
+                                            </svg>
+                                    </div>
+                                    <div class="table-content table-content-icon table-content-icon-reject" id="asset-request-reject">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="action-button action-button-reject">     
+                                                <path d="M32 1.979l-1.979-1.979-14.021 14.021-14.021-14.021-1.979 1.979 14.021 14.021-14.021 14.021 1.979 1.979 14.021-14.021 14.021 14.021 1.979-1.979-14.021-14.021z"></path>
+                                            </svg>   
+                                    </div>
+                                </div>  
+                                <div class="table-request-list" id="table-request-list-id">
+                                    <div class="table-content table-content-photo">
+                                            <img src="../assets/img/user.jpg" alt="photo" class="user__pic">
+                                    </div>
+                                    <div class="table-content table-content-name" id="asset-request-employee--1">Steven Tan</div>
+                                    <div class="table-content table-content-asset" id="asset-request-asset--1">Laptop</div>
+                                    <div class="table-content table-content-qty" id="asset-request-qty--1">21</div>
+                                    <div class="table-content table-content-note" id="asset-request-note--1">As a global concierge that provides best-in-class products and superior services to the shipping and offshore industry, we strive to create solutions.</div>
+                                    <div class="table-content table-content-icon table-content-icon-accept" id="asset-request-accept">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="action-button action-button-accept">
+                                                <path d="M30.331 4.917l-18.83 18.83-9.833-9.833-1.669 1.669 11.502 11.501 20.498-20.498z"></path>
+                                            </svg>
+                                    </div>
+                                    <div class="table-content table-content-icon table-content-icon-reject" id="asset-request-reject">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="action-button action-button-reject">     
+                                                <path d="M32 1.979l-1.979-1.979-14.021 14.021-14.021-14.021-1.979 1.979 14.021 14.021-14.021 14.021 1.979 1.979 14.021-14.021 14.021 14.021 1.979-1.979-14.021-14.021z"></path>
+                                            </svg>   
+                                    </div>
+                                </div>
+                                
+                             
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>
