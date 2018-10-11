@@ -1,9 +1,13 @@
+@import url("../../assets/css/base.css");
+
 .sidebar{
     display: flex;
     flex-flow: column;
     align-items: start;
     height: inherit;
-    width: 23vw;
+    background-color:var(--color-white);
+    width:23vw;
+    height: 100vh;
 }
 
 .sidebar__menu{

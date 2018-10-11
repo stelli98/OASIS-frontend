@@ -5,8 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">        
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Palanquin:400,500,600,700" rel="stylesheet">
-        <link rel="stylesheet" href="../assets/css/style.css">
+        <link rel="stylesheet" href="../assets/css/base.css">
         <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="../assets/js/base.js"></script>
         
         <title>OASIS &mdash; Office Asset Inventory System</title>
     </head>
@@ -21,14 +23,18 @@
                     <img src="../assets/img/logo.png" class="login__logo" alt="OASIS Logo">
                     <p class="logo__text">Provide everything that you need</p>
                 </div>
+            
                 <form action="#" class="form">
+                    <div class="login__error">
+                         <p class="login__error-message"></p>
+                    </div>            
                     <div class="form__username">
                         <input type="text" class="form__input" placeholder="Username" id="username" required>
                     </div>
                     <div class="form__password"> 
                         <input type="password" class="form__input" placeholder="Password" id="password" required>
                     </div>
-                    <div class="btn btn--blue">Login
+                    <div class="btn btn--blue" id="btn-login">Login
                    </div>
                 </form>
             </div>

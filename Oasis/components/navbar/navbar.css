@@ -1,0 +1,28 @@
+@import url("../../assets/css/base.css");
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    height: 12vh;
+
+    background-color: #fff;
+}
+
+.navbar__user{
+    display: flex;
+    align-items: center;
+}
+
+.logo__pic{
+    height: 4rem;
+}
+.user__name{
+    font-size: 1.5rem;
+}
+.user__pic{
+    height: 4rem;
+    width: 4rem;
+    margin-right: 1.5rem;
+    border-radius: 100%;
+}
