@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-  $("#action-button-accept").click(function () {
+  $(".action-button-accept").click(function () {
        $('.popup').css("display","block");
   });
 
