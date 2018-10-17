@@ -1,5 +1,9 @@
 
 $(document).ready(function(){
+
+	 const statusSuccess = 200;
+	 const path='http://localhost:8085/oasis/login';
+
     //  LOGIN BUTTON
 	  $('#btn-login').click(function(){
 		var username = $('#username').val();
@@ -12,12 +16,12 @@ $(document).ready(function(){
 
 		$.ajax({
 		  type: 'POST',
-		  url: 'http://localhost:8085/oasis/login',
+		  url: path,
 		  contentType: 'application/json',
 		  data: JSON.stringify(userdata),
 		  dataType: 'json',
 		  success: function(data){
-			  if(data.code == 200){
+			  if(data.code == statusSuccess){
 				  alert(data.value.employeeId);
 				  window.location.href = '../../views/dashboard.html';
 				  localStorage.setItem('id', data.value.employeeId);
