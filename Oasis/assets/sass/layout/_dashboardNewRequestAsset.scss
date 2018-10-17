@@ -1,0 +1,94 @@
+
+.new-request{
+    background-color: $color-white;
+    padding: 3rem 4.5rem;
+    border-radius: 3rem;
+    margin-top: 2rem;
+}
+
+.form__input-error{
+    border: solid 1px $color-red-light-1;
+
+}
+
+.table-request{
+    margin-top: 2rem;
+    font-size: 1.4rem;
+
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    grid-gap: 1rem;
+
+    &-list{
+        display: grid;
+        grid-template-columns: repeat(13, 1fr);
+        grid-gap: 1rem;
+        margin-top: 2rem;
+        font-size: 1.3rem;
+        align-items: center;
+    }
+}
+
+hr{
+   grid-column: 1/-1;
+   grid-row:2;
+   border-width: .05rem;
+}
+
+.table-title{
+    font-size: 1.6rem;
+
+    &-name{
+        grid-column: 1/span 3;
+    }
+
+    &-asset{
+        grid-column:4/span 3;
+    }
+
+    &-qty{
+        grid-column: 7/span 1;
+    }
+
+    &-note{
+        grid-column:8/span 4;
+    }
+}
+
+
+.table-content{
+    grid-row:1;
+    &-name{
+        grid-column: 2/span 2;
+    }
+
+    &-asset{
+        grid-column:4/span 3;
+    }
+
+    &-qty{
+        grid-column: 7/span 1;
+    }
+
+    &-note{
+        grid-column:8/span 4;
+        grid-column:8/span 4;
+        line-height: 1.4rem;
+         font-size: 1.2rem;
+    }
+    &-icon{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    
+}
+
+
+
+
+
+
+
+

@@ -1,13 +1,5 @@
-$(document).ready(function(){
-	
-	$(".sidebar__part").load("../components/sidebar/sidebar.html",function(){
-			$(".navbar__part").load("../components/navbar/navbar.html",function(){
-				$(".status__part").load("../components/dashboardStatus/dashboardStatus.html",function(){
-					 $(".new-request__part").load("../components/dashboardNewAssetRequest/dashboardNewAssetRequest.html");
-				});
-			});
-	  });
 
+$(document).ready(function(){
     //  LOGIN BUTTON
 	  $('#btn-login').click(function(){
 		var username = $('#username').val();
@@ -27,7 +19,8 @@ $(document).ready(function(){
 		  success: function(data){
 			  if(data.code == 200){
 				  alert(data.value.employeeId);
-				  window.location.href = "../../views/dashboard.html"
+				  window.location.href = '../../views/dashboard.html';
+				  localStorage.setItem('id', data.value.employeeId);
 			  } else {
 				 	  $(".login__error").css("display","block");
 					  $(".login__error-message").text(data.value.errorMessage);

@@ -1,0 +1,89 @@
+.login{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    overflow: hidden;
+}
+
+.login__pic{
+  height: 100vh;
+  width: 60vw;
+}
+
+.login__form{
+    width: 40vw;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+.login__logo{
+    height:8rem;    
+}
+
+.logo__text{
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: 300;
+    font-family: $font-title;
+    margin-bottom: 4rem;
+}
+
+
+.login__content{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    width: inherit;
+}
+
+
+.form__username, 
+.form__password{
+    width:60%;
+}
+
+.form__input{
+    border-radius: 100px;
+    padding: 1.5rem 2rem;
+    border: solid 1px $color-grey-light-2;
+    font-size: 1.5rem;
+    color: inherit;
+    width: 100%; 
+    margin-bottom: 3rem;
+
+}
+
+.form__input:focus{
+    outline: none;
+    box-shadow: 0 1rem 2rem rgba(0,0,0, .1);
+}
+
+/*------Login Error------*/
+.login__error{
+    background-color: $color-red-light-2;
+    padding: 1.1rem 1.6rem;
+    width: 60%;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    
+    box-shadow: 0 .5rem .5rem rgba(85,85,85, .1);
+
+    display: none;
+}
+
+.login__error-message{
+    color:$color-grey-light-1;
+    font-size: 1.25rem;
+    line-height: 1.4rem;
+    font-family: $font-title;
+}

@@ -1,0 +1,50 @@
+.btn {
+    &,
+    &:link,
+    &:visited{
+      text-decoration: none;
+      padding: 1.5rem 4.5rem;
+      display: inline-block;
+      border-radius: 10rem;
+      transition: all .2s;
+      position: relative;
+
+      border: none;
+      cursor: pointer;
+    }
+
+    &:hover,
+    &:focus{
+        outline: none;
+    }
+      
+    &--blue{
+        font-family: $font-title;
+        font-weight: 600;
+        color: $color-white;
+        background-color: $color-primary;
+        font-size: 1.5rem;
+    }
+      
+    &-confimation{
+        font-size: 5.5rem;
+    }
+}
+
+.action-icon{
+    width: 2rem;
+    height: 2rem;
+
+
+    &-accept{
+      width: 2.5rem;
+      height: 2.5rem;
+      fill: $color-primary;
+    }
+
+    &-reject{
+      width: 1.9rem;
+      height: 1.9rem;
+      fill: $color-red-dark;
+    }
+}

@@ -1,0 +1,45 @@
+.status{ 
+    background-color: $color-white;
+    padding: 3rem 4.5rem;
+    border-radius: 3rem;
+    margin-top: 2rem;
+
+    &__content{
+        display: flex;
+        justify-content: space-around;
+
+        &__detail{
+            display: flex;
+            align-items: center;
+        }
+    }
+   
+
+    &__number{
+        font-size: 4rem;
+        color: $color-primary;
+        margin-right: 1.5rem;
+    }
+    
+    &__text{
+        font-size: 1.8rem;
+        width: 12rem;
+    }
+    
+}
+
+
+.new-request__top{
+    display: flex;
+    align-items: center;
+    
+}
+
+.new-request__notif{
+    font-size: 1.3rem;
+    background-color: $color-primary;
+    padding: 0.3rem 1.8rem;
+    border-radius: 10rem;
+    color: $color-white;
+    margin-left: 1rem;
+}
