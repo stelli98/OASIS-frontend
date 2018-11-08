@@ -2,13 +2,19 @@
 @import "base/typography";
 
 @import "components/btn";
+@import "components/form";
+@import "components/pagination";
 @import "components/popup";
+@import "components/search";
+@import "components/table";
 
+@import "layout/assetList";
+@import "layout/assetAdd";
 @import "layout/sidebar";
 @import "layout/navbar";
 @import "layout/dashboardStatus";
 @import "layout/dashboardNewRequestAsset";
 
 @import "page/login";
-@import "page/dashboard";
+
 

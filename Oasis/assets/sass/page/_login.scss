@@ -38,35 +38,6 @@
     align-items: center;
 }
 
-.form{
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; 
-    width: inherit;
-}
-
-
-.form__username, 
-.form__password{
-    width:60%;
-}
-
-.form__input{
-    border-radius: 100px;
-    padding: 1.5rem 2rem;
-    border: solid 1px $color-grey-light-2;
-    font-size: 1.5rem;
-    color: inherit;
-    width: 100%; 
-    margin-bottom: 3rem;
-
-}
-
-.form__input:focus{
-    outline: none;
-    box-shadow: 0 1rem 2rem rgba(0,0,0, .1);
-}
 
 /*------Login Error------*/
 .login__error{
@@ -86,4 +57,9 @@
     font-size: 1.25rem;
     line-height: 1.4rem;
     font-family: $font-title;
+}
+
+.form__input-error{
+    border: solid 1px $color-red-light-1;
+
 }

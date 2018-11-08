@@ -5,133 +5,19 @@
 <div class="new-request">
         <div class="new-request__top">
             <h2 class="title new-request__title">New Asset Request</h2>
-            <p class="new-request__notif">5</p>
+            <p class="new-request__notif" id="new-request-asset-total">5</p>
         </div>
         <div class="new-request__down">
-            <div class="table-request">
-                <div class="table-title table-title-name">Name</div>
-                <div class="table-title table-title-asset">Requested Asset</div>
-                <div class="table-title table-title-qty">Qty</div>
-                <div class="table-title table-title-note">Notes</div>
-                <div class="table-title table-title-accept"></div>
-                <div class="table-title table-title-reject"></div>
+            <div class="table-title-new-request-admin">
+                <div class="table-title table-title-new-request-admin-name">Name</div>
+                <div class="table-title table-title-new-request-admin-asset">Requested Asset</div>
+                <div class="table-title table-title-new-request-admin-qty">Qty</div>
+                <div class="table-title table-title-new-request-admin-note">Notes</div>
+                <div class="table-title table-title-new-request-admin-accept"></div>
+                <div class="table-title table-title-new-request-admin-reject"></div>
                 <hr>
-            </div>   
-                <div class="table-request-list" id="table-request-list--1">
-                    <div class="table-content table-content-photo">
-                            <img src="../../assets/img/employees/user.jpg" alt="photo" class="user__pic">
-                    </div>
-                    <div class="table-content table-content-name" id="asset-request-employee--1">Steven Tan</div>
-                    <div class="table-content table-content-asset" id="asset-request-asset--1">Laptop</div>
-                    <div class="table-content table-content-qty" id="asset-request-qty--1">21</div>
-                    <div class="table-content table-content-note" id="asset-request-note--1">As a global concierge that provides best-in-class products and superior services to the shipping and offshore industry, we strive to create solutions.</div>
-                    <div class="table-content table-content-icon table-content-icon-accept" id="asset-request-accept">
-                            <a href="#" class="action-button-accept">    
-                                <svg class="action-icon action-icon-accept">
-                                    <use xlink:href="../../assets/img/sprite.svg#icon-checked"></use>
-                                </svg>
-                            </a>
-                    </div>
-                    <div class="table-content table-content-icon table-content-icon-reject" id="asset-request-reject">
-                            <a href="#" id="action-button-reject">    
-                                <svg class="action-icon action-icon-reject">
-                                    <use xlink:href="../../assets/img/sprite.svg#icon-unchecked"></use>
-                                 </svg>
-                            </a>
-                    </div>
-                </div>  
-                <div class="table-request-list" id="table-request-list--2">
-                    <div class="table-content table-content-photo">
-                            <img src="../../assets/img/employees/user.jpg" alt="photo" class="user__pic">
-                    </div>
-                    <div class="table-content table-content-name" id="asset-request-employee--2">Steven Tan</div>
-                    <div class="table-content table-content-asset" id="asset-request-asset--2">Laptop</div>
-                    <div class="table-content table-content-qty" id="asset-request-qty--2">21</div>
-                    <div class="table-content table-content-note" id="asset-request-note--2">As a global concierge that provides best-in-class products and superior services to the shipping and offshore industry, we strive to create solutions.</div>
-                    <div class="table-content table-content-icon table-content-icon-accept" id="asset-request-accept">
-                            <a href="#" class="action-button-accept">    
-                                <svg class="action-icon action-icon-accept">
-                                    <use xlink:href="../../assets/img/sprite.svg#icon-checked"></use>
-                                </svg>
-                            </a>
-                    </div>
-                    <div class="table-content table-content-icon table-content-icon-reject" id="asset-request-reject">
-                            <a href="#" id="action-button-reject">    
-                                <svg class="action-icon action-icon-reject">
-                                    <use xlink:href="../../assets/img/sprite.svg#icon-unchecked"></use>
-                                 </svg>
-                            </a>
-                    </div>
-                </div> 
-                <div class="table-request-list" id="table-request-list--3">
-                    <div class="table-content table-content-photo">
-                            <img src="../../assets/img/employees/user.jpg" alt="photo" class="user__pic">
-                    </div>
-                    <div class="table-content table-content-name" id="asset-request-employee--3">Steven Tan</div>
-                    <div class="table-content table-content-asset" id="asset-request-asset--3">Laptop</div>
-                    <div class="table-content table-content-qty" id="asset-request-qty--3">21</div>
-                    <div class="table-content table-content-note" id="asset-request-note--3">As a global concierge that provides best-in-class products and superior services to the shipping and offshore industry, we strive to create solutions.</div>
-                    <div class="table-content table-content-icon table-content-icon-accept" id="asset-request-accept">
-                            <a href="#" class="action-button-accept">    
-                                <svg class="action-icon action-icon-accept">
-                                    <use xlink:href="../../assets/img/sprite.svg#icon-checked"></use>
-                                </svg>
-                            </a>
-                    </div>
-                    <div class="table-content table-content-icon table-content-icon-reject" id="asset-request-reject">
-                            <a href="#" id="action-button-reject">    
-                                <svg class="action-icon action-icon-reject">
-                                    <use xlink:href="../../assets/img/sprite.svg#icon-unchecked"></use>
-                                 </svg>
-                            </a>
-                    </div>
-                </div>   
-                <div class="table-request-list" id="table-request-list--4">
-                    <div class="table-content table-content-photo">
-                            <img src="../../assets/img/employees/user.jpg" alt="photo" class="user__pic">
-                    </div>
-                    <div class="table-content table-content-name" id="asset-request-employee--4">Steven Tan</div>
-                    <div class="table-content table-content-asset" id="asset-request-asset--4">Laptop</div>
-                    <div class="table-content table-content-qty" id="asset-request-qty--4">21</div>
-                    <div class="table-content table-content-note" id="asset-request-note--4">As a global concierge that provides best-in-class products and superior services to the shipping and offshore industry, we strive to create solutions.</div>
-                    <div class="table-content table-content-icon table-content-icon-accept" id="asset-request-accept">
-                            <a href="#" class="action-button-accept">    
-                                <svg class="action-icon action-icon-accept">
-                                    <use xlink:href="../../assets/img/sprite.svg#icon-checked"></use>
-                                </svg>
-                            </a>
-                    </div>
-                    <div class="table-content table-content-icon table-content-icon-reject" id="asset-request-reject">
-                            <a href="#" id="action-button-reject">    
-                                <svg class="action-icon action-icon-reject">
-                                    <use xlink:href="../../assets/img/sprite.svg#icon-unchecked"></use>
-                                 </svg>
-                            </a>
-                    </div>
-                </div>  <div class="table-request-list" id="table-request-list--5">
-                    <div class="table-content table-content-photo">
-                            <img src="../../assets/img/employees/user.jpg" alt="photo" class="user__pic">
-                    </div>
-                    <div class="table-content table-content-name" id="asset-request-employee--5">Steven Tan</div>
-                    <div class="table-content table-content-asset" id="asset-request-asset--5">Laptop</div>
-                    <div class="table-content table-content-qty" id="asset-request-qty--5">21</div>
-                    <div class="table-content table-content-note" id="asset-request-note--5">As a global concierge that provides best-in-class products and superior services to the shipping and offshore industry, we strive to create solutions.</div>
-                    <div class="table-content table-content-icon table-content-icon-accept" id="asset-request-accept">
-                            <a href="#" class="action-button-accept">    
-                                <svg class="action-icon action-icon-accept">
-                                    <use xlink:href="../../assets/img/sprite.svg#icon-checked"></use>
-                                </svg>
-                            </a>
-                    </div>
-                    <div class="table-content table-content-icon table-content-icon-reject" id="asset-request-reject">
-                            <a href="#" id="action-button-reject">    
-                                <svg class="action-icon action-icon-reject">
-                                    <use xlink:href="../../assets/img/sprite.svg#icon-unchecked"></use>
-                                 </svg>
-                            </a>
-                    </div>
-                </div>  
-                
-             
+            </div>  
+            <div class="table-content-new-request-admin">
+            </div>
         </div>
     </div>

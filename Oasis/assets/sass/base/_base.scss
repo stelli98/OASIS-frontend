@@ -37,13 +37,26 @@ body {
 }
 
 .content{
-  display: flex;  
-  width: 100vw;
+  display: flex; 
+}
+
+.section{
+  background-color: $color-white;
+  padding: 3rem 4.5rem;
+  border-radius: 3rem;
 }
 
 .main-content{
-  padding: 2rem 4.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4rem 6rem;
 }
 .main-content:not(:last-child){
     margin-bottom: 2rem;
+}
+
+.center{
+  left: 50%;
+    transform: translate(-50%,0%);
 }

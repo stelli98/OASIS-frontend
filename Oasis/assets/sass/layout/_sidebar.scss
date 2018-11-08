@@ -8,6 +8,7 @@
         align-items: start;
         height: inherit;
         background-color:$color-white;
+        min-height: 88vh;
     }
     
     &__menu{
@@ -21,6 +22,22 @@
      
         &:not(:last-child){
             margin-bottom: .5rem;
+        }
+
+        &:hover a ,
+        &:hover svg
+        // ,
+        // &__dashboard--active .sidebar__link ,
+        // &__dashboard--active svg,
+        // &__asset--active .sidebar__link ,
+        // &__asset--active svg,
+        // &__employee--active .sidebar__link ,
+        // &__employee--active svg,
+        // &__request--active .sidebar__link ,
+        // &__request--active svg{
+            {
+            color: $color-primary;
+            fill:$color-primary;
         }
     
     }
@@ -46,12 +63,11 @@
         fill:$color-black;
     }
     
-    &__content:hover a ,
-    &__content:hover svg,
-    &__content--active .sidebar__link ,
-    &__content--active svg{
-        color: $color-primary;
-        fill:$color-primary;
-    }
     
+   
+}
+
+.active{
+    color: $color-primary;
+    fill:$color-primary;
 }

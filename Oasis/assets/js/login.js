@@ -1,10 +1,8 @@
+const statusSuccess = 200;
+const path='http://localhost:8085/oasis';
 
 $(document).ready(function(){
-
-	 const statusSuccess = 200;
-	 const path='http://localhost:8085/oasis/login';
-
-    //  LOGIN BUTTON
+		//  LOGIN BUTTON
 	  $('#btn-login').click(function(){
 		var username = $('#username').val();
 		var password = $('#password').val();
@@ -16,15 +14,15 @@ $(document).ready(function(){
 
 		$.ajax({
 		  type: 'POST',
-		  url: path,
+			url: path+'/api/login',
 		  contentType: 'application/json',
 		  data: JSON.stringify(userdata),
 		  dataType: 'json',
 		  success: function(data){
 			  if(data.code == statusSuccess){
-				  alert(data.value.employeeId);
+				  alert(data.value.employeeNik);
 				  window.location.href = '../../views/dashboard.html';
-				  localStorage.setItem('id', data.value.employeeId);
+				  localStorage.setItem('id', data.value.employeeNik);
 			  } else {
 				 	  $(".login__error").css("display","block");
 					  $(".login__error-message").text(data.value.errorMessage);

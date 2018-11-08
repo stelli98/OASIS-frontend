@@ -3,7 +3,6 @@
     &:link,
     &:visited{
       text-decoration: none;
-      padding: 1.5rem 4.5rem;
       display: inline-block;
       border-radius: 10rem;
       transition: all .2s;
@@ -17,24 +16,55 @@
     &:focus{
         outline: none;
     }
+
+    &--big{
+        font-weight: 600;
+        font-size: 1.6rem;
+        padding: 1.5rem 3rem;
+    }
+
+    &--medium{
+        font-weight: 600;
+        font-size: 1.4rem;
+        padding: 1rem 2.5rem;
+    }
+
+    &--small{
+        font-weight: 300;
+        font-size: 1.2rem;
+        padding: .5rem 1.2rem;
+    }
       
     &--blue{
-        font-family: $font-title;
-        font-weight: 600;
-        color: $color-white;
         background-color: $color-primary;
-        font-size: 1.5rem;
+        color: $color-white;
+        font-family: $font-title;
+    }
+
+    &--white{
+        background-color: $color-white;
+        color: $color-primary;
+        font-family: $font-title;
+        border: solid .1rem $color-primary;
+    }
+
+    &-with-icon{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem 1.5rem 0 0;;
     }
       
-    &-confimation{
-        font-size: 5.5rem;
-    }
+   
 }
 
 .action-icon{
     width: 2rem;
     height: 2rem;
 
+    &-blue{
+        fill:$color-primary;
+    }
 
     &-accept{
       width: 2.5rem;
@@ -46,5 +76,35 @@
       width: 1.9rem;
       height: 1.9rem;
       fill: $color-red-dark;
+    }
+
+    &-in-btn-blue{
+        width:1.5rem;
+        height:1.5rem;
+        margin-right:.5rem;
+        fill: $color-white;
+    }
+
+    &-in-btn-white{
+        width:1.5rem;
+        height:1.5rem;
+        margin-right:.5rem;
+        fill: $color-primary;
+    }
+}
+
+.cancel__text:link,
+.cancel__text:visited
+{
+    margin-left: 1rem;
+    color: $color-red-dark;
+    text-decoration: none;
+    font-family: $font-title;
+    font-size: 1.4rem;
+    font-weight:700;
+
+    &:hover,
+    &:active{
+        text-decoration: underline;
     }
 }

@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
-  $(".action-button-accept").click(function () {
-       $('.popup').css("display","block");
+  $(document).on('click', '.table-content-icon-accept', function() {
+    $(".popup").css("display","block");
   });
 
   $(".popup__close-button").click(function(){
@@ -10,10 +10,10 @@ $(document).ready(function(){
 
   $("#btn-confimation-confirm").click(function(){
     $('.popup').css("display","none");
- });
+  });
 
- $("#btn-confimation-cancel").click(function(){
-  $('.popup').css("display","none");
-});
+  $("#btn-confimation-cancel").click(function(){
+    $('.popup').css("display","none");
+  });
 
 });

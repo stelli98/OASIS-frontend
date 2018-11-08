@@ -1,5 +1,19 @@
 .title{
     text-transform: uppercase;
     font-size: 1.8rem;
-    color: var(--color-black);
+    color: $color-black;
+    font-family: $font-title;
+
+    &-small{
+        font-size: 1.45rem; 
+        margin-bottom: .5rem;
+    }
 }
+
+.subtitle{
+    color:$color-black;
+    font-family: $font-text;
+    font-size: 1.4rem;
+    margin:1.5rem 0;
+}
+
