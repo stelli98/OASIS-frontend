@@ -1,0 +1,156 @@
+.table-title{
+    font-size: 1.6rem;
+
+    &-new-request-admin{
+        margin-top: 2rem;
+        font-size: 1.4rem;
+
+        display: grid;
+        grid-template-columns: repeat(13, 1fr);
+        grid-gap: 1rem;
+
+        &-name{
+            grid-column: 1/span 3;
+        }
+    
+        &-asset{
+            grid-column:4/span 3;
+        }
+    
+        &-qty{
+            grid-column: 7/span 1;
+        }
+    
+        &-note{
+            grid-column:8/span 4;
+        }
+    }
+
+    &-asset-admin,
+    &-employee-admin{
+        margin-top: 2rem;
+        font-size: 1.4rem;
+        display: grid;
+        grid-template-columns: repeat(16, 1fr);
+
+        &-no{
+            grid-column: 1;
+        }
+    
+        &-name{
+            grid-column:2/span 3;
+        }
+    
+        &-brand{
+            grid-column:5/span 3;
+        }
+
+        &-type{
+            grid-column:8/span 3;
+        }
+    
+        &-location{
+            grid-column:11/span 2;
+        }
+
+        &-qty{
+            grid-column:13/span 2;
+        }
+
+        &-view{
+            grid-column: 14;
+        }
+
+        &-edit{
+            grid-column: 15;
+        }
+    }
+}
+
+.table-content{
+
+    &-new-request-admin{
+        
+        &-list{
+            display: grid;
+            grid-template-columns: repeat(13, 1fr);
+            grid-gap: 1rem;
+            margin-top: 2rem;
+            font-size: 1.3rem;
+        }
+
+        &-name{
+            grid-column: 2/span 2;
+        }
+    
+        &-asset{
+            grid-column:4/span 3;
+        }
+    
+        &-qty{
+            grid-column: 7/span 1;
+        }
+    
+        &-note{
+            grid-column:8/span 4;
+            grid-column:8/span 4;
+            line-height: 1.4rem;
+             font-size: 1.2rem;
+        }
+
+        &-icon{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    &-asset-admin,
+    &-employee-admin{
+
+        &-list{
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            grid-gap: 1rem;
+            margin-top: 2rem;
+            font-size: 1.3rem;
+        }
+
+        &-no{
+            grid-column: 1;
+        }
+    
+        &-name{
+            grid-column:2/span 3;
+        }
+    
+        &-brand{
+            grid-column:5/span 3;
+        }
+
+        &-type{
+            grid-column:8/span 3;
+        }
+    
+        &-location{
+            grid-column:11/span 2;
+        }
+
+        &-qty{
+            grid-column:13/span 2;
+        }
+       
+        &-icon{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+}
+
+hr{
+   grid-column: 1/-1;
+   grid-row:2;
+   border-width: .05rem;
+}

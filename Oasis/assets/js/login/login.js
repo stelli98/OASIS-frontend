@@ -21,7 +21,7 @@ $(document).ready(function(){
 		  success: function(data){
 			  if(data.code == statusSuccess){
 				  alert(data.value.employeeNik);
-				  window.location.href = '../../views/dashboard.html';
+				  window.location.href = '../../views/dashboard/dashboard.html';
 				  localStorage.setItem('id', data.value.employeeNik);
 			  } else {
 				 	  $(".login__error").css("display","block");
@@ -30,9 +30,11 @@ $(document).ready(function(){
 			  }
 		  },
 		  error: function(data){
-			  alert("failed");
+			  	("failed");
 		  },
 		  processData: false
-	  });
+		});
+		
 	});
+	
 });

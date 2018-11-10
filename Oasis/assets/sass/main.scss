@@ -1,3 +1,5 @@
+@import "abstract/variables";
+
 @import "base/base";
 @import "base/typography";
 
@@ -8,13 +10,12 @@
 @import "components/search";
 @import "components/table";
 
-@import "layout/assetList";
-@import "layout/assetAdd";
 @import "layout/sidebar";
 @import "layout/navbar";
-@import "layout/dashboardStatus";
-@import "layout/dashboardNewRequestAsset";
 
+@import "page/asset";
+@import "page/dashboard";
+@import "page/employee";
 @import "page/login";
 
 

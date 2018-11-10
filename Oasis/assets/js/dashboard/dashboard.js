@@ -4,13 +4,12 @@ const path='http://localhost:8085/oasis';
 $(document).ready(function(){
     var employeeNik;
     employeeNik = localStorage.getItem('id');
-    alert(employeeNik);
     
-	$(".sidebar__part").load("../components/sidebar/sidebar.html",function(){
-			$(".navbar__part").load("../components/navbar/navbar.html",function(){
-				$(".status__part").load("../components/dashboardStatus/dashboardStatus.html",function(){
+	$(".sidebar__part").load("../../components/sidebar/sidebar.html",function(){
+			$(".navbar__part").load("../../components/navbar/navbar.html",function(){
+				$(".status__part").load("dashboard_status.html",function(){
                      loadDashboardStatus(employeeNik);
-					 $(".new-request__part").load("../components/dashboardNewAssetRequest/dashboardNewAssetRequest.html",function(){
+					 $(".new-request__part").load("dashboard_newAssetRequest.html",function(){
                          loadNewAssetRequest(employeeNik); 
                          $(".sidebar__icon__dashboard,  .sidebar__text__dashboard").addClass("active");
                          $(".sidebar__icon__asset,.sidebar__text__asset").removeClass("active"); 
