@@ -1,14 +1,7 @@
-import {statusSuccess,path,elements} from '../base.js';
+import {statusSuccess,path} from '../base.js';
 
 $(document).ready(function () {
-
-    var currPage = 1;
-    var totalPage;
-    
     $(".section .asset").removeClass("section asset");
-    elements.btnAssetListAdd.hide();
-    elements.btnAssetListDelete.hide();
-  
 
     $(".sidebar__part").load("../../components/sidebar/sidebar.html", function () {
         $(".navbar__part").load("../../components/navbar/navbar.html");
@@ -18,18 +11,8 @@ $(document).ready(function () {
         $(".sidebar__icon__request,.sidebar__text__request").removeClass("active");
     });
 
-    $(".btn-asset-list-delete").click(function () {
-        const url = window.location.href;
-        const index = url.indexOf("search__asset");
-        if (index === -1) {
-            window.location.href = '../../views/asset/assetDelete.html';
-        } else {
-            $(".asset__view").load('../../views/asset/assetDeleteSearch.html');
-        }
-    });
-
-    $(".btn-asset-list-add").click(function () {
-        $(".asset__view").load("../../views/asset/assetAdd.html");
+    $(document).on("click", ".sidebar__link", function () {
+        localStorage.setItem("selectedAsset", "[]");
     });
 
     $(document).on('click', '.table-content-asset-admin-view', function (e) {
@@ -59,20 +42,27 @@ $(document).ready(function () {
         window.location.href = '../../views/asset/assetEdit.html';
     });
 
+    var currPage = 1;
+    var totalPage;
     $(document).on('click', '.pagination ul li', function (e) {
-        let currPage=parseInt( e.target.closest(".pagination ul li").dataset.goto,10);  
+        let currPage = parseInt(e.target.closest(".pagination ul li").dataset.goto, 10);
         $(".table-content-asset-admin").empty();
         loadAssetList(currPage);
-    })
+    });
 
+    loadAssetList(currPage);
 
-    function listData(data,currPage) {
+    function listData(data, currPage) {
+        var localData = localStorage.getItem('selectedAsset');
+        var localArray = $.parseJSON(localData);
+
         $("#total-asset-text").text(data.paging.totalRecords);
+
         for (var index = 0; index < data.value.availableAssets.length; index++) {
             var markup =
                 `
-            <div class="table-content-asset-admin-list">                
-            <div class="table-content table-content-asset-admin-no">${(data.paging.pageNumber-1)*10+index+1}</div>
+            <div class="table-content-asset-admin-list">
+            <input type="checkbox" class="table-content-asset-admin-checkbox" name="asset-checkbox-delete" value="${data.value.availableAssets[index].sku}">              
             <div class="table-content table-content-asset-admin-name">${data.value.availableAssets[index].name}</div>
             <div class="table-content table-content-asset-admin-brand">${data.value.availableAssets[index].brand}</div>
             <div class="table-content table-content-asset-admin-type">${data.value.availableAssets[index].type}</div>
@@ -89,23 +79,31 @@ $(document).ready(function () {
                     <a href="#" id="action-button-blue">    
                         <svg class="action-icon action-icon-blue">
                             <use xlink:href="../../assets/img/sprite.svg#icon-pencil"></use>
-                         </svg>
+                        </svg>
                     </a>
             </div>
             </div> 
             </div> 
             `
             document.querySelector(".table-content-asset-admin").insertAdjacentHTML('beforeend', markup);
+
+
+            if (localData != null && localData != '[]') {
+                for (var order = 0; order < localArray.length; order++) {
+                    if (data.value.availableAssets[index].sku == localArray[order]) {
+                        $("input[value=" + localArray[order] + "]").attr('checked', true);
+                    }
+                }
+            }
+
         }
-        
-        totalPage=data.paging.totalPage; 
-        
+
+        totalPage = data.paging.totalPage;
         $('.pagination').innerHTML = createPagination(totalPage, currPage);
-            
     }
-  
+
     function loadAssetList(currPage) {
-        if(window.location.href.indexOf('#')!=-1){
+        if (window.location.href.indexOf('#') != -1) {
             window.location.href = '../../views/asset/asset.html';
         }
         const url = window.location.href;
@@ -117,8 +115,7 @@ $(document).ready(function () {
                 contentType: 'application/octet-stream',
                 dataType: 'json',
                 success: function (data) {
-                    listData(data,currPage);
-                    showExclusiveButton(data);   
+                    listData(data, currPage);
                 },
                 error: function (data) {
                     alert("failed load data");
@@ -126,6 +123,7 @@ $(document).ready(function () {
             });
         } else {
             let keyword = url.substr(index + 14, url.length - 1);
+            searchAsset(keyword);
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:8085/oasis/api/assets/list?query=' + keyword + '&page=1&sort=A-name',
@@ -134,7 +132,6 @@ $(document).ready(function () {
                 success: function (data) {
                     if (data.code === statusSuccess) {
                         listData(data);
-                        showExclusiveButton(data);
                         document.querySelector('.pagination').innerHTML = createPagination(totalPage, 1);
                     } else {
                         console.log("error");
@@ -147,104 +144,181 @@ $(document).ready(function () {
         }
     }
 
+    
     $(".btn__search").click(function(){
         var keyword=$(".search__input").val();
         window.location.href = '../../views/asset/asset.html?search__asset='+keyword;
     });
-   
-    function showExclusiveButton(data){
-            if(data.components.btnAssetListDelete==true){
-                elements.btnAssetListDelete.show();
-            }else{
-                $(".asset__upper").css("justify-content","flex-start");
-            } 
-            
-            if(data.components.btnAssetListAdd==true){
-                elements.btnAssetListAdd.show();
-            }
-    
-            if(data.components.btnAssetTableEdit==true){
-                $(".table-content-asset-admin-edit").css("display","block");
-            }
-            
-    }
     
     function createPagination(totalPage, currPage) {
         let str = '<ul>';
         let activate;
         let pageCutLow = currPage - 1;
         let pageCutHigh = currPage + 1;
-        
+
         if (currPage > 1) {
             str += `<li class="page-item previous no" data-goto=${currPage-1}><a>Previous</a></li>`;
         }
-        
+
         if (totalPage < 6) {
             for (let p = 1; p <= totalPage; p++) {
-                if(currPage==p){
-                    activate="activate";
-                }else{
-                    activate="no";
+                if (currPage == p) {
+                    activate = "activate";
+                } else {
+                    activate = "no";
                 }
-                
+
                 str += `<li class="${activate}" data-goto=${p}><a>${p}</a></li>`;
             }
-        }
-        
-        else {
+        } else {
             if (currPage > 2) {
-            str += '<li class="no page-item" data-goto=1><a>1</a></li>';
+                str += '<li class="no page-item" data-goto=1><a>1</a></li>';
                 if (currPage > 3) {
                     str += `<li class="out-of-range" data-goto=${currPage-2}><a>...</a></li>`;
                 }
             }
-    
+
             if (currPage === 1) {
                 pageCutHigh += 2;
             } else if (currPage === 2) {
                 pageCutHigh += 1;
             }
-        
+
             if (currPage === totalPage) {
                 pageCutLow -= 2;
-            } else if (currPage === totalPage-1) {
+            } else if (currPage === totalPage - 1) {
                 pageCutLow -= 1;
             }
-            
+
             for (let p = pageCutLow; p <= pageCutHigh; p++) {
-            if (p === 0) {
-                p += 1;
+                if (p === 0) {
+                    p += 1;
+                }
+                if (p > totalPage) {
+                    continue
+                }
+                activate = currPage == p ? "activate" : "no";
+                str += `<li class="page-item ${activate}" data-goto=${p}><a>${p}</a></li>`;
             }
-            if (p > totalPage) {
-                continue
-            }
-            activate = currPage == p ? "activate" : "no";
-            str += `<li class="page-item ${activate}" data-goto=${p}><a>${p}</a></li>`;
-            }
-        
-            if (currPage < totalPage-1) {
-                if (currPage < totalPage-2) {
+
+            if (currPage < totalPage - 1) {
+                if (currPage < totalPage - 2) {
                     str += `<li class="out-of-range" data-goto=${currPage+2}><a>...</a></li>`;
                 }
-                
+
                 str += `<li class="page-item no" data-goto=${totalPage}><a>${totalPage}</a></li>`;
             }
         }
-        
+
         if (currPage < totalPage) {
             str += `<li class="page-item next no" data-goto=${currPage+1}><a>Next</a></li>`;
         }
         str += '</ul>';
-        
+
         document.querySelector(".pagination").innerHTML = str;
         return str;
     }
 
-    loadAssetList(currPage);
+    $(".btn-asset-list-add").hide();
+
+    $('.cancel__text').click(function () {
+        window.location.href = '../asset/asset.html';
+        localStorage.setItem("selectedAsset", "[]");
+    });
+
+    var localData = localStorage.getItem('selectedAsset');
+    var localArray = $.parseJSON(localData);
+
+    if (localData == null || localData == '[]') {
+        var selectedIdArray = [];
+        localStorage.setItem("selectedAsset", JSON.stringify(selectedIdArray));
+        $(".checkbox__total-text").text(0);
+    } else {
+        $(".checkbox__total-text").text(localArray.length);
+    }
+
+    function checkAll() {
+        var inputs = document.querySelectorAll('.table-content-asset-admin-checkbox');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].checked = true;
+        }
+        $('.table-content-asset-admin-checkbox').trigger("change");
+        this.onclick = uncheckAll;
+    }
+
+    function uncheckAll() {
+        var localData = localStorage.getItem('selectedAsset');
+        var localArray = $.parseJSON(localData);
+        
+        localStorage.setItem("selectedAsset", "[]");
+        $(".checkbox__total-text").text(localArray.length);
+        window.location.href = '../../views/asset/assetDelete.html';
+    }
+
+    var el = document.querySelector(".asset__middle__checkbox-all");
+    el.onclick = checkAll;
+
+    $(document).on("change", ".table-content-asset-admin-checkbox", function () {
+        var selectedIdArray = [];
+        var localData = localStorage.getItem('selectedAsset');
+        var localArray = $.parseJSON(localData);
+
+        if (localData == null || localData == '[]') {
+            selectedIdArray.push(this.value);
+            localStorage.setItem("selectedAsset", JSON.stringify(selectedIdArray));
+            $(".checkbox__total-text").text(selectedIdArray.length);
+        } else {
+            var flag = -1;
+            for (var i = 0; i < localArray.length; i++) {
+                if (this.value == localArray[i]) {
+                    flag = i;
+                }
+            }
+            if (flag != -1) {
+                localArray.splice(flag, 1);
+            } else {
+                localArray.push(this.value);
+            }
+            localStorage.setItem("selectedAsset", JSON.stringify(localArray));
+            $(".checkbox__total-text").text(localArray.length);
+        }
+    });
+
+
+    $('.btn-asset-list-delete').click(function () {
+        var localData = localStorage.getItem('selectedAsset');
+        var localArray = $.parseJSON(localData);
+
+        var username=localStorage.getItem("username");
+
+        var deleteData = {
+            username: username,
+            skus: localArray
+        }
+        console.log(deleteData);
+
+        // $(".popup__part").load("../../components/popup/popup.html");
+        // $(".popup").css("display","block");
+
+        $.ajax({
+            type: 'DELETE',
+            url: path + '/api/assets/delete',
+            data: JSON.stringify(deleteData),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (data) {
+                if (data.code === 200) {
+                    alert("delete");
+                    window.location.href = '../../views/asset/asset.html';
+                } else {
+                    alert("error");
+                }
+            },
+            error: function (data) {
+                console.log("failed at delete");
+            }
+        });
+        localStorage.setItem("selectedAsset", "[]");
+    });
 
 });
-
-
-
-
-

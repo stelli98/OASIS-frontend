@@ -9,7 +9,7 @@
     display: none;
 
     &__confirmation{
-        &-content{
+        &__content{
             position: absolute;
             top:50%;
             left:50%;
@@ -23,7 +23,7 @@
             border-radius: 10rem;
         }
 
-        &-upper{
+        &__upper{
             background-color: $color-primary;
             border-top-left-radius: 8rem;
             border-top-right-radius: 8rem;
@@ -35,7 +35,7 @@
             align-items: center;
         }
         
-        &-bottom{
+        &__bottom{
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
@@ -44,7 +44,7 @@
         }
         
         
-        &-title{
+        &__title{
             font-size: 7rem;
             font-family: $font-title;
             font-weight: 600;
@@ -54,13 +54,13 @@
         
         }
         
-        &-text{
+        &__text{
             width: 100%;
             display: flex;
             justify-content: center;
         }
         
-        &-message{
+        &__message{
             font-family: $font-text;
             color: $color-black;
             font-size: 6rem;
@@ -69,7 +69,7 @@
             padding: 0 10rem;
         }
         
-       &-button{
+       &__button{
            width: 100%;
         
             display: flex;
@@ -79,13 +79,13 @@
     }
     
     &__close{
-        &-icon{
+        &__icon{
             width: 7rem;
             height: 7rem;
             fill: $color-red-dark;
         }
 
-        &-button{
+        &__button{
             padding-right:8rem;
         }
         

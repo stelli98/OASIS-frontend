@@ -1,69 +1,50 @@
 .pagination {
     display: flex;
+    margin:3.3rem 0;
+    align-items: center;
     justify-content: center;
-    align-content: center;
+    flex-direction: column;
 
-    padding-left: 0;
-    margin: 3rem 0;
-    border-radius: 4px;
-
-    & li:hover{
-        cursor: pointer;
-    }
-
-    &>.pagination__active{
-        &>a,
-        &>span{
-            position: relative;
-            float: left;
-            padding: .6rem 1.2rem;
-            margin-left: -.1rem;
-            line-height: 1.6;
-            text-decoration: none;
-            color: #fff;
-            cursor: default;
-            background-color:$color-primary;
-            border-color: 1px solid  $color-primary;
-        }
-    }
-
-    &>li:not(.pagination__active) {
-        display: inline;
-
-        &>a,
-        &>span {
-            position: relative;
-            float: left;
-            padding: .6rem 1.2rem;
-            margin-left: -.1rem;
-            line-height: 1.42857143;
+    & ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        
+        & li {
             color: $color-primary;
-            text-decoration: none;
-            background-color: $color-white;
-            border: 1px solid $color-grey-light-2;
-
-            &:focus,
-            &:hover{    
-                z-index: 2;
-                color:$color-primary;
-                background-color: $color-grey-light-2;
-                border-color: $color-grey-light-2;
+            display: flex;
+        
+            &.activate a{
+              background-color: $color-primary;
+              color: $color-white;
+              font-weight: 600;
             }
+            
+            &:first-child a {
+              border-radius: 0.5rem 0 0 0.5rem;
+            }
+            
+            &:last-child a {
+              border-radius: 0 5px 5px 0;
+              border-right: 0.1rem solid $color-primary;
+            }
+
+            & a {
+                background-color: $color-white;
+                padding: 0.5rem 1rem;
+                border: 0.1rem solid $color-primary;
+                border-right: 0;
+                font-size: 1.05rem;
+
+                &:hover {
+                    cursor: pointer;
+                }
+              }
         }
-    }    
+    
+    }
+
 }
-
-
-
-
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    border: 0;
-}
+  
+  

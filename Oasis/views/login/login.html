@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">        
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Palanquin:400,500,600,700" rel="stylesheet">
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <link rel="shortcut icon" type="image/png" href="../../assets/img/favicon.png">
 
-        <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="../assets/js/login/login.js"></script>
-        
-        <title>OASIS &mdash; Office Asset Inventory System</title>
-    </head>
-    <body>
-        <section class="login">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="shortcut icon" type="image/png" href="../../assets/img/favicon.png">
+
+    <title>OASIS &mdash; Office Asset Inventory System</title>
+</head>
+
+<body>
+    <section class="login">
         <div class="login__image">
-           <img src="../assets/img/oasis-small-blue.jpg" alt="" class="login__pic">
+            <img src="../assets/img/oasis-small-blue.jpg" alt="" class="login__pic">
         </div>
         <div class="login__form">
             <div class="login__content">
@@ -24,22 +22,26 @@
                     <img src="../assets/img/logo.png" class="login__logo" alt="OASIS Logo">
                     <p class="logo__text">Provide everything that you need</p>
                 </div>
-            
+
                 <form action="#" class="form">
                     <div class="login__error">
-                         <p class="login__error-message"></p>
-                    </div>            
+                        <p class="login__error__message"></p>
+                    </div>
                     <div class="form__username">
                         <input type="text" class="form__input-big" placeholder="Username" id="username" required>
                     </div>
-                    <div class="form__password"> 
+                    <div class="form__password">
                         <input type="password" class="form__input-big" placeholder="Password" id="password" required>
                     </div>
                     <div class="btn btn--big btn--blue " id="btn-login">Login
-                   </div>
+                    </div>
                 </form>
             </div>
-        </div> 
-        </section>
-    </body>
+        </div>
+    </section>
+</body>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script type="module" src="../../assets/js/login/login.js"></script>
+<script type="module" src="../../assets/js/base.js"></script>
+
 </html>

@@ -1,69 +1,73 @@
-const statusSuccess = 200;
-const path='http://localhost:8085/oasis';
+import { statusSuccess, path } from '../base.js';
 
-$(document).ready(function(){
-    var employeeNik;
-    employeeNik = localStorage.getItem('id');
+$(document).ready(function () {
+
     
-	$(".sidebar__part").load("../../components/sidebar/sidebar.html",function(){
-			$(".navbar__part").load("../../components/navbar/navbar.html",function(){
-				$(".status__part").load("dashboard_status.html",function(){
-                     loadDashboardStatus(employeeNik);
-					 $(".new-request__part").load("dashboard_newAssetRequest.html",function(){
-                         loadNewAssetRequest(employeeNik); 
-                         $(".sidebar__icon__dashboard,  .sidebar__text__dashboard").addClass("active");
-                         $(".sidebar__icon__asset,.sidebar__text__asset").removeClass("active"); 
-                         $(".sidebar__icon__employee,.sidebar__text__employee").removeClass("active"); 
-                         $(".sidebar__icon__request,.sidebar__text__request").removeClass("active"); 
-                     });
-				});
-			});
+    var username=localStorage.getItem("username");
+
+    $(".sidebar__part").load("../../components/sidebar/sidebar.html", function () {
+        $(".navbar__part").load("../../components/navbar/navbar.html", function () {
+            $(".user__name").text(username);
+            $(".status__part").load("dashboardStatus.html", function () {
+                loadDashboardStatus();
+                $(".new-request__part").load("dashboardNewAssetRequest.html", function () {
+                    loadNewAssetRequest();
+                    $(".sidebar__icon__dashboard,  .sidebar__text__dashboard").addClass("active");
+                    $(".sidebar__icon__asset,.sidebar__text__asset").removeClass("active");
+                    $(".sidebar__icon__employee,.sidebar__text__employee").removeClass("active");
+                    $(".sidebar__icon__request,.sidebar__text__request").removeClass("active");
+                });
+            });
+        });
     });
-     
-    
 
-    function loadDashboardStatus(){
-      $.ajax({
-          type: 'GET',
-          url: path+'/api/dashboard/status/'+employeeNik,
-          contentType: 'application/octet-stream',
-          dataType: 'json',
-          success: function(data){
-              if(data.code == statusSuccess){
-                  $("#status__new-asset-total").text(data.value.requestedRequests);
-                  $("#status__pending-asset-total").text(data.value.pendingHandoverRequests);
-                  $("#status__available-asset-total").text(data.value.availableAsset);
-                  $("#new-request-asset-total").text(data.value.requestedRequests);
-              } else {     
-                  console.log("error");
-              }
-          },
-          error: function(data){
-              alert("failed dashboard status");
-          },
-          processData: false
-      });
-    }
+    $(document).on('click','.table-content-icon-accept',function(){
+        $(".popup__part").load("../../components/popup/popup.html");
+        $(".popup").css("display","block");
+    });
 
-    function loadNewAssetRequest(){
+    function loadDashboardStatus() {
         $.ajax({
             type: 'GET',
-            url: path+'/api/dashboard/requestUpdate/'+employeeNik+'?currentTab=Others&pageNumber=1&sortInfo=AcreatedDate',
+            url: path +'/api/dashboard/status/'+username,
             contentType: 'application/octet-stream',
             dataType: 'json',
-            success: function(data){
-                if(data.code == statusSuccess){
-                    var index=0;
-                    var minimumAssetTotal;
-                    if(data.value.requests.length>5) {
-                        minimumAssetTotal=5;
-                    }
-                    else{
-                        minimumAssetTotal=data.value.requests.length;
-                    } 
+            success: function (data) {
+                if (data.code == statusSuccess) {
+                    $("#status__new-asset-total").text(data.value.requestedRequests);
+                    $("#status__pending-asset-total").text(data.value.pendingHandoverRequests);
+                    $("#status__available-asset-total").text(data.value.availableAsset);
+                    $("#new-request-asset-total").text(data.value.requestedRequests);
+                } else {
+                    console.log("error");
+                }
+            },
+            error: function (data) {
+                alert("failed dashboard status");
+            },
+            processData: false
+        });
+    }
 
-                    for(index;index<minimumAssetTotal;index++){
-                        var markup=`
+    function loadNewAssetRequest() {
+        $.ajax({
+            type: 'GET',
+            url: path + '/api/dashboard/request-update/' + username + '?tab=Others&page=1&sort=DupdatedDate',
+            contentType: 'application/octet-stream',
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == statusSuccess) {
+                    var index = 0;
+                    var minimumAssetTotal;
+                    if (data.value.requests.length > 5) {
+                        minimumAssetTotal = 5;
+                    }
+                    else {
+                        minimumAssetTotal = data.value.requests.length;
+                    }
+
+                    for (index; index < minimumAssetTotal; index++) {
+                        var markup = `
                         <div class="table-content-new-request-admin-list" id="table-content-new-request-admin-list--${index}">
                         <div class="table-content table-content-photo">
                                 <img src="../../assets/img/employees/user.jpg" alt="photo" class="user__pic">
@@ -87,20 +91,20 @@ $(document).ready(function(){
                                 </a>
                         </div>
                         </div>`;
-                        document.querySelector(".table-content-new-request-admin").insertAdjacentHTML('beforeend',markup);
+                        document.querySelector(".table-content-new-request-admin").insertAdjacentHTML('beforeend', markup);
                     }
-                } else {     
+                } else {
                     console.log("error");
                 }
             },
-            error: function(data){
+            error: function (data) {
                 alert("failed new asset req");
             },
             processData: false
         });
     }
-    
-    
+
+
     //localStorage.removeItem('id');
 
 });

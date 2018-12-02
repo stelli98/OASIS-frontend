@@ -17,9 +17,8 @@
     <div class="content">
         <div class="sidebar__part"></div>
         <main class="main-content">
-            <div class="section asset asset__view">
+            <div class="section asset asset__delete">
                 <h3 class="title asset__title">Asset list</h3>
-
                 <div class="asset__upper">
                     <div class="cta-button asset__action__button">
                         <div class="btn btn--small btn-with-icon btn--white btn-asset-list-delete">
@@ -45,11 +44,13 @@
                         </div>
                     </form>
                 </div>
-
+                <div class="asset__middle">
+                    <input type="checkbox" class="asset__middle__checkbox-all">
+                    <h3>
+                        <span class="checkbox__total-text">0</span> assets on this page are selected</h3>
+                    <a href="#" class="cancel__text">Cancel</a>
+                </div>
                 <div class="asset__bottom">
-                    <h3 class="subtitle">Total Assets :
-                        <span id="total-asset-text">32</span> assets
-                    </h3>
                     <div class="asset__list">
                         <div class="table-title-asset-admin">
                             <div class="table-title table-title-asset-admin-no">No</div>
@@ -63,7 +64,6 @@
                             <hr>
                         </div>
                         <div class="table-content-asset-admin">
-
                         </div>
                     </div>
                 </div>
@@ -73,10 +73,14 @@
             </div>
         </main>
     </div>
+
+    <div class="popup__part">
+
+    </div>
 </body>
 
 <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
-<script type="module" src="../../assets/js/asset/asset.js"></script>
+<script type="module" src="../../assets/js/asset/assetDelete.js"></script>
 <script type="module" src="../../assets/js/base.js"></script>
 
 </html>

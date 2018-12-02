@@ -58,7 +58,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 2rem 1.5rem 0 0;;
+        margin: 1.5rem 1.5rem 0 0;
+    }
+
+    &__search{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 1rem 2rem;
     }
       
    
@@ -87,14 +95,14 @@
     &-in-btn-blue{
         width:1.5rem;
         height:1.5rem;
-        margin-right:.5rem;
+        margin-right:.4rem;
         fill: $color-white;
     }
 
     &-in-btn-white{
         width:1.5rem;
         height:1.5rem;
-        margin-right:.5rem;
+        margin-right:.4rem;
         fill: $color-primary;
     }
 }

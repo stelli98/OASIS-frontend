@@ -20,7 +20,7 @@
         }
     }
 
-    &__action-button{
+    &__action__button{
         display: flex;
     }
 
@@ -28,13 +28,13 @@
     &__add,
     &__detail,
     &__edit{
-        &-content{    
+        &__content{    
             display: flex;
             align-content: center; 
             justify-content: space-between;   
         }
     
-        &-form{
+        &__form{
             display: grid;
             grid-template-columns: repeat(2, 1fr);   
             grid-column-gap: 3.5rem;
@@ -43,29 +43,30 @@
     }
 
     &__detail{
-        &-table{
+        &__table{
             display: grid;
             grid-template-columns: repeat(2, 25rem);   
             grid-column-gap: 5rem;
             margin: 2rem 0 2.5rem;
         }
     
-        &__sku{
-            grid-column: 1/-1;
-        }
     
-        &-action-btn{
+        &__action__btn{
             display: flex;
             flex-flow: column;
     
-            &-upper{
+            &:not(:last-child){
+                margin: 0.5rem;
+            }
+
+            &__upper{
                 display: flex;
             }
         }
     }
 
     &__upload{
-        &-file{
+        &__file{
             position: absolute;
             opacity: 0;
             visibility: hidden;
@@ -82,7 +83,7 @@
             }
         }
         
-        &-btn{
+        &__btn{
             width: 2.2rem;
             height: 2.2rem;
             margin-right: .8rem;
@@ -103,6 +104,8 @@
 
 }
   
-  
+.table-content-asset-admin-edit{
+    display: none;
+}
   
   

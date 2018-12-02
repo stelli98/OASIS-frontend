@@ -52,14 +52,14 @@
     display: none;
 }
 
-.login__error-message{
+.login__error__message{
     color:$color-grey-light-1;
     font-size: 1.25rem;
     line-height: 1.4rem;
     font-family: $font-title;
+    text-align: center;
 }
 
 .form__input-error{
     border: solid 1px $color-red-light-1;
-
 }
