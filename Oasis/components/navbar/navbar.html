@@ -1,0 +1,32 @@
+<nav class="navbar">
+    <div class="navbar__logo">
+        <img src="../../assets/img/logo.png" alt="Logo" class="logo__pic">
+    </div>
+    <div class="navbar__user">
+        <img src="../../assets/img/employees/user.jpg" alt="" class="user__pic" id="navbar__picture">
+        <p class="user__name" id="navbar__username">Silvia Chen</p>
+        <svg class="navbar__dropdown__icon">
+            <use xlink:href="../../assets/img/sprite.svg#icon-drop-down-arrow"></use>
+        </svg>
+    </div>
+</nav>
+<ul class="navbar__menu__toggle">
+    <li class="navbar__menu__dropdown">
+        <a href="../../views/changePassword/changePassword.html">
+            <svg class="navbar__submenu__icon">
+                <use xlink:href="../../assets/img/sprite.svg#icon-lock"></use>
+            </svg>
+            Change Password
+        </a>
+    </li>
+    <li class="navbar__menu__dropdown">
+        <a>
+            <svg class="navbar__submenu__icon">
+                <use xlink:href="../../assets/img/sprite.svg#icon-logout"></use>
+            </svg>
+            Logout
+        </a>
+    </li>
+</ul>
+
+<script src="../../assets/js/component/navbar.js"></script>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="shortcut icon" type="image/png" href="../../assets/img/favicon.png">
+
+  <link rel="stylesheet" href="../../node_modules/air-datepicker/dist/css/datepicker.min.css">
+
+  <title>OASIS &mdash; Office Asset Inventory System</title>
+</head>
+
+<body>
+  <nav class="navbar__part"></nav>
+  <div class="content">
+    <div class="sidebar__part"></div>
+    <main class="main-content">
+      <div class="section employee employee__edit">
+        <div class="employee__edit-top">
+          <h3 class="title employee__title">Edit employee</h3>
+        </div>
+
+        <div class="employee__edit__content">
+          <div class="employee__edit__left">
+            <div class="employee__edit__form">
+              <div class="employee__edit__name">
+                <h4 class="title-small">Name</h4>
+                <input type="text" class="form__input-small" id="form__employee__name" required>
+              </div>
+
+              <div class="employee__edit__dob">
+                <h4 class="title-small">Date of Birth</h4>
+                <input type="text" class="form__input-small datepicker-here" data-date-format="dd/mm/yyyy"
+                  data-language="en" id="form__employee__dob" required>
+              </div>
+
+              <div class="employee__edit__job">
+                <h4 class="title-small">Job Title</h4>
+                <input type="text" class="form__input-small" id="form__employee__job" required>
+              </div>
+
+              <div class="employee__edit__division">
+                <h4 class="title-small">Division</h4>
+                <input type="text" class="form__input-small" id="form__employee__division" required>
+              </div>
+
+              <div class="employee__edit__supervisor">
+                <h4 class="title-small">Supervisor</h4>
+                <button class="form__input-small employee__choose__supervisor" id="form__employee__supervisor" value="">
+                  <svg class="employee__choose__supervisor__btn">
+                      <use xlink:href="../../assets/img/sprite.svg#icon-drop-down-arrow"></use>
+                  </svg>
+                </button>
+                <select class="employee__list__supervisor" size="3">
+                </select>
+              </div> 
+
+              <div class="employee__edit__location">
+                <h4 class="title-small">Location</h4>
+                <input type="text" class="form__input-small" id="form__employee__location" required>
+              </div>
+
+              <div class="employee__edit__phone">
+                <h4 class="title-small">Phone</h4>
+                <input type="text" class="form__input-small" id="form__employee__phone" required>
+              </div>
+            </div>
+            <div class="btn btn--medium btn--blue center" id="edit__employee__btn">Edit employee</div>
+          </div>
+          <div class="employee__edit-right">
+            <div class="employee__edit__image">
+              <div class="employee__preview">
+                <div id="employeePrievewImage"></div>
+              </div>
+
+              <div class="employee__upload">
+                <form id="uploadEmployeeImageForm" method="POST" enctype="multipart/form-data">
+                  <input name="file" type="file" id="uploadEmployeeImage" accept=".png,.jpg,.jpeg" class="employee__upload__file">
+                  <label for="uploadEmployeeImage" class="employee__upload__link">
+                    <svg class="employee__upload__btn">
+                      <use xlink:href="../../assets/img/sprite.svg#icon-photo-camera"></use>
+                    </svg>
+                    <span>Upload photo</span>
+                  </label>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+      <script type="module" src="../../assets/js/base.js"></script>
+      <script type="module" src="../../assets/js/employee/employeeEdit.js"></script>
+      <script type="module" src="../../node_modules/air-datepicker/dist/js/datepicker.min.js"></script>
+      <script type="module" src="../../node_modules/air-datepicker/dist/js/i18n/datepicker.en.js"></script>

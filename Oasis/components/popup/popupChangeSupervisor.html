@@ -1,0 +1,41 @@
+<div class="popup popup__confirmation popup__confirmation__change__supervisor">
+    <div class="popup__confirmation__content">
+        <div class="popup__confirmation__upper">
+            <h3 class="title popup__confirmation__title">Change Supervisor</h3>
+            <a href="#" class="popup__close__button">
+                <svg class="popup__close__icon">
+                    <use xlink:href="../../assets/img/sprite.svg#icon-unchecked"></use>
+                </svg>
+            </a>
+        </div>
+        <div class="popup__confirmation__bottom">
+            <div class="popup__confirmation__text">
+                <h4 class="popup__confirmation__message">
+                    The selected employee still supervised several employee. Before delete this employee, please choose
+                    new supervisor for them.
+                </h4>
+            </div>
+            <div class="popup__confirmation__text">
+                <div class="employee__add__supervisor-popup">
+                    <button class="form__input-big employee__choose__supervisor" id="form__employee__supervisor">
+                        - select new supervisor -
+                        <svg class="employee__choose__supervisor__btn">
+                            <use xlink:href="../../assets/img/sprite.svg#icon-drop-down-arrow"></use>
+                        </svg>
+                    </button>
+                    <select class="employee__list__supervisor" size="2">
+                    </select>
+                </div>
+            </div>
+            <div class="popup__confirmation__button">
+                <div class="btn btn--small btn--blue btn-confirmation-change">Change</div>
+                <div class="btn btn--small btn--blue btn-confirmation-cancel">Cancel</div>
+            </div>
+            
+        </div>
+       
+    </div>
+</div>
+
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../../assets/js/component/popup.js"></script>

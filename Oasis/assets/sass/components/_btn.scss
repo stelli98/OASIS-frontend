@@ -1,0 +1,132 @@
+.btn {
+
+    &,
+    &:link,
+    &:visited {
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 10rem;
+        transition: all .2s;
+        position: relative;
+
+        border: none;
+        cursor: pointer;
+    }
+
+    &:hover,
+    &:focus {
+        outline: none;
+    }
+
+    &--huge {
+        font-weight: 600;
+        font-size: 5rem;
+        padding: 3.5rem 5rem;
+    }
+
+    &--big {
+        font-weight: 600;
+        font-size: 1.6rem;
+        padding: 1.5rem 3rem;
+    }
+
+    &--medium {
+        font-weight: 600;
+        font-size: 1.4rem;
+        padding: 1rem 2.5rem;
+    }
+
+    &--small {
+        font-weight: 300;
+        font-size: 1.2rem;
+        padding: .5rem 1.2rem;
+    }
+
+    &--blue {
+        background-color: $color-primary;
+        color: $color-white;
+        font-family: $font-title;
+    }
+
+    &--white {
+        background-color: $color-white;
+        color: $color-primary;
+        font-family: $font-title;
+        border: solid .1rem $color-primary;
+    }
+
+    &-with-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 1.5rem 1.5rem 0 0;
+    }
+
+    &__search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 1rem 2rem;
+    }
+
+
+}
+
+.action-icon {
+    width: 2rem;
+    height: 2rem;
+
+    &-blue {
+        fill: $color-primary;
+    }
+
+    &-accept {
+        width: 2.5rem;
+        height: 2.5rem;
+        fill: $color-primary;
+    }
+
+    &-reject {
+        width: 1.9rem;
+        height: 1.9rem;
+        fill: $color-red-dark;
+    }
+
+    &-in-btn-blue {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: .4rem;
+        fill: $color-white;
+    }
+
+    
+    &-in-btn-blue-left{
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-left: .4rem;
+        fill: $color-white;
+    }
+
+    &-in-btn-white {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: .4rem;
+        fill: $color-primary;
+    }
+}
+
+.cancel__text:link,
+.cancel__text:visited {
+    margin-left: 1rem;
+    color: $color-red-dark;
+    text-decoration: none;
+    font-family: $font-title;
+    font-size: 1.4rem;
+    font-weight: 700;
+
+    &:hover,
+    &:active {
+        text-decoration: underline;
+    }
+}

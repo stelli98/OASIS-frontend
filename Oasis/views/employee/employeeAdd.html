@@ -1,0 +1,82 @@
+
+<link rel="stylesheet" href="../../node_modules/air-datepicker/dist/css/datepicker.min.css">
+<div class="section employee employee__add">
+  <div class="employee__add-top">
+    <h3 class="title employee__title">Add employee</h3>
+  </div>
+
+  <div class="employee__add__content">
+    <div class="employee__add__left">
+      <div class="employee__add__form">
+        <div class="employee__add__name">
+          <h4 class="title-small">Name</h4>
+          <input type="text" class="form__input-small" id="form__employee__name" required>
+        </div>
+
+        <div class="employee__add__dob">
+          <h4 class="title-small">Date of Birth</h4>
+          <input type="text" class="form__input-small datepicker-here" data-date-format="dd/mm/yyyy"
+                  data-language="en" id="form__employee__dob" required>
+        </div>
+
+        <div class="employee__add__job">
+          <h4 class="title-small">Job Title</h4>
+          <input type="text" class="form__input-small"  id="form__employee__job" required>
+        </div>
+
+        <div class="employee__add__division">
+          <h4 class="title-small">Division</h4>
+          <input type="text" class="form__input-small" id="form__employee__division" required>
+        </div>
+
+        <div class="employee__add__supervisor">
+          <h4 class="title-small">Supervisor</h4>
+          <button class="form__input-small employee__choose__supervisor" id="form__employee__supervisor">
+              -select supervisor-
+              <svg class="employee__choose__supervisor__btn">
+                  <use xlink:href="../../assets/img/sprite.svg#icon-drop-down-arrow"></use>
+              </svg>
+          </button>
+          <select class="employee__list__supervisor" size="3">
+          </select>
+        </div> 
+        
+        <div class="employee__add__location">
+          <h4 class="title-small">Location</h4>
+          <input type="text" class="form__input-small" id="form__employee__location" required>
+        </div>
+
+        <div class="employee__add__phone">
+            <h4 class="title-small">Phone</h4>
+            <input type="text" class="form__input-small" id="form__employee__phone" required>
+        </div>
+      </div>
+      <div class="btn btn--medium btn--blue center" id="add__employee__btn">Add employee</div>
+    </div>
+    <div class="employee__add-right">
+      <div class="employee__add__image">
+        <div class="employee__preview">
+          <div id="employeePrievewImage"></div>
+        </div>
+
+        <div class="employee__upload">
+          <form id="uploadEmployeeImageForm" method="POST" enctype="multipart/form-data">
+            <input name="file" type="file" id="uploadEmployeeImage" accept=".png,.jpg,.jpeg" class="employee__upload__file">
+            <label for="uploadEmployeeImage" class="employee__upload__link">
+              <svg class="employee__upload__btn">
+                <use xlink:href="../../assets/img/sprite.svg#icon-photo-camera"></use>
+              </svg>
+              <span>Upload photo</span>
+            </label>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script type="module" src="../../assets/js/base.js"></script>
+<script type="module" src="../../node_modules/air-datepicker/dist/js/datepicker.min.js"></script>
+<script type="module" src="../../node_modules/air-datepicker/dist/js/i18n/datepicker.en.js"></script>
+<script type="module" src="../../assets/js/employee/employeeAdd.js"></script>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="shortcut icon" type="image/png" href="../../assets/img/favicon.png">
+
+    <title>OASIS &mdash; Office Asset Inventory System</title>
+</head>
+
+<body>
+    <nav class="navbar__part"></nav>
+    <div class="content">
+        <div class="sidebar__part"></div>
+        <main class="main-content">
+            <div class="section employee employee__detail">
+                <div class="employee__detail-top">
+                    <h3 class="title employee__title">Employee Detail</h3>
+                </div>
+
+                <div class="employee__detail__content">
+                    <div class="employee__detail__left">
+                        <div class="employee__detail__table">
+                            <div class="employee__detail__username">
+                                <h4 class="title-small">Username</h4>
+                                <p class="content-text text-employee__username"></p>
+                            </div>
+                            <div class="employee__detail__name">
+                                <h4 class="title-small">Name</h4>
+                                <p class="content-text text-employee__name"></p>
+                            </div>
+
+                            <div class="employee__detail__dob">
+                                <h4 class="title-small">Date of Birth</h4>
+                                <p class="content-text text-employee__dob"></p>
+                            </div>
+
+                            <div class="employee__detail__phone">
+                                <h4 class="title-small">Phone</h4>
+                                <p class="content-text text-employee__phone"></p>
+                            </div>
+
+                            <div class="employee__detail__job">
+                                <h4 class="title-small">Job Title</h4>
+                                <p class="content-text text-employee__job"></p>
+                            </div>
+
+                            <div class="employee__detail__division">
+                                <h4 class="title-small">Division</h4>
+                                <p class="content-text text-employee__division"></p>
+                            </div>
+
+                            <div class="employee__detail__supervisor">
+                                <h4 class="title-small">Supervisor</h4>
+                                <p class="content-text text-employee__supervisor"></p>
+                            </div>
+
+                            <div class="employee__detail__location">
+                                <h4 class="title-small">Location</h4>
+                                <p class="content-text text-employee__location"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="employee__detail-right">
+                        <div class="employee__detail__image">
+                            <div class="employee__preview">
+                                <div id="employeePrievewImage"></div>
+                            </div>
+                        </div>
+
+                        <div class="employee__detail__action__btn">
+                            <div class="employee__detail__action__btn__upper">
+                                <div class="btn btn--medium btn-with-icon btn--white btn-employee-detail-edit">
+                                    <svg class="action-icon-in-btn-white">
+                                        <use xlink:href="../../assets/img/sprite.svg#icon-edit"></use>
+                                    </svg>
+                                    <span>Edit employee</span>
+                                </div>
+                                <div class="btn btn--medium btn-with-icon btn--white btn-employee-detail-delete">
+                                    <svg class="action-icon-in-btn-white">
+                                        <use xlink:href="../../assets/img/sprite.svg#icon-garbage"></use>
+                                    </svg>
+                                    <span>Delete employee</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="popup__part"></div>
+            </div>
+        </main> 
+    </div> 
+</body>         
+
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script type="module" src="../../assets/js/employee/employeeDetail.js"></script>
+<script type="module" src="../../assets/js/base.js"></script>
+</html>
