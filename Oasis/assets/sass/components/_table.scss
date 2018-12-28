@@ -1,26 +1,77 @@
 .table-title {
-    &-new-request-admin {
-        margin-top: 2rem;
-        font-size: 1.4rem;
+    &-new-request {
+        &-my {
+            margin-top: 2rem;
+            font-size: 1.4rem;
 
-        display: grid;
-        grid-template-columns: repeat(13, 1fr);
-        grid-gap: 1rem;
+            display: grid;
+            grid-template-columns: repeat(19, 1fr);
+            grid-gap: 1rem;
 
-        &-name {
-            grid-column: 1/span 3;
+            &-asset {
+                grid-column: 1/span 4;
+            }
+
+            &-qty {
+                grid-column: 5;
+            }
+
+            &-note {
+                grid-column: 6/span 4;
+            }
+
+            &-status {
+                grid-column: 10/span 2;
+            }
+            
+            &-issuedBy {
+                grid-column: 12/span 3;
+            }
+
+            &-lastUpdate {
+                grid-column: 15/span 4;
+            }
+            
+            &-cancel{
+                grid-column: 19;
+            }
         }
 
-        &-asset {
-            grid-column: 4/span 3;
-        }
+        &-others {
+            margin-top: 2rem;
+            font-size: 1.4rem;
 
-        &-qty {
-            grid-column: 7/span 1;
-        }
+            display: grid;
+            grid-template-columns: repeat(19, 1fr);
+            grid-gap: 1rem;
 
-        &-note {
-            grid-column: 8/span 4;
+            &-employee {
+                grid-column: 1/span 4;
+            }
+
+            &-asset {
+                grid-column: 5/span 4;
+            }
+
+            &-qty {
+                grid-column: 9;
+            }
+
+            &-notes {
+                grid-column: 10/span 4;
+            }
+
+            &-lastUpdate {
+                grid-column: 14/span 4;
+            }
+
+            &-accept {
+                grid-column: 18;
+            }
+
+            &-reject {
+                grid-column: 19;
+            }
         }
     }
 
@@ -224,7 +275,7 @@
                 font-size: 1.4rem;
 
                 display: grid;
-                grid-template-columns: repeat(21, 1fr);
+                grid-template-columns: repeat(22, 1fr);
                 grid-gap: 1rem;
 
                 &-no {
@@ -252,48 +303,11 @@
                 }
 
                 &-lastUpdate {
-                    grid-column: 18/span 4;
+                    grid-column: 18/span 5;
                 }
             }
 
             &-one-btn {
-                margin-top: 2rem;
-                font-size: 1.4rem;
-
-                display: grid;
-                grid-template-columns: repeat(19, 1fr);
-                grid-gap: 1rem;
-
-                &-no {
-                    grid-column: 1;
-                }
-
-                &-employee {
-                    grid-column: 2/span 4;
-                }
-
-                &-asset {
-                    grid-column: 6/span 4;
-                }
-
-                &-qty {
-                    grid-column: 10;
-                }
-
-                &-notes {
-                    grid-column: 11/span 4;
-                }
-
-                &-lastUpdate {
-                    grid-column: 15/span 4;
-                }
-
-                &-actionBtn {
-                    grid-column: 19;
-                }
-            }
-
-            &-two-btn {
                 margin-top: 2rem;
                 font-size: 1.4rem;
 
@@ -322,24 +336,20 @@
                 }
 
                 &-lastUpdate {
-                    grid-column: 15/span 4;
+                    grid-column: 15/span 5;
                 }
 
-                &-actionBtn1 {
-                    grid-column: 19;
-                }
-
-                &-actionBtn2 {
+                &-actionBtn {
                     grid-column: 20;
                 }
             }
 
-            &-no-btn {
+            &-two-btn {
                 margin-top: 2rem;
                 font-size: 1.4rem;
 
                 display: grid;
-                grid-template-columns: repeat(18, 1fr);
+                grid-template-columns: repeat(21, 1fr);
                 grid-gap: 1rem;
 
                 &-no {
@@ -363,7 +373,48 @@
                 }
 
                 &-lastUpdate {
-                    grid-column: 15/span 4;
+                    grid-column: 15/span 5;
+                }
+
+                &-actionBtn1 {
+                    grid-column: 20;
+                }
+
+                &-actionBtn2 {
+                    grid-column: 21;
+                }
+            }
+
+            &-no-btn {
+                margin-top: 2rem;
+                font-size: 1.4rem;
+
+                display: grid;
+                grid-template-columns: repeat(19, 1fr);
+                grid-gap: 1rem;
+
+                &-no {
+                    grid-column: 1;
+                }
+
+                &-employee {
+                    grid-column: 2/span 4;
+                }
+
+                &-asset {
+                    grid-column: 6/span 4;
+                }
+
+                &-qty {
+                    grid-column: 10;
+                }
+
+                &-notes {
+                    grid-column: 11/span 4;
+                }
+
+                &-lastUpdate {
+                    grid-column: 15/span 5;
                 }
             }
         }
@@ -373,37 +424,90 @@
 
 .table-content {
 
-    &-new-request-admin {
+    &-new-request {
+        &-my {
+            &-list {
+                margin-top: 2.5rem;
+                font-size: 1.4rem;
 
-        &-list {
-            display: grid;
-            grid-template-columns: repeat(13, 1fr);
-            grid-gap: 1rem;
-            margin-top: 2rem;
-            font-size: 1.3rem;
+                display: grid;
+                grid-template-columns: repeat(19, 1fr);
+                grid-gap: 1rem;
+            }
+
+            &-asset {
+                grid-column: 1/span 4;
+            }
+
+            &-qty {
+                grid-column: 5;
+            }
+
+            &-note {
+                grid-column: 6/span 4;
+                font-size: 1.2rem;
+            }
+
+            &-status {
+                grid-column: 10/span 2;
+            }
+            
+            &-issuedBy {
+                grid-column: 12/span 3;
+            }
+
+            &-lastUpdate {
+                grid-column: 15/span 4;
+            }
+
+            &-cancel{
+                grid-column: 19;
+            }
         }
 
-        &-name {
-            grid-column: 2/span 2;
-        }
+        &-others {
+            &-list {
+                margin-top: 2rem;
+                font-size: 1.4rem;
 
-        &-asset {
-            grid-column: 4/span 3;
-        }
+                display: grid;
+                grid-template-columns: repeat(18, 1fr);
+                grid-gap: 1rem;
 
-        &-qty {
-            grid-column: 7/span 1;
-        }
+            }
 
-        &-note {
-            grid-column: 8/span 4;
-            font-size: 1.2rem;
-        }
+            &-photo{
+                grid-column: 1;
+            }
 
-        &-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            &-employee {
+                grid-column: 2/span 3;
+            }
+
+            &-asset {
+                grid-column: 5/span 4;
+            }
+
+            &-qty {
+                grid-column: 9;
+            }
+
+            &-notes {
+                grid-column: 10/span 4;
+                font-size: 1.2rem;
+            }
+
+            &-lastUpdate {
+                grid-column: 14/span 4;
+            }
+
+            &-accept {
+                grid-column: 18;
+            }
+
+            &-reject {
+                grid-column: 19;
+            }
         }
     }
 
@@ -614,7 +718,7 @@
                 font-size: 1.4rem;
 
                 display: grid;
-                grid-template-columns: repeat(21, 1fr);
+                grid-template-columns: repeat(22, 1fr);
                 grid-column-gap: 1.2rem;
                 grid-row-gap: 1.5rem;
 
@@ -648,54 +752,11 @@
                 }
 
                 &-lastUpdate {
-                    grid-column: 18/span 4;
+                    grid-column: 18/span 5;
                 }
             }
 
             &-one-btn {
-                margin-top: 2rem;
-                font-size: 1.4rem;
-
-                display: grid;
-                grid-template-columns: repeat(19, 1fr);
-                grid-column-gap: 1.2rem;
-                grid-row-gap: 1.5rem;
-
-                &-no {
-                    grid-column: 1;
-                }
-
-                &-photo {
-                    grid-column: 2;
-                }
-
-                &-employee {
-                    grid-column: 3/span 3;
-                }
-
-                &-asset {
-                    grid-column: 6/span 4;
-                }
-
-                &-qty {
-                    grid-column: 10;
-                }
-
-                &-notes {
-                    grid-column: 11/span 4;
-                    font-size: 1.2rem;
-                }
-
-                &-lastUpdate {
-                    grid-column: 15/span 4;
-                }
-
-                &-actionBtn {
-                    grid-column: 19;
-                }
-            }
-
-            &-two-btn {
                 margin-top: 2rem;
                 font-size: 1.4rem;
 
@@ -730,24 +791,20 @@
                 }
 
                 &-lastUpdate {
-                    grid-column: 15/span 4;
+                    grid-column: 15/span 5;
                 }
 
-                &-actionBtn1 {
-                    grid-column: 19;
-                }
-
-                &-actionBtn2 {
+                &-actionBtn {
                     grid-column: 20;
                 }
             }
 
-            &-no-btn {
+            &-two-btn {
                 margin-top: 2rem;
                 font-size: 1.4rem;
 
                 display: grid;
-                grid-template-columns: repeat(18, 1fr);
+                grid-template-columns: repeat(21, 1fr);
                 grid-column-gap: 1.2rem;
                 grid-row-gap: 1.5rem;
 
@@ -777,7 +834,54 @@
                 }
 
                 &-lastUpdate {
-                    grid-column: 15/span 4;
+                    grid-column: 15/span 5;
+                }
+
+                &-actionBtn1 {
+                    grid-column: 20;
+                }
+
+                &-actionBtn2 {
+                    grid-column: 21;
+                }
+            }
+
+            &-no-btn {
+                margin-top: 2rem;
+                font-size: 1.4rem;
+
+                display: grid;
+                grid-template-columns: repeat(19, 1fr);
+                grid-column-gap: 1.2rem;
+                grid-row-gap: 1.5rem;
+
+                &-no {
+                    grid-column: 1;
+                }
+
+                &-photo {
+                    grid-column: 2;
+                }
+
+                &-employee {
+                    grid-column: 3/span 3;
+                }
+
+                &-asset {
+                    grid-column: 6/span 4;
+                }
+
+                &-qty {
+                    grid-column: 10;
+                }
+
+                &-notes {
+                    grid-column: 11/span 4;
+                    font-size: 1.2rem;
+                }
+
+                &-lastUpdate {
+                    grid-column: 15/span 5;
                 }
             }
         }
@@ -790,4 +894,3 @@ hr {
     grid-row: 2;
     border-width: .05rem;
 }
-

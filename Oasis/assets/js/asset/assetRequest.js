@@ -4,6 +4,9 @@ import {
 } from '../base.js';
 
 $(document).ready(function () {
+    
+    var userData=JSON.parse(localStorage.getItem('userData'));
+
     $('.section .asset').removeClass('section asset');
 
     $('.sidebar__part').load('../../components/sidebar/sidebar.html', function () {
@@ -25,6 +28,9 @@ $(document).ready(function () {
             url: path + '/api/assets/' + assetId,
             contentType: 'application/octet-stream',
             dataType: 'json',
+            headers: {
+                "X-Auth-Token":userData.authToken
+            },
             success: function (data) {
                 if (data.code == statusSuccess) {
                     localStorage.setItem('sku', assetId);
@@ -117,6 +123,9 @@ $(document).ready(function () {
                 url: path + '/api/assets/list?page=' + currPage + '&sort=A-name',
                 contentType: 'application/octet-stream',
                 dataType: 'json',
+                headers: {
+                    "X-Auth-Token":userData.authToken
+                },
                 success: function (data) {
                     listData(data, currPage);
                 },
@@ -132,6 +141,9 @@ $(document).ready(function () {
                 url: 'http://localhost:8085/oasis/api/assets/list?query=' + keyword + '&page=1&sort=A-name',
                 contentType: 'application/octet-stream',
                 dataType: 'json',
+                headers: {
+                    "X-Auth-Token":userData.authToken
+                },
                 success: function (data) {
                     if (data.code === statusSuccess) {
                         listData(data);
@@ -157,68 +169,66 @@ $(document).ready(function () {
         let activate;
         let pageCutLow = currPage - 1;
         let pageCutHigh = currPage + 1;
-        
+
         if (currPage > 1) {
             str += `<li class='page-item previous no' data-goto=${currPage-1}><a>Previous</a></li>`;
         }
-        
+
         if (totalPage < 6) {
             for (let p = 1; p <= totalPage; p++) {
-                if(currPage==p){
-                    activate='activate';
-                }else{
-                    activate='no';
+                if (currPage == p) {
+                    activate = 'activate';
+                } else {
+                    activate = 'no';
                 }
-                
+
                 str += `<li class='${activate}' data-goto=${p}><a>${p}</a></li>`;
             }
-        }
-        
-        else {
+        } else {
             if (currPage > 2) {
-            str += '<li class="no page-item" data-goto=1><a>1</a></li>';
+                str += '<li class="no page-item" data-goto=1><a>1</a></li>';
                 if (currPage > 3) {
                     str += `<li class='out-of-range' data-goto=${currPage-2}><a>...</a></li>`;
                 }
             }
-    
+
             if (currPage === 1) {
                 pageCutHigh += 2;
             } else if (currPage === 2) {
                 pageCutHigh += 1;
             }
-        
+
             if (currPage === totalPage) {
                 pageCutLow -= 2;
-            } else if (currPage === totalPage-1) {
+            } else if (currPage === totalPage - 1) {
                 pageCutLow -= 1;
             }
-            
+
             for (let p = pageCutLow; p <= pageCutHigh; p++) {
-            if (p === 0) {
-                p += 1;
+                if (p === 0) {
+                    p += 1;
+                }
+                if (p > totalPage) {
+                    continue
+                }
+                activate = currPage == p ? 'activate' : 'no';
+                str += `<li class='page-item ${activate}' data-goto=${p}><a>${p}</a></li>`;
             }
-            if (p > totalPage) {
-                continue
-            }
-            activate = currPage == p ? 'activate' : 'no';
-            str += `<li class='page-item ${activate}' data-goto=${p}><a>${p}</a></li>`;
-            }
-        
-            if (currPage < totalPage-1) {
-                if (currPage < totalPage-2) {
+
+            if (currPage < totalPage - 1) {
+                if (currPage < totalPage - 2) {
                     str += `<li class='out-of-range' data-goto=${currPage+2}><a>...</a></li>`;
                 }
-                
+
                 str += `<li class='page-item no' data-goto=${totalPage}><a>${totalPage}</a></li>`;
             }
         }
-        
+
         if (currPage < totalPage) {
             str += `<li class='page-item next no' data-goto=${currPage+1}><a>Next</a></li>`;
         }
         str += '</ul>';
-        
+
         document.querySelector('.pagination').innerHTML = str;
         return str;
     }
@@ -289,66 +299,125 @@ $(document).ready(function () {
 
 
     $('.btn-asset-list-request').click(function () {
-        $('#asset__request__note').css('display','block');
-        var localData = localStorage.getItem('selectedAsset');
-        var localArray = $.parseJSON(localData);
-
-        var requestedData = {
-            'skus': localArray,
-            'page': 1,
-        }
-
-        $.ajax({
-            type: 'POST',
-            url: path + '/api/requests/list/requested-assets',
-            data: JSON.stringify(requestedData),
-            contentType: 'application/json',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                for (var index = 0; index < data.value.requestedAssets.length; index++) {
-                    var markup =
-                        `
-                        <div class='asset__request__details__content__left'>
-                            <div class='asset__request__details__content__pic' style='background-image:url(${data.value.requestedAssets[index].images[0]})'></div>
-                        </div>
-                        <div class='asset__request__details__content__middle'>
-                            <h2 class='title__small asset__request__details__content__name'>${data.value.requestedAssets[index].name}</h2>
-                            <div class='asset__request__details__content__qty'>
-                                <input type='number' class='asset__request__details__content__qty__input' value='1' min='1' max='${data.value.requestedAssets[index].quantity}'></input>
-                            </div>
-                        </div>
-                        <div class='asset__request__details__content__right'>
-                            <div class='asset__request__details__content__note'>
-                                <textarea class='asset__request__details__content__text' cols='50' rows='5'></textarea>
-                            </div>
-                        </div>
-                        <div class='asset__request__details__content__delete' data-value=${data.value.requestedAssets[index].sku}>
-                            <a href='#' class='action-button-blue'>
-                                <svg class='action-icon action-icon-blue'>
-                                    <use xlink:href='../../assets/img/sprite.svg#icon-garbage'></use>
-                                </svg>
-                            </a>
-                        </div>
-                        `
-                    document.querySelector('.asset__request__details__content').insertAdjacentHTML('beforeend', markup);
-                }
-            },
-            error: function (data) {
-                alert('failed load data');
-            }
-        });
-    });
-
-    $(document).on('click','#btn-confimation-cancel,.popup__close__button',function(){
-        window.history.back();
-    })
-
-    $(document).on('click','.asset__request__details__content__delete',function(e){
-        var assetId = e.target.closest('.asset__request__details__content__delete').dataset.value;
         var localData = localStorage.getItem('selectedAsset');
         var localArray = $.parseJSON(localData);
         
+        if(localArray.length>0){
+            var requestedData = {
+                'skus': localArray
+            }
+    
+            $.ajax({
+                type: 'POST',
+                url: path + '/api/requests/list/requested-assets?page=1',
+                data: JSON.stringify(requestedData),
+                contentType: 'application/json',
+                dataType: 'json',
+                headers: {
+                    "X-Auth-Token":userData.authToken
+                },
+                success: function (data) {
+                    console.log(data);
+                    for (var index = 0; index < data.value.requestedAssets.length; index++) {
+                        var markup =
+                            `
+                            <div class='asset__request__details__content__left'>
+                                <div class='asset__request__details__content__pic' style='background-image:url(${data.value.requestedAssets[index].images[0]})'></div>
+                            </div>
+                            <div class='asset__request__details__content__middle'>
+                                <h2 class='title__small asset__request__details__content__name'>${data.value.requestedAssets[index].name}</h2>
+                                <div class='asset__request__details__content__qty'>
+                                    <input type='number' class='asset__request__details__content__qty__input-${data.value.requestedAssets[index].sku}' value='1' min='1' max='${data.value.requestedAssets[index].quantity}'></input>
+                                </div>
+                            </div>
+                            <div class='asset__request__details__content__right'>
+                                <div class='asset__request__details__content__note'>
+                                    <textarea class='asset__request__details__content__text-${data.value.requestedAssets[index].sku}' cols='50' rows='5'></textarea>
+                                </div>
+                            </div>
+                            <div class='asset__request__details__content__delete' data-value=${data.value.requestedAssets[index].sku}>
+                                <a href='#' class='action-button-blue'>
+                                    <svg class='action-icon action-icon-blue'>
+                                        <use xlink:href='../../assets/img/sprite.svg#icon-garbage'></use>
+                                    </svg>
+                                </a>
+                            </div>
+                            `
+                        document.querySelector('.asset__request__details__content').insertAdjacentHTML('beforeend', markup);
+                    }
+                },
+                error: function (data) {
+                    alert('failed load data');
+                }
+            });
+            
+            
+            $('#asset__request__note').css('display', 'block');
+
+            $(document).on('click', '#btn-confimation-submit', function (e) {
+    
+                var arraySelectedRequest = [];
+    
+                for (var index = 0; index < localArray.length; index++) {
+                    var requestNote = $('.asset__request__details__content__text-'+localArray[index]).val();
+                    var requestQty=parseInt($('.asset__request__details__content__qty__input-'+localArray[index]).val());
+                    var selectedRequestedData = {
+                        '_id': null,
+                        'sku': localArray[index],
+                        'quantity': requestQty,
+                        'status': 'REQUESTED',
+                        'requestNote': requestNote,
+                        'transactionNote': '',
+                    }
+                    arraySelectedRequest.push(selectedRequestedData);    
+                }
+                
+    
+                var acceptRequestedData = {
+                    'requests': arraySelectedRequest
+                }
+    
+                console.log(acceptRequestedData);
+    
+                $.ajax({
+                    type: 'POST',
+                    url: path + '/api/requests/save',
+                    data: JSON.stringify(acceptRequestedData),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    headers: {
+                        "X-Auth-Token":userData.authToken
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data.code == 201) {
+                            console.log('sucess');
+                            window.location.href = '../../views/request/othersRequestDelivered.html';
+                        }
+                    },
+                    error: function (data) {
+                        alert('failed load data');
+                        console.log(data);
+                    }
+                });
+    
+            });    
+        }else{
+            window.location.href='../../views/asset/asset.html';
+        }
+
+
+    });
+
+    $(document).on('click', '#btn-confimation-cancel,.popup__close__button', function () {
+        window.history.back();
+    })
+
+    $(document).on('click', '.asset__request__details__content__delete', function (e) {
+        var assetId = e.target.closest('.asset__request__details__content__delete').dataset.value;
+        var localData = localStorage.getItem('selectedAsset');
+        var localArray = $.parseJSON(localData);
+
         var removeIndex = -1;
         for (var index = 0; index < localArray.length; index++) {
             if (assetId == localArray[index]) {
@@ -361,9 +430,7 @@ $(document).ready(function () {
         $('.btn-asset-list-request').trigger('click');
     })
 
-    $(document).on('click','.btn-confimation-submit',function(){
-        //looping sesuai jumlah asset 
-        //pasang id di semua qty dan note 
+    $(document).on('click', '.btn-confimation-submit', function () {
         var transactionNotes = $('.popup__confirmation__textarea').val();
         var selectedRequestedData = {
             '_id': selectedRequest,
@@ -376,7 +443,6 @@ $(document).ready(function () {
         var arraySelectedRequest = [selectedRequestedData];
 
         var acceptRequestedData = {
-            'username': username,
             'requests': arraySelectedRequest
         }
         $.ajax({
@@ -385,6 +451,9 @@ $(document).ready(function () {
             data: JSON.stringify(acceptRequestedData),
             contentType: 'application/json',
             dataType: 'json',
+            headers: {
+                "X-Auth-Token":userData.authToken
+            },
             success: function (data) {
                 console.log(data);
                 if (data.code == 201) {

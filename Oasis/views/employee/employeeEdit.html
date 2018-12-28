@@ -30,43 +30,49 @@
               <div class="employee__edit__name">
                 <h4 class="title-small">Name</h4>
                 <input type="text" class="form__input-small" id="form__employee__name" required>
+                <h4 class="input__error" id="input__error__employeeName"></h4>
               </div>
 
               <div class="employee__edit__dob">
                 <h4 class="title-small">Date of Birth</h4>
-                <input type="text" class="form__input-small datepicker-here" data-date-format="dd/mm/yyyy"
-                  data-language="en" id="form__employee__dob" required>
+                <input type="date" class="form__input-small" max="2002-12-31" min="1953-12-31" id="form__employee__dob"
+                  required>
+                <h4 class="input__error" id="input__error__employeeName"></h4>
               </div>
 
               <div class="employee__edit__job">
                 <h4 class="title-small">Job Title</h4>
                 <input type="text" class="form__input-small" id="form__employee__job" required>
+                <h4 class="input__error" id="input__error__jobTitle"></h4>
               </div>
 
               <div class="employee__edit__division">
                 <h4 class="title-small">Division</h4>
                 <input type="text" class="form__input-small" id="form__employee__division" required>
+                <h4 class="input__error" id="input__error__division"></h4>
               </div>
 
               <div class="employee__edit__supervisor">
                 <h4 class="title-small">Supervisor</h4>
                 <button class="form__input-small employee__choose__supervisor" id="form__employee__supervisor" value="">
                   <svg class="employee__choose__supervisor__btn">
-                      <use xlink:href="../../assets/img/sprite.svg#icon-drop-down-arrow"></use>
+                    <use xlink:href="../../assets/img/sprite.svg#icon-drop-down-arrow"></use>
                   </svg>
                 </button>
                 <select class="employee__list__supervisor" size="3">
                 </select>
-              </div> 
+              </div>
 
               <div class="employee__edit__location">
                 <h4 class="title-small">Location</h4>
                 <input type="text" class="form__input-small" id="form__employee__location" required>
+                <h4 class="input__error" id="input__error__location"></h4>
               </div>
 
               <div class="employee__edit__phone">
                 <h4 class="title-small">Phone</h4>
                 <input type="text" class="form__input-small" id="form__employee__phone" required>
+                <h4 class="input__error" id="input__error__phone"></h4>
               </div>
             </div>
             <div class="btn btn--medium btn--blue center" id="edit__employee__btn">Edit employee</div>
@@ -87,7 +93,7 @@
                     <span>Upload photo</span>
                   </label>
                 </form>
-
+                <h4 class="input__error input__error-center" id="input__error__employeePhoto"></h4>
               </div>
             </div>
           </div>

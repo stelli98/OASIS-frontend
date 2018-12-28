@@ -11,22 +11,25 @@
         <div class="employee__add__name">
           <h4 class="title-small">Name</h4>
           <input type="text" class="form__input-small" id="form__employee__name" required>
+          <h4 class="input__error" id="input__error__employeeName"></h4>
         </div>
 
         <div class="employee__add__dob">
           <h4 class="title-small">Date of Birth</h4>
-          <input type="text" class="form__input-small datepicker-here" data-date-format="dd/mm/yyyy"
-                  data-language="en" id="form__employee__dob" required>
+          <input type="date" class="form__input-small" max="2002-12-31" min="1953-12-31"id="form__employee__dob" required>
+          <h4 class="input__error" id="input__error__dob"></h4>
         </div>
 
         <div class="employee__add__job">
           <h4 class="title-small">Job Title</h4>
           <input type="text" class="form__input-small"  id="form__employee__job" required>
+          <h4 class="input__error" id="input__error__jobTitle"></h4>
         </div>
 
         <div class="employee__add__division">
           <h4 class="title-small">Division</h4>
           <input type="text" class="form__input-small" id="form__employee__division" required>
+          <h4 class="input__error" id="input__error__division"></h4>
         </div>
 
         <div class="employee__add__supervisor">
@@ -39,16 +42,19 @@
           </button>
           <select class="employee__list__supervisor" size="3">
           </select>
+          <h4 class="input__error" id="input__error__supervisor"></h4>
         </div> 
         
         <div class="employee__add__location">
           <h4 class="title-small">Location</h4>
           <input type="text" class="form__input-small" id="form__employee__location" required>
+          <h4 class="input__error" id="input__error__location"></h4>
         </div>
 
         <div class="employee__add__phone">
             <h4 class="title-small">Phone</h4>
             <input type="text" class="form__input-small" id="form__employee__phone" required>
+            <h4 class="input__error" id="input__error__phone"></h4>
         </div>
       </div>
       <div class="btn btn--medium btn--blue center" id="add__employee__btn">Add employee</div>
@@ -69,7 +75,7 @@
               <span>Upload photo</span>
             </label>
           </form>
-
+          <h4 class="input__error input__error-center" id="input__error__employeePhoto"></h4>
         </div>
       </div>
     </div>
@@ -77,6 +83,4 @@
 </div>
 <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
 <script type="module" src="../../assets/js/base.js"></script>
-<script type="module" src="../../node_modules/air-datepicker/dist/js/datepicker.min.js"></script>
-<script type="module" src="../../node_modules/air-datepicker/dist/js/i18n/datepicker.en.js"></script>
 <script type="module" src="../../assets/js/employee/employeeAdd.js"></script>

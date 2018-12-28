@@ -39,6 +39,11 @@
       grid-column-gap: 3.5rem;
       margin: 2rem 0 2.5rem;
     }
+
+    &__btn{
+      grid-row: 5;
+      grid-column: 1/-1;
+    }
   }
 
   &__detail {
@@ -162,7 +167,7 @@
 
       &__qty {
         display: flex;
-
+        
         &__input {
           padding: .5rem .8rem;
           border-radius: 3rem;

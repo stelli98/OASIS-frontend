@@ -1,6 +1,11 @@
 import { statusSuccess, path } from '../base.js';
+import * as validate from '../validation.js';
 
 $(document).ready(function () {
+
+    var sku = localStorage.getItem('sku');
+    var userData=JSON.parse(localStorage.getItem('userData'));
+    
     $('.section .asset').removeClass('section asset');
 
     $('.sidebar__part').load('../../components/sidebar/sidebar.html', function () {
@@ -11,7 +16,7 @@ $(document).ready(function () {
         $('.sidebar__icon__request,.sidebar__text__request').removeClass('active');
     });
 
-    $('#uploadAssetImage').change(function () {
+    $('#uploadAssetImage').change(function (e) {
         if (this.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -20,12 +25,9 @@ $(document).ready(function () {
                 $('.asset__preview').fadeIn(650);
             }
             reader.readAsDataURL(this.files[0]);
+            $('#input__error__assetImage').text(validate.isImageExtension(e.target.files[0].name));
         }
     });
-
-
-    var sku = localStorage.getItem('sku');
-    var username=localStorage.getItem('activeUser');
 
 
     $.ajax({
@@ -33,6 +35,10 @@ $(document).ready(function () {
         url: path + '/api/assets/' + sku,
         contentType: 'application/octet-stream',
         dataType: 'json',
+        headers:{
+            "Authorization":basicAuth,
+            "x-auth-token":token
+        },
         success: function (data) {
             console.log(data);
             if (data.code == statusSuccess) {
@@ -42,7 +48,6 @@ $(document).ready(function () {
                 $('.asset__edit__location > input:text').val(data.value.location);
                 $('.asset__edit__qty > input[type="number"]').val(data.value.stock);
                 $('.asset__edit__price > input[type="number"]').val(data.value.price);
-                console.log(data.value.expendable);
                 $('#asset__edit__option__expendable').val(data.value.expendable);
                 $('.asset__preview').css('background-image', 'url(' + data.value.images[0] + ')');
             } else {
@@ -59,8 +64,8 @@ $(document).ready(function () {
         var assetLocation = $('#form__asset__location').val();
         var assetBrand = $('#form__asset__brand').val();
         var assetType = $('#form__asset__type').val();
-        var assetQty = parseInt($('#form__asset__qty').val());
-        var assetPrice = parseFloat($('#form__asset__price').val());
+        var assetQty = $('#form__asset__qty').val();
+        var assetPrice = $('#form__asset__price').val();
         var assetExpendable=$('#form__asset__expendable').val();
         if(assetExpendable=='Yes'){
             assetExpendable=true;
@@ -68,8 +73,11 @@ $(document).ready(function () {
             assetExpendable=false;
         }
     
+        $('#input__error__location').text(validate.isAlphabetNumeric(assetLocation));
+        $('#input__error__qty').text(validate.isNumber(assetQty));
+        $('#input__error__price').text(validate.isNominal(assetPrice));
+
         var assetdata = {
-            'username': username,
             'asset': {
                 'sku': sku,
                 'name': assetName,
@@ -98,6 +106,10 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             cache: false,
+            headers:{
+                "Authorization":basicAuth,
+                "x-auth-token":token
+            },
             success: function (data) {
                 window.location.href = '../../views/asset/asset.html';
             },

@@ -2,6 +2,9 @@ import { statusSuccess, path } from '../base.js';
 
 $(document).ready(function () {
 
+    var userData=JSON.parse(localStorage.getItem('userData'));
+    var sku = localStorage.getItem('sku');
+
     $('.sidebar__part').load('../../components/sidebar/sidebar.html', function () {
         $('.navbar__part').load('../../components/navbar/navbar.html');
         $('.sidebar__icon__dashboard,  .sidebar__text__dashboard').removeClass('active');
@@ -12,13 +15,14 @@ $(document).ready(function () {
 
     $('.section .asset').removeClass('section asset');
 
-    var sku = localStorage.getItem('sku');
-
     $.ajax({
         type: 'GET',
         url: path + '/api/assets/' + sku,
         contentType: 'application/octet-stream',
         dataType: 'json',
+        headers: {
+            "X-Auth-Token":userData.authToken
+        },
         success: function (data) {
             if (data.code == statusSuccess) {
                 $('.text-asset__sku').text(data.value.sku);
@@ -64,9 +68,7 @@ $(document).ready(function () {
     });
 
     $('.btn-asset-detail-delete').click(function () {
-        var username=localStorage.getItem('username');
         var deleteData = {
-            username: username,
             skus: [sku]
         }
         console.log(deleteData);
@@ -77,6 +79,9 @@ $(document).ready(function () {
             data: JSON.stringify(deleteData),
             contentType: 'application/json',
             dataType: 'json',
+            headers: {
+                "X-Auth-Token":userData.authToken
+            },
             success: function (data) {
                 if (data.code === 200) {
                     alert('delete');

@@ -9,31 +9,37 @@
         <div class="asset__add__name">
           <h4 class="title-small">Name</h4>
           <input type="text" class="form__input-small" id="form__asset__name" required>
+          <h4 class="input__error" id="input__error__assetName"></h4>
         </div>
 
         <div class="asset__add__brand">
           <h4 class="title-small">Brand</h4>
           <input type="text" class="form__input-small" id="form__asset__brand" required>
+          <h4 class="input__error" id="input__error__brand"></h4>
         </div>
 
         <div class="asset__add__type">
           <h4 class="title-small">Type</h4>
           <input type="text" class="form__input-small" id="form__asset__type" required>
+          <h4 class="input__error" id="input__error__type"></h4>
         </div>
 
         <div class="asset__add__location">
           <h4 class="title-small">Location</h4>
           <input type="text" class="form__input-small" id="form__asset__location" required>
+          <h4 class="input__error" id="input__error__location"></h4>
         </div>
 
         <div class="asset__add__qty">
           <h4 class="title-small">Quantity</h4>
-          <input type="number" min="0" class="form__input-small" id="form__asset__qty" required>
+          <input type="number" min="1" value="1" class="form__input-small" id="form__asset__qty" required>
+          <h4 class="input__error" id="input__error__qty"></h4>
         </div>
 
         <div class="asset__add__price">
           <h4 class="title-small">Price</h4>
           <input type="number" min="100" step="100" value="100" class="form__input-small" id="form__asset__price" required>
+          <h4 class="input__error" id="input__error__price"></h4>
         </div>
 
         <div class="asset__add__expandable">
@@ -62,7 +68,7 @@
               <span>Upload photo</span>
             </label>
           </form>
-
+          <h4 class="input__error input__error-center" id="input__error__assetImage"></h4>
         </div>
       </div>
     </div>
@@ -70,3 +76,4 @@
 </div>
 <script type="module" src="../../assets/js/asset/assetAdd.js"></script>
 <script type="module" src="../../assets/js/base.js"></script>
+<script type="module" src="../../assets/js/validation.js"></script>

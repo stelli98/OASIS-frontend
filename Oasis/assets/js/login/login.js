@@ -1,63 +1,47 @@
-import {path} from '../base.js';
+import {
+	path
+} from '../base.js';
 
 $(document).ready(function () {
 	$('#btn-login').click(function () {
-		// var username = $('#username').val();
-		// var password = $('#password').val();
+		var username = $('#username').val();
+		var password = $('#password').val();
 
-		// $.ajax({
-		// 	type: 'POST',
-		// 	url: path + '/api/login',
-		// 	cache:false,
-		// 	headers: {
-		// 		'Authorization': 'Basic ' + btoa(username + ':' + password),
-		// 		'Access-Control-Allow-Credentials' : true
-		// 	},
-		// 	xhrFields: {
-		// 		withCredentials: true
-		// 	},
-		// 	success: function (data) {
 
-		// 		// console.log(data);
-		// 		window.location.href = '../../views/dashboard/dashboard.html';
-		// 		 localStorage.setItem('activeUser',data.value.username);
-		// 	},
-		// 	error: function(XMLHttpRequest, textStatus, errorThrown) {
-		// 		alert(textStatus, errorThrown);
-			 
-		// 		// $('.login__error').css('display', 'block');
-		// 		// $('.login__error__message').text(data.responseJSON.value.errorMessage);
-		// 		// $('.form__input').addClass('form__input-error');
-		// 	},
-		// });
-
-		var userdata = {
-			"username": username,
-			"password": password
-		}
-
-		$.ajax({
+		var jqxhr = $.ajax({
 			type: 'POST',
 			url: path + '/api/login',
-			contentType: 'application/json',
-			data: JSON.stringify(userdata),
-			dataType: 'json',
+			headers: {
+				"Authorization": "Basic " + btoa(username + ":" + password)
+			},
 			success: function (data) {
-				window.location.href = '../../views/dashboard/dashboard.html';
-				// localStorage.setItem("username",data.value.username);
-				localStorage.setItem("activeUser",data.value.username);
+				var userData = {
+					"authToken": jqxhr.getResponseHeader('X-Auth-Token'),
+					"name": data.value.username,
+					"photo": data.value.photo,
+					"role": data.value.role
+				}
+				localStorage.setItem('userData',JSON.stringify(userData));
+				if(userData.role=="EMPLOYEE"){
+					window.location.href = '../../views/dashboard/dashboardMyRequest.html';
+				}else{
+					window.location.href = '../../views/dashboard/dashboardOthersRequest.html';
+				}
+				
 			},
 			error: function (data) {
 				console.log(data);
-				$(".login__error").css("display", "block");
-				$(".login__error__message").text(data.responseJSON.value.errorMessage);
-				$(".form__input").addClass("form__input-error");
+				$('.login__error').css('display', 'block');
+				$('.login__error__message').text(data.responseJSON.value.errorMessage);
+				$('.form__input').addClass('form__input-error');
 			},
-			processData: false
+
 		});
 
-		// localStorage.setItem("activeUser","jonathan");
-		// window.location.href = '../../views/dashboard/dashboard.html';
+
+
 	});
+
+
 
 });

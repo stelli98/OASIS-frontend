@@ -1,10 +1,17 @@
 import {
     statusSuccess,
     path,
-    elements
+    elements,
+    textFormatter,
+    dateFormatter
 } from '../base.js';
 
 $(document).ready(function () {
+
+
+    var userData = JSON.parse(localStorage.getItem('userData'));
+    var currPage = 1;
+
     $('.sidebar__part').load('../../components/sidebar/sidebar.html', function () {
         $('.navbar__part').load('../../components/navbar/navbar.html');
         $('.sidebar__icon__dashboard,  .sidebar__text__dashboard').removeClass('active');
@@ -14,48 +21,71 @@ $(document).ready(function () {
         $('.sidebar__text__request__my').addClass('active');
     });
 
-
-    var currPage = 1;
-    var username = localStorage.getItem('activeUser');
-
     function loadAssetList(currPage) {
 
         const url = window.location.href;
-        var currentTab;
-        var currentTabName = url.substr(40, url.length - 45);
-        currentTab = 'status=' + currentTabName + '&';
+        const index = url.indexOf('search__request');
 
+        if (index === -1) {
+            $.ajax({
+                type: 'GET',
+                url: path + '/api/requests/list/my?page=' + currPage,
+                contentType: 'application/octet-stream',
+                dataType: 'json',
+                headers: {
+                    "X-Auth-Token": userData.authToken
+                },
+                success: function (data) {
+                    listData(data, currPage);
+                },
+                error: function (data) {
+                    alert('failed load data');
+                }
+            });
+        } else {
+            let keyword = url.substr(index + 16, url.length - 1);
+            $.ajax({
+                type: 'GET',
+                url: path + '/api/requests/list/my?page=' + currPage + '&query=' + keyword,
+                contentType: 'application/octet-stream',
+                dataType: 'json',
+                headers: {
+                    "X-Auth-Token": userData.authToken
+                },
+                success: function (data) {
+                    listData(data, currPage);
+                },
+                error: function (data) {
+                    alert('failed load data');
+                }
+            });
+        }
 
+    }
 
-        $.ajax({
-            type: 'GET',
-            url: path + '/api/requests/list/' + username + '/my?page=' + currPage,
-            contentType: 'application/octet-stream',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                for (var index = 0; index < data.value.requests.length; index++) {
-                    var markup =
-                        `
+    function listData(data, currPage) {
+        for (var index = 0; index < data.value.requests.length; index++) {
+            var markup =
+                `
                     <div class='table-content table-content-request-my-all-no'>${(data.paging.pageNumber-1)*10+index+1}</div>
                     <div class='table-content table-content-request-my-all-asset'>${data.value.requests[index].asset.name}</div>
                     <div class='table-content table-content-request-my-all-qty'>${data.value.requests[index].asset.quantity}</div>
                     <div class='table-content table-content-request-my-all-note'>${data.value.requests[index].request.note}</div>
-                    <div class='table-content table-content-request-my-all-status'>${data.value.requests[index].request.status}</div>
+                    <div class='table-content table-content-request-my-all-status'>${textFormatter(data.value.requests[index].request.status)}</div>
                     <div class='table-content table-content-request-my-all-issuedBy'>${data.value.requests[index].modifier.name}</div>
-                    <div class='table-content table-content-request-my-all-lastUpdate'>${data.value.requests[index].request.updatedDate}</div>
-                    `
-                    document.querySelector('.table-content-request-my-all').insertAdjacentHTML('beforeend', markup);
-                }
+                    <div class='table-content table-content-request-my-all-lastUpdate'>${dateFormatter(data.value.requests[index].request.updatedDate)}</div>
+                `
+            document.querySelector('.table-content-request-my-all').insertAdjacentHTML('beforeend', markup);
+        }
 
-                var totalPage = data.paging.totalPage;
-                $('.pagination').innerHTML = createPagination(totalPage, currPage);
-            },
-            error: function (data) {
-                alert('failed load data');
-            }
-        });
+        var totalPage = data.paging.totalPage;
+        $('.pagination').innerHTML = createPagination(totalPage, currPage);
     }
+
+    $('.btn__search').click(function () {
+        var keyword = $('.search__input').val();
+        window.location.href = '../../views/request/myRequestAll.html?search__request=' + keyword;
+    });
 
     $(document).on('click', '.pagination ul li', function (e) {
         let currPage = parseInt(e.target.closest('.pagination ul li').dataset.goto, 10);

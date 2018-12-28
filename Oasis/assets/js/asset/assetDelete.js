@@ -1,6 +1,9 @@
 import {statusSuccess,path} from '../base.js';
 
 $(document).ready(function () {
+
+    var userData=JSON.parse(localStorage.getItem('userData'));
+
     $('.section .asset').removeClass('section asset');
 
     $('.sidebar__part').load('../../components/sidebar/sidebar.html', function () {
@@ -22,6 +25,9 @@ $(document).ready(function () {
             url: path + '/api/assets/' + assetId,
             contentType: 'application/octet-stream',
             dataType: 'json',
+            headers:{
+                "X-Auth-Token":userData.authToken
+            },
             success: function (data) {
                 if (data.code == statusSuccess) {
                     localStorage.setItem('sku', assetId);
@@ -114,6 +120,9 @@ $(document).ready(function () {
                 url: path + '/api/assets/list?page=' + currPage + '&sort=A-name',
                 contentType: 'application/octet-stream',
                 dataType: 'json',
+                headers:{
+                    "X-Auth-Token":userData.authToken
+                },
                 success: function (data) {
                     listData(data, currPage);
                 },
@@ -129,6 +138,9 @@ $(document).ready(function () {
                 url: 'http://localhost:8085/oasis/api/assets/list?query=' + keyword + '&page=1&sort=A-name',
                 contentType: 'application/octet-stream',
                 dataType: 'json',
+                headers:{
+                    "X-Auth-Token":userData.authToken
+                },
                 success: function (data) {
                     if (data.code === statusSuccess) {
                         listData(data);
@@ -291,38 +303,38 @@ $(document).ready(function () {
         var localData = localStorage.getItem('selectedAsset');
         var localArray = $.parseJSON(localData);
 
-        var username=localStorage.getItem('username');
 
         var deleteData = {
-            username: username,
             skus: localArray
         }
-        console.log(localArray);
-        
-        console.log(localData);
 
         // $('.popup__part').load('../../components/popup/popup.html');
         // $('.popup').css('display','block');
 
-        // $.ajax({
-        //     type: 'DELETE',
-        //     url: path + '/api/assets/delete',
-        //     data: JSON.stringify(deleteData),
-        //     contentType: 'application/json',
-        //     dataType: 'json',
-        //     success: function (data) {
-        //         if (data.code === 200) {
-        //             alert('delete');
-        //             window.location.href = '../../views/asset/asset.html';
-        //         } else {
-        //             alert('error');
-        //         }
-        //     },
-        //     error: function (data) {
-        //         console.log('failed at delete');
-        //     }
-        // });
-        // localStorage.setItem('selectedAsset', '[]');
+        console.log(deleteData);
+
+        $.ajax({
+            type: 'DELETE',
+            url: path + '/api/assets/delete',
+            data: JSON.stringify(deleteData),
+            contentType: 'application/json',
+            dataType: 'json',
+            headers:{
+                "X-Auth-Token":userData.authToken
+            },
+            success: function (data) {
+                if (data.code === 200) {
+                    alert('delete');
+                    window.location.href = '../../views/asset/asset.html';
+                } else {
+                    alert('error');
+                }
+            },
+            error: function (data) {
+                console.log('failed at delete');
+            }
+        });
+        localStorage.removeItem('selectedAsset');
     });
 
 });

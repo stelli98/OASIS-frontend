@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     var currPage = 1;
     var totalPage;
-    var username = localStorage.getItem('activeUser');
+    var userData=JSON.parse(localStorage.getItem('userData'));
 
     loadAssetList(currPage);
 
@@ -113,9 +113,11 @@ $(document).ready(function () {
         if (index === -1) {
             $.ajax({
                 type: 'GET',
-                url: path + '/api/employees/list?username=' + username + '&page=' + currPage,
+                url: path + '/api/employees/list?&page=' + currPage,
                 contentType: 'application/octet-stream',
-                dataType: 'json',
+                headers: {
+                    "X-Auth-Token":userData.authToken
+                },
                 success: function (data) {
                     listData(data, currPage);
                     // showExclusiveButton(data);   
@@ -128,9 +130,12 @@ $(document).ready(function () {
             let keyword = url.substr(index + 17, url.length - 1);
             $.ajax({
                 type: 'GET',
-                url: path + '/api/employees/list?username=' + username + '&query=' + keyword + '&page=1',
+                url: path + '/api/employees/list?&query=' + keyword + '&page=1',
                 contentType: 'application/octet-stream',
                 dataType: 'json',
+                headers: {
+                    "X-Auth-Token":userData.authToken
+                },
                 success: function (data) {
                     if (data.code === statusSuccess) {
                         listData(data);
@@ -147,9 +152,9 @@ $(document).ready(function () {
         }
     }
 
-    $('.btn__search').click(function () {
-        var keyword = $('.search__input').val();
-        window.location.href = '../../views/employee/employee.html?search__asset=' + keyword;
+    $('.btn__search').click(function(){
+        var keyword=$('.search__input').val();
+        window.location.href = '../../views/employee/employee.html?search__employee='+keyword;
     });
 
     // function showExclusiveButton(data){
@@ -240,17 +245,14 @@ $(document).ready(function () {
 
     function deleteAnEmployee() {
         var selectedUser = localStorage.getItem('selectedUser');
-        var deleteData = {
-            adminUsername: username,
-            employeeUsername: selectedUser,
-        }
 
         $.ajax({
             type: 'DELETE',
-            url: path + '/api/employees/delete',
-            data: JSON.stringify(deleteData),
-            contentType: 'application/json',
-            dataType: 'json',
+            url: path + '/api/employees/delete?target='+selectedUser,
+            contentType: 'application/octet-stream',
+            headers: {
+                "X-Auth-Token":userData.authToken
+            },
             success: function (data) {
                 if (data.code == statusSuccess) {
                     window.location.href = '../../views/employee/employee.html';
@@ -290,7 +292,6 @@ $(document).ready(function () {
     function assignNewSuperior() {
         var selectedUser = localStorage.getItem('selectedUser');
         var deleteData = {
-            adminUsername: username,
             oldSupervisorUsername: selectedUser,
             newSupervisorUsername: $('#form__employee__supervisor').text(),
         }
@@ -302,6 +303,9 @@ $(document).ready(function () {
             data: JSON.stringify(deleteData),
             contentType: 'application/json',
             dataType: 'json',
+            headers: {
+                "X-Auth-Token":userData.authToken
+            },
             success: function (data) {
                 console.log(data);
                 if (data.code == statusSuccess) {

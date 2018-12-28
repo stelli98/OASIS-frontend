@@ -4,6 +4,11 @@ import {
 } from '../base.js';
 
 $(document).ready(function () { 
+
+    
+    var selectedUser = localStorage.getItem('selectedUser');
+    var userData=JSON.parse(localStorage.getItem('userData'));
+
     $('.section .employee').removeClass('section employee');
 
     $('.sidebar__part').load('../../components/sidebar/sidebar.html', function () {
@@ -14,8 +19,7 @@ $(document).ready(function () {
     $('.sidebar__icon__request,.sidebar__text__request').removeClass('active');
     });
     
-    var activeUser = localStorage.getItem('activeUser');
-    var selectedUser = localStorage.getItem('selectedUser');
+
     $('.section .employee').removeClass('section employee');
 
 
@@ -24,6 +28,9 @@ $(document).ready(function () {
         url: path + '/api/employees/' + selectedUser,
         contentType: 'application/octet-stream',
         dataType: 'json',
+        headers: {
+            "X-Auth-Token":userData.authToken
+        },
         success: function (data) {
             if (data.code == statusSuccess) {
                 $('.text-employee__username').text(data.value.username);
@@ -68,17 +75,14 @@ $(document).ready(function () {
     });
 
     $('.btn-employee-detail-delete').click(function () {
-        var deleteData = {
-            adminUsername: activeUser,
-            employeeUsername: selectedUser,
-        }
-
         $.ajax({
             type: 'DELETE',
-            url: path + '/api/employees/delete',
-            data: JSON.stringify(deleteData),
+            url: path + '/api/employees/delete?target='+selectedUser,
             contentType: 'application/json',
             dataType: 'json',
+            headers: {
+                "X-Auth-Token":userData.authToken
+            },
             success: function (data) {
                 if (data.code == statusSuccess) {
                     window.location.href = '../../views/employee/employee.html';
@@ -118,7 +122,6 @@ $(document).ready(function () {
     function assignNewSuperior() {
         var selectedUser = localStorage.getItem('selectedUser');
         var deleteData = {
-            adminUsername: username,
             oldSupervisorUsername: selectedUser,
             newSupervisorUsername: $('#form__employee__supervisor').text(),
         }
@@ -130,6 +133,9 @@ $(document).ready(function () {
             data: JSON.stringify(deleteData),
             contentType: 'application/json',
             dataType: 'json',
+            headers: {
+                "X-Auth-Token":userData.authToken
+            },
             success: function (data) {
                 console.log(data);
                 if (data.code == statusSuccess) {

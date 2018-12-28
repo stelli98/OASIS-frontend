@@ -2,6 +2,7 @@ import {statusSuccess,path,elements} from '../base.js';
 
 $(document).ready(function () {
 
+    var userData=JSON.parse(localStorage.getItem('userData'));
     var currPage = 1;
     var totalPage;
     
@@ -109,6 +110,9 @@ $(document).ready(function () {
                 url: path + '/api/assets/list?page=' + currPage + '&sort=A-name',
                 contentType: 'application/octet-stream',
                 dataType: 'json',
+                headers:{
+                    "X-Auth-Token":userData.authToken
+                },
                 success: function (data) {
                     listData(data,currPage);
                     // showExclusiveButton(data);   
@@ -124,6 +128,9 @@ $(document).ready(function () {
                 url: 'http://localhost:8085/oasis/api/assets/list?query=' + keyword + '&page=1&sort=A-name',
                 contentType: 'application/octet-stream',
                 dataType: 'json',
+                headers:{
+                    "X-Auth-Token":userData.authToken
+                },
                 success: function (data) {
                     if (data.code === statusSuccess) {
                         listData(data);
@@ -142,6 +149,7 @@ $(document).ready(function () {
 
     $('.btn__search').click(function(){
         var keyword=$('.search__input').val();
+        console.log(keyword);
         window.location.href = '../../views/asset/asset.html?search__asset='+keyword;
     });
    

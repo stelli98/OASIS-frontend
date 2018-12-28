@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="shortcut icon" type="image/png" href="../../assets/img/favicon.png">
+
+    <title>OASIS &mdash; Office Asset Inventory System</title>
+</head>
+
+<body>
+    <nav class="navbar__part"></nav>
+    <div class="content">
+        <div class="sidebar__part"></div>
+        <main class="main-content">
+            <div class="dashboard">
+                <div class="section status">
+                    <h2 class="title status__title">Status</h2>
+                    <div class="status__content">
+                        <div class="status__content__detail">
+                            <h3 class="status__number" id="status__new-asset-total">1221</h3>
+                            <p class="status__text">New Asset Request</p>
+                        </div>
+                        <div class="status__content__detail">
+                            <h3 class="status__number" id="status__pending-asset-total">9283</h3>
+                            <p class="status__text">Pending Asset Handover</p>
+                        </div>
+                        <div class="status__content__detail">
+                            <h3 class="status__number" id="status__available-asset-total">1238</h3>
+                            <p class="status__text">Available Asset</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="new-request">
+                    <div class="new-request__top">
+                        <h2 class="title new-request__title">My Asset Request Update</h2>
+                        <p class="new-request__notif" id="new-request-my-request-total">5</p>
+                    </div>
+                    <div class="new-request__middle">
+                        <div class="cta-button new-request__action__button">
+                            <select class="btn btn--small btn-with-icon btn--blue" onchange="window.location.href=this.value">
+                                <option value="dashboardOthersRequest.html" class="new-request__btn__all">
+                                    Others Request
+                                </option>
+                                <option value="dashboardMyRequest.html" class="new-request__btn__all btn--white"
+                                    selected style="display: none">
+                                    My Request
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="new-request__down">
+                        <div class="table-title-new-request-my">
+                            <div class="table-title table-title-new-request-my-asset">Requested Asset</div>
+                            <div class="table-title table-title-new-request-my-qty">Qty</div>
+                            <div class="table-title table-title-new-request-my-note">Notes</div>
+                            <div class="table-title table-title-new-request-my-status">Status</div>
+                            <div class="table-title table-title-new-request-my-issuedBy">Issued By</div>
+                            <div class="table-title table-title-new-request-my-lastUpdate">Last Update at</div>
+                            <hr>
+                        </div>
+                        <div class="table-content-new-request-my">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script type="module" src="../../assets/js/dashboard/dashboardMyRequest.js"></script>
+<script type="module" src="../../assets/js/base.js"></script>
+</html>
