@@ -252,8 +252,6 @@ $(document).ready(function () {
         var localData = localStorage.getItem('selectedAsset');
         var localArray = $.parseJSON(localData);
 
-        console.log(localArray);
-        console.log(localArray.length);
         for (var index = 0; index < localArray.length; index++) {
             var requestNote = $('.popup__asset__request__note__contents__text-' + localArray[index]).val();
             var requestQty = parseInt($('.popup__asset__request__note__contents__qty__input-' + localArray[index]).val());
@@ -272,7 +270,6 @@ $(document).ready(function () {
             'requests': arraySelectedRequest
         }
 
-        console.log(acceptRequestedData);
 
         $.ajax({
             type: 'POST',

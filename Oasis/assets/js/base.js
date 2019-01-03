@@ -17,7 +17,8 @@ export const elements={
     btnEmployeeEdit: $('.table-content-employee-admin-edit'), 
     btnEmployeeDetailEditDelete: $('.employee__detail__action__btn__upper'),
     sidebarRequestOther: $('.sidebar__content__request__other'),
-    sidebarRequestMy: $('.sidebar__content__request__my')
+    sidebarRequestMy: $('.sidebar__content__request__my'),
+    btnDeliverReturnOtherRequest: $('.table-content-request-others-one-btn-actionBtn')
 }
 
 export function dateFormatter(date){

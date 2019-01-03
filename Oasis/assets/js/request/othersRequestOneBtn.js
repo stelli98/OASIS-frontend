@@ -47,8 +47,10 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     listData(data, currPage, actionBtn);
+                    showExclusiveButton(data);
                 },
                 error: function (data) {
+                    showExclusiveButton(JSON.parse(data.responseText));
                     if (data.responseJSON.code == statusNotFound) {
                         $('.request__footer').load('../../components/errorPage/errorDataNotFoundPage.html');
                     }else if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
@@ -118,6 +120,13 @@ $(document).ready(function () {
         var totalPage = data.paging.totalPage;
         $('.pagination').html(createPagination(totalPage, currPage));
 
+    }
+
+    function showExclusiveButton(data){
+        console.log(data);
+        if(data.components.btnDeliverReturnOtherRequest==false){
+            $('.table-content-request-others-one-btn-actionBtn').css('display','none');
+        }
     }
 
     loadAssetList(currPage);
