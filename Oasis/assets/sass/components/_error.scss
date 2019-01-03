@@ -1,0 +1,40 @@
+.error{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+    &__image{
+        margin:2rem 0;
+
+        &-big{
+            margin-top:3rem; 
+            margin-bottom: 2.5rem;
+        }
+    }
+
+    &__icon{
+        width: 20rem;
+        height: 20rem;
+        fill:$color-grey-light-3;
+
+        &-big{
+            width: 25rem;
+            height: 25rem;
+            fill:$color-grey-light-3;
+        }
+    }
+
+    &__message{
+        &__text{
+            color: $color-grey-light-3;
+            font-size: 2.5rem;
+
+            &-big{
+                 color: $color-grey-light-3;
+                 font-size: 3.2rem;
+            }
+        }
+
+    }
+}

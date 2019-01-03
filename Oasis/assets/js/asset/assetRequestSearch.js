@@ -18,14 +18,6 @@ $(document).ready(function () {
 
     $('.section .asset').removeClass('section asset');
 
-    $('.sidebar__part').load('../../components/sidebar/sidebar.html', function () {
-        $('.navbar__part').load('../../components/navbar/navbar.html');
-        $('.sidebar__icon__dashboard,  .sidebar__text__dashboard').removeClass('active');
-        $('.sidebar__icon__asset,.sidebar__text__asset').addClass('active');
-        $('.sidebar__icon__employee,.sidebar__text__employee').removeClass('active');
-        $('.sidebar__icon__request,.sidebar__text__request').removeClass('active');
-    });
-
     function listData(data, currPage) {
         var localData = localStorage.getItem('selectedAsset');
         var localArray = $.parseJSON(localData);

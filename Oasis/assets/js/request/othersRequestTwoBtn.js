@@ -1,13 +1,19 @@
 import {
-    statusSuccess,
+    statusNotFound,
+    statusNotAuthenticated,
     path,
-    elements,dateFormatter
+    dateFormatter,
+    createPagination
 } from '../base.js';
+
 
 $(document).ready(function () {
 
     var currPage = 1;
-    var userData=JSON.parse(localStorage.getItem('userData'));
+    var userData = JSON.parse(localStorage.getItem('userData'));
+    if(userData==null){
+        window.location.href='../../../../';
+    }
 
     $('.sidebar__part').load('../../components/sidebar/sidebar.html', function () {
         $('.navbar__part').load('../../components/navbar/navbar.html');
@@ -21,48 +27,56 @@ $(document).ready(function () {
 
     function loadAssetList(currPage) {
         const url = window.location.href;
-        const index = url.indexOf('search__request'); 
-        
-        if(index===-1){
+        const index = url.indexOf('search__request');
+
+        if (index === -1) {
             $.ajax({
                 type: 'GET',
                 url: path + '/api/requests/list/others?status=REQUESTED&page=' + currPage,
                 contentType: 'application/octet-stream',
                 dataType: 'json',
                 headers: {
-                    "X-Auth-Token":userData.authToken
+                    "X-Auth-Token": userData.authToken
                 },
                 success: function (data) {
-                    listData(data,currPage);
+                    listData(data, currPage);
                 },
                 error: function (data) {
-                    alert('failed load data');
+                    if (data.responseJSON.code == statusNotFound) {
+                        $('.request__footer').load('../../components/errorPage/errorDataNotFoundPage.html');
+                    }else if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                        window.location.href='../../../../';
+                    }
                 }
             });
-        }else{
+        } else {
             let keyword = url.substr(index + 16, url.length - 1);
             $.ajax({
                 type: 'GET',
-                url: path + '/api/requests/list/others?status=REQUESTED&page=' + currPage+'&query='+keyword,
+                url: path + '/api/requests/list/others?status=REQUESTED&page=' + currPage + '&query=' + keyword,
                 contentType: 'application/octet-stream',
                 dataType: 'json',
                 headers: {
-                    "X-Auth-Token":userData.authToken
+                    "X-Auth-Token": userData.authToken
                 },
                 success: function (data) {
-                    listData(data,currPage);
+                    listData(data, currPage);
                 },
                 error: function (data) {
-                    alert('failed load data');
+                    if (data.responseJSON.code == statusNotFound) {
+                        $('.request__footer').load('../../components/errorPage/errorDataNotFoundPage.html');
+                    }else if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                        window.location.href='../../../../';
+                    }
                 }
             });
         }
 
-        
+
     }
 
-    function listData(data,currPage){
-        
+    function listData(data, currPage) {
+
         for (var index = 0; index < data.value.requests.length; index++) {
             var markup =
                 `
@@ -75,7 +89,7 @@ $(document).ready(function () {
             <div class='table-content table-content-request-others-two-btn-qty'>${data.value.requests[index].asset.quantity}</div>
             <div class='table-content table-content-request-others-two-btn-notes'>${data.value.requests[index].request.note}</div>
             <div class='table-content table-content-request-others-two-btn-lastUpdate'>${dateFormatter(data.value.requests[index].request.updatedDate)}</div>
-            <div class='table-content table-content-request-others-with-btn-actionBtn1' data-value=${data.value.requests[index].request.id}>
+            <div class='table-content table-content-request-others-with-btn-actionBtn1' data-value=${data.value.requests[index].request.id} data-expendable=${data.value.requests[index].asset.expendable}>
                 <a href='#' id='action-button-accept'>
                     <svg class='action-icon action-icon-accept'>
                         <use xlink:href='../../assets/img/sprite.svg#icon-checked'></use>
@@ -94,104 +108,35 @@ $(document).ready(function () {
         }
 
         var totalPage = data.paging.totalPage;
-        $('.pagination').innerHTML = createPagination(totalPage, currPage);
+        $('.pagination').html(createPagination(totalPage, currPage));
 
     }
-    
-    $('.btn__search').click(function(){
-        var keyword=$('.search__input').val();
-        window.location.href = '../../views/request/othersRequestRequested.html?search__request='+keyword;
-    });
 
+    loadAssetList(currPage);
+
+    $('.btn__search').click(function () {
+        var keyword = $('.search__input').val();
+        window.location.href = '../../views/request/othersRequestRequested.html?search__request=' + keyword;
+    });
 
     $(document).on('click', '.pagination ul li', function (e) {
         let currPage = parseInt(e.target.closest('.pagination ul li').dataset.goto, 10);
         $('.table-content-request-others-two-btn').empty();
         loadAssetList(currPage);
-    })
-
-    function createPagination(totalPage, currPage) {
-        let str = '<ul>';
-        let activate;
-        let pageCutLow = currPage - 1;
-        let pageCutHigh = currPage + 1;
-
-        if (currPage > 1) {
-            str += `<li class='page-item previous no' data-goto=${currPage-1}><a>Previous</a></li>`;
-        }
-
-        if (totalPage < 6) {
-            for (let p = 1; p <= totalPage; p++) {
-                if (currPage == p) {
-                    activate = 'activate';
-                } else {
-                    activate = 'no';
-                }
-
-                str += `<li class='${activate}' data-goto=${p}><a>${p}</a></li>`;
-            }
-        } else {
-            if (currPage > 2) {
-                str += '<li class="no page-item" data-goto=1><a>1</a></li>';
-                if (currPage > 3) {
-                    str += `<li class='out-of-range' data-goto=${currPage-2}><a>...</a></li>`;
-                }
-            }
-
-            if (currPage === 1) {
-                pageCutHigh += 2;
-            } else if (currPage === 2) {
-                pageCutHigh += 1;
-            }
-
-            if (currPage === totalPage) {
-                pageCutLow -= 2;
-            } else if (currPage === totalPage - 1) {
-                pageCutLow -= 1;
-            }
-
-            for (let p = pageCutLow; p <= pageCutHigh; p++) {
-                if (p === 0) {
-                    p += 1;
-                }
-                if (p > totalPage) {
-                    continue
-                }
-                activate = currPage == p ? 'activate' : 'no';
-                str += `<li class='page-item ${activate}' data-goto=${p}><a>${p}</a></li>`;
-            }
-
-            if (currPage < totalPage - 1) {
-                if (currPage < totalPage - 2) {
-                    str += `<li class='out-of-range' data-goto=${currPage+2}><a>...</a></li>`;
-                }
-
-                str += `<li class='page-item no' data-goto=${totalPage}><a>${totalPage}</a></li>`;
-            }
-        }
-
-        if (currPage < totalPage) {
-            str += `<li class='page-item next no' data-goto=${currPage+1}><a>Next</a></li>`;
-        }
-        str += '</ul>';
-
-        document.querySelector('.pagination').innerHTML = str;
-        return str;
-    }
+    });
 
     $(document).on('click', '.table-content-request-others-with-btn-actionBtn1', function (e) {
         let selectedRequest = e.target.closest('.table-content-request-others-with-btn-actionBtn1').dataset.value;
+
         $('.popup__part').load('../../../components/popup/popupTransactionNote.html');
-        $('.popup').css('display', 'block');
 
         $(document).on('click', '.btn-confirmation-change-status', function () {
-            console.log('btn click');
-            var transactionNotes = $('.popup__confirmation__textarea').val();
+            var transactionNotes = $('.popup__transaction__notes__textarea').val();
             var selectedRequestedData = {
                 '_id': selectedRequest,
                 'sku': '',
                 'quantity': 0,
-                'status': 'Accepted',
+                'status': 'ACCEPTED',
                 'requestNote': '',
                 'transactionNote': transactionNotes,
             }
@@ -200,6 +145,7 @@ $(document).ready(function () {
             var acceptRequestedData = {
                 'requests': arraySelectedRequest
             }
+
             $.ajax({
                 type: 'POST',
                 url: path + '/api/requests/save',
@@ -207,25 +153,23 @@ $(document).ready(function () {
                 contentType: 'application/json',
                 dataType: 'json',
                 headers: {
-                    "X-Auth-Token":userData.authToken
+                    "X-Auth-Token": userData.authToken
                 },
                 success: function (data) {
-                    console.log(data);
                     if (data.code == 201) {
-                        console.log('sucess');
                         window.location.href = '../../views/request/othersRequestAccepted.html';
                     }
                 },
                 error: function (data) {
-                    alert('failed load data');
-                    console.log(data);
+                    if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                        window.location.href='../../../../';
+                    }
                 }
             });
 
         });
 
     });
-
 
     $(document).on('click', '.table-content-request-others-with-btn-actionBtn2', function (e) {
         let selectedRequest = e.target.closest('.table-content-request-others-with-btn-actionBtn2').dataset.value;
@@ -233,40 +177,39 @@ $(document).ready(function () {
         $('.popup').css('display', 'block');
 
         $(document).on('click', '.btn-confirmation-change-status', function () {
-            console.log('btn click');
-            var transactionNotes = $('.popup__confirmation__textarea').val();
+            var transactionNotes = $('.popup__transaction__notes__textarea').val();
             var selectedRequestedData = {
                 '_id': selectedRequest,
                 'sku': '',
                 'quantity': 0,
-                'status': 'Rejected',
+                'status': 'REJECTED',
                 'requestNote': '',
                 'transactionNote': transactionNotes,
             }
             var arraySelectedRequest = [selectedRequestedData];
 
-            var acceptRequestedData = {
+            var rejectRequestedData = {
                 'requests': arraySelectedRequest
             }
+
             $.ajax({
                 type: 'POST',
                 url: path + '/api/requests/save',
-                data: JSON.stringify(acceptRequestedData),
+                data: JSON.stringify(rejectRequestedData),
                 contentType: 'application/json',
                 dataType: 'json',
                 headers: {
-                    "X-Auth-Token":userData.authToken
+                    "X-Auth-Token": userData.authToken
                 },
                 success: function (data) {
-                    console.log(data);
                     if (data.code == 201) {
-                        console.log('sucess');
                         window.location.href = '../../views/request/othersRequestRejected.html';
                     }
                 },
                 error: function (data) {
-                    alert('failed load data');
-                    console.log(data);
+                    if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                        window.location.href='../../../../';
+                    }
                 }
             });
 
@@ -274,6 +217,8 @@ $(document).ready(function () {
 
     });
 
-    loadAssetList(currPage);
+    $(document).on('click', '.popup__close__button , .btn-confirmation-cancel ', function () {
+        window.location.href = '../../views/request/othersRequestRequested.html';
+    });
 
 })

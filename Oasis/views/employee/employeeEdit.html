@@ -9,8 +9,6 @@
   <link rel="stylesheet" href="../../assets/css/style.css">
   <link rel="shortcut icon" type="image/png" href="../../assets/img/favicon.png">
 
-  <link rel="stylesheet" href="../../node_modules/air-datepicker/dist/css/datepicker.min.css">
-
   <title>OASIS &mdash; Office Asset Inventory System</title>
 </head>
 
@@ -20,6 +18,7 @@
     <div class="sidebar__part"></div>
     <main class="main-content">
       <div class="section employee employee__edit">
+
         <div class="employee__edit-top">
           <h3 class="title employee__title">Edit employee</h3>
         </div>
@@ -35,32 +34,8 @@
 
               <div class="employee__edit__dob">
                 <h4 class="title-small">Date of Birth</h4>
-                <input type="date" class="form__input-small" max="2002-12-31" min="1953-12-31" id="form__employee__dob"
-                  required>
+                <input type="date" class="form__input-small" max="2002-12-31" min="1953-12-31" id="form__employee__dob" onkeydown="return false" required>
                 <h4 class="input__error" id="input__error__employeeName"></h4>
-              </div>
-
-              <div class="employee__edit__job">
-                <h4 class="title-small">Job Title</h4>
-                <input type="text" class="form__input-small" id="form__employee__job" required>
-                <h4 class="input__error" id="input__error__jobTitle"></h4>
-              </div>
-
-              <div class="employee__edit__division">
-                <h4 class="title-small">Division</h4>
-                <input type="text" class="form__input-small" id="form__employee__division" required>
-                <h4 class="input__error" id="input__error__division"></h4>
-              </div>
-
-              <div class="employee__edit__supervisor">
-                <h4 class="title-small">Supervisor</h4>
-                <button class="form__input-small employee__choose__supervisor" id="form__employee__supervisor" value="">
-                  <svg class="employee__choose__supervisor__btn">
-                    <use xlink:href="../../assets/img/sprite.svg#icon-drop-down-arrow"></use>
-                  </svg>
-                </button>
-                <select class="employee__list__supervisor" size="3">
-                </select>
               </div>
 
               <div class="employee__edit__location">
@@ -74,6 +49,43 @@
                 <input type="text" class="form__input-small" id="form__employee__phone" required>
                 <h4 class="input__error" id="input__error__phone"></h4>
               </div>
+
+              <div class="employee__edit__job">
+                <h4 class="title-small">Job Title</h4>
+                <input type="text" class="form__input-small" id="form__employee__job" required>
+                <h4 class="input__error" id="input__error__jobTitle"></h4>
+              </div>
+
+              <div class="employee__edit__division">
+                <h4 class="title-small">Division</h4>
+                <button class="form__input-small employee__choose__division" id="form__employee__division">
+                  <svg class="employee__choose__division__btn">
+                    <use xlink:href="../../assets/img/sprite.svg#icon-drop-down-arrow"></use>
+                  </svg>
+                </button>
+                <select class="employee__list__division" size="3">
+                  <option value="Technology">Technology</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Operations">Operations</option>
+                  <option value="Human Resources">Human Resources</option>
+                  <option value="Marketing">Marketing</option>
+                </select>
+                  <h4 class="input__error" id="input__error__division"></h4>
+              </div>
+
+              <div class="employee__edit__supervisor">
+                <h4 class="title-small">Supervisor</h4>
+                <button class="form__input-small employee__choose__supervisor" id="form__employee__supervisor" value="">
+                  <svg class="employee__choose__supervisor__btn">
+                    <use xlink:href="../../assets/img/sprite.svg#icon-drop-down-arrow"></use>
+                  </svg>
+                </button>
+                <select class="employee__list__supervisor" size="3">
+                </select>
+                <h4 class="input__error" id="input__error__supervisor"></h4>
+              </div>
+
+
             </div>
             <div class="btn btn--medium btn--blue center" id="edit__employee__btn">Edit employee</div>
           </div>
@@ -99,8 +111,9 @@
           </div>
         </div>
       </div>
-      <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
-      <script type="module" src="../../assets/js/base.js"></script>
-      <script type="module" src="../../assets/js/employee/employeeEdit.js"></script>
-      <script type="module" src="../../node_modules/air-datepicker/dist/js/datepicker.min.js"></script>
-      <script type="module" src="../../node_modules/air-datepicker/dist/js/i18n/datepicker.en.js"></script>
+    </main>
+  </div>
+</body>
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script type="module" src="../../assets/js/base.js"></script>
+<script type="module" src="../../assets/js/employee/employeeEdit.js"></script>

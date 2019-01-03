@@ -1,14 +1,17 @@
 import {
-    statusSuccess,
+    statusNotFound,
     path,
-    elements,
-    dateFormatter
+    statusNotAuthenticated,
+    dateFormatter,
+    createPagination
 } from '../base.js';
 
 $(document).ready(function () {
 
-
     var userData = JSON.parse(localStorage.getItem('userData'));
+    if(userData==null){
+        window.location.href='../../../../';
+    }
     var currPage = 1;
 
     $('.sidebar__part').load('../../components/sidebar/sidebar.html', function () {
@@ -34,7 +37,6 @@ $(document).ready(function () {
                     "X-Auth-Token": userData.authToken
                 },
                 success: function (data) {
-                    console.log(data);
                     for (var index = 0; index < data.value.requests.length; index++) {
                         var markup =
                             `
@@ -58,10 +60,14 @@ $(document).ready(function () {
                     }
 
                     var totalPage = data.paging.totalPage;
-                    $('.pagination').innerHTML = createPagination(totalPage, currPage);
+                    $('.pagination').html(createPagination(totalPage,currPage));
                 },
                 error: function (data) {
-                    alert('failed load data');
+                    if(data.responseJSON.code==statusNotFound){
+                        $('.request__footer').load('../../components/errorPage/errorDataNotFoundPage.html');
+                    }else if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                        window.location.href='../../../../';
+                    }
                 }
             });
         }else{
@@ -75,7 +81,6 @@ $(document).ready(function () {
                     "X-Auth-Token": userData.authToken
                 },
                 success: function (data) {
-                    console.log(data);
                     for (var index = 0; index < data.value.requests.length; index++) {
                         var markup =
                             `
@@ -99,14 +104,20 @@ $(document).ready(function () {
                     }
 
                     var totalPage = data.paging.totalPage;
-                    $('.pagination').innerHTML = createPagination(totalPage, currPage);
+                    $('.pagination').html(createPagination(totalPage,currPage));
                 },
                 error: function (data) {
-                    alert('failed load data');
+                    if(data.responseJSON.code==statusNotFound){
+                        $('.request__footer').load('../../components/errorPage/errorDataNotFoundPage.html');
+                    }else if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                        window.location.href='../../../../';
+                    }
                 }
             });
         }
     }
+
+    loadAssetList(currPage);
 
     $('.btn__search').click(function(){
         var keyword=$('.search__input').val();
@@ -117,118 +128,57 @@ $(document).ready(function () {
         let currPage = parseInt(e.target.closest('.pagination ul li').dataset.goto, 10);
         $('.table-content-request-my-with-btn').empty();
         loadAssetList(currPage);
-    })
-
-    function createPagination(totalPage, currPage) {
-        let str = '<ul>';
-        let activate;
-        let pageCutLow = currPage - 1;
-        let pageCutHigh = currPage + 1;
-
-        if (currPage > 1) {
-            str += `<li class='page-item previous no' data-goto=${currPage-1}><a>Previous</a></li>`;
-        }
-
-        if (totalPage < 6) {
-            for (let p = 1; p <= totalPage; p++) {
-                if (currPage == p) {
-                    activate = 'activate';
-                } else {
-                    activate = 'no';
-                }
-
-                str += `<li class='${activate}' data-goto=${p}><a>${p}</a></li>`;
-            }
-        } else {
-            if (currPage > 2) {
-                str += '<li class="no page-item" data-goto=1><a>1</a></li>';
-                if (currPage > 3) {
-                    str += `<li class='out-of-range' data-goto=${currPage-2}><a>...</a></li>`;
-                }
-            }
-
-            if (currPage === 1) {
-                pageCutHigh += 2;
-            } else if (currPage === 2) {
-                pageCutHigh += 1;
-            }
-
-            if (currPage === totalPage) {
-                pageCutLow -= 2;
-            } else if (currPage === totalPage - 1) {
-                pageCutLow -= 1;
-            }
-
-            for (let p = pageCutLow; p <= pageCutHigh; p++) {
-                if (p === 0) {
-                    p += 1;
-                }
-                if (p > totalPage) {
-                    continue
-                }
-                activate = currPage == p ? 'activate' : 'no';
-                str += `<li class='page-item ${activate}' data-goto=${p}><a>${p}</a></li>`;
-            }
-
-            if (currPage < totalPage - 1) {
-                if (currPage < totalPage - 2) {
-                    str += `<li class='out-of-range' data-goto=${currPage+2}><a>...</a></li>`;
-                }
-
-                str += `<li class='page-item no' data-goto=${totalPage}><a>${totalPage}</a></li>`;
-            }
-        }
-
-        if (currPage < totalPage) {
-            str += `<li class='page-item next no' data-goto=${currPage+1}><a>Next</a></li>`;
-        }
-        str += '</ul>';
-
-        document.querySelector('.pagination').innerHTML = str;
-        return str;
-    }
-
-
-    $(document).on('click', '#table-content-request-my-with-btn-actionBtn-cancel', function (e) {
-        var selectedRequest = e.target.closest('#table-content-request-my-with-btn-actionBtn-cancel').dataset.value;
-        var selectedRequestedData = {
-            '_id': selectedRequest,
-            'sku': '',
-            'quantity': 0,
-            'status': 'Cancelled',
-            'requestNote': '',
-            'transactionNote': '',
-        }
-        var arraySelectedRequest = [selectedRequestedData];
-
-        var cancelRequestedData = {
-            'username': username,
-            'requests': arraySelectedRequest
-        }
-
-        $.ajax({
-            type: 'POST',
-            url: path + '/api/requests/save',
-            data: JSON.stringify(cancelRequestedData),
-            contentType: 'application/json',
-            dataType: 'json',
-            headers: {
-                "X-Auth-Token": userData.authToken
-            },
-            success: function (data) {
-                console.log(data);
-                if (data.code == 201) {
-                    console.log('sucess');
-                    window.location.href = '../../views/request/myRequestCancelled.html';
-                }
-            },
-            error: function (data) {
-                alert('failed load data');
-                console.log(data);
-            }
-        });
     });
 
-    loadAssetList(currPage);
+    $(document).on('click', '#table-content-request-my-with-btn-actionBtn-cancel', function (e) {
+        $('.popup__part').load('../../../components/popup/popupTransactionNote.html');
+        $('.popup').css('display', 'block');  
+
+        $(document).on('click', '.btn-confirmation-change-status', function () {
+            var selectedRequest = e.target.closest('#table-content-request-my-with-btn-actionBtn-cancel').dataset.value;
+            var transactionNotes = $('.popup__transaction__notes__textarea').val();
+            var selectedRequestedData = {
+                '_id': selectedRequest,
+                'sku': '',
+                'quantity': 0,
+                'status': 'CANCELLED',
+                'requestNote': '',
+                'transactionNote': transactionNotes,
+            }
+            var arraySelectedRequest = [selectedRequestedData];
+
+            var cancelRequestedData = {
+                'requests': arraySelectedRequest
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: path + '/api/requests/save',
+                data: JSON.stringify(cancelRequestedData),
+                contentType: 'application/json',
+                dataType: 'json',
+                headers: {
+                    "X-Auth-Token": userData.authToken
+                },
+                success: function (data) {
+                    if (data.code == 201) {
+                        window.location.href = '../../views/request/myRequestCancelled.html';
+                    }
+                },
+                error: function (data) {
+                    if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                        window.location.href='../../../../';
+                    }
+                }
+            });
+        });
+        
+    });
+
+    $(document).on('click', '.popup__close__button , .btn-confirmation-cancel ', function () {
+        window.location.href = '../../views/request/myRequestRequested.html';
+    });
+
+    
 
 })

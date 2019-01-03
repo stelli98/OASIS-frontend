@@ -5,7 +5,7 @@
             font-size: 1.4rem;
 
             display: grid;
-            grid-template-columns: repeat(19, 1fr);
+            grid-template-columns: repeat(18, 1fr);
             grid-gap: 1rem;
 
             &-asset {
@@ -23,17 +23,13 @@
             &-status {
                 grid-column: 10/span 2;
             }
-            
+
             &-issuedBy {
                 grid-column: 12/span 3;
             }
 
             &-lastUpdate {
                 grid-column: 15/span 4;
-            }
-            
-            &-cancel{
-                grid-column: 19;
             }
         }
 
@@ -76,13 +72,11 @@
     }
 
     &-asset {
-
-        &-admin,
-        &-request {
+        &-admin {
             margin-top: 2rem;
             font-size: 1.4rem;
             display: grid;
-            grid-template-columns: repeat(16, 1fr);
+            grid-template-columns: repeat(17, 1fr);
 
             &-no {
                 grid-column: 1;
@@ -101,19 +95,50 @@
             }
 
             &-location {
-                grid-column: 11/span 2;
+                grid-column: 11/span 3;
             }
 
             &-qty {
-                grid-column: 13/span 2;
+                grid-column: 14/span 2;
             }
 
             &-view {
-                grid-column: 14;
+                grid-column: 16;
             }
 
             &-edit {
-                grid-column: 15;
+                grid-column: 17;
+            }
+        }
+
+        &-no-btn {
+            margin-top: 2rem;
+            font-size: 1.4rem;
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+
+            &-no {
+                grid-column: 1;
+            }
+
+            &-name {
+                grid-column: 2/span 4;
+            }
+
+            &-brand {
+                grid-column: 6/span 3;
+            }
+
+            &-type {
+                grid-column: 9/span 3;
+            }
+
+            &-location {
+                grid-column: 12/span 3;
+            }
+
+            &-qty {
+                grid-column: 15/span 2;
             }
         }
 
@@ -431,7 +456,7 @@
                 font-size: 1.4rem;
 
                 display: grid;
-                grid-template-columns: repeat(19, 1fr);
+                grid-template-columns: repeat(18, 1fr);
                 grid-gap: 1rem;
             }
 
@@ -451,17 +476,13 @@
             &-status {
                 grid-column: 10/span 2;
             }
-            
+
             &-issuedBy {
                 grid-column: 12/span 3;
             }
 
             &-lastUpdate {
                 grid-column: 15/span 4;
-            }
-
-            &-cancel{
-                grid-column: 19;
             }
         }
 
@@ -476,7 +497,7 @@
 
             }
 
-            &-photo{
+            &-photo {
                 grid-column: 1;
             }
 
@@ -513,14 +534,13 @@
 
     &-asset {
 
-        &-admin,
-        &-request {
+        &-admin {
             &-list {
                 display: grid;
-                grid-template-columns: repeat(16, 1fr);
+                grid-template-columns: repeat(17, 1fr);
                 grid-gap: 1rem;
                 margin-top: 2rem;
-                font-size: 1.3rem;
+                font-size: 1.4rem;
             }
 
             &-no {
@@ -540,11 +560,11 @@
             }
 
             &-location {
-                grid-column: 11/span 2;
+                grid-column: 11/span 3;
             }
 
             &-qty {
-                grid-column: 13/span 2;
+                grid-column: 14/span 2;
             }
 
             &-icon {
@@ -552,6 +572,40 @@
                 align-items: center;
                 justify-content: center;
             }
+        }
+
+        &-no-btn {
+            &-list {
+                margin-top: 2rem;
+                font-size: 1.4rem;
+                display: grid;
+                grid-template-columns: repeat(16, 1fr);
+            }
+
+            &-checkbox {
+                grid-column: 1;
+            }
+
+            &-name {
+                grid-column: 2/span 4;
+            }
+
+            &-brand {
+                grid-column: 6/span 3;
+            }
+
+            &-type {
+                grid-column: 9/span 3;
+            }
+
+            &-location {
+                grid-column: 12/span 3;
+            }
+
+            &-qty {
+                grid-column: 15/span 2;
+            }
+
         }
 
     }

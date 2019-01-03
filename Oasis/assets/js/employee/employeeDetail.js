@@ -1,27 +1,26 @@
 import {
     statusSuccess,
+    statusNotAuthenticated,
     path
 } from '../base.js';
 
 $(document).ready(function () { 
 
-    
     var selectedUser = localStorage.getItem('selectedUser');
     var userData=JSON.parse(localStorage.getItem('userData'));
+    if(userData==null){
+        window.location.href='../../../../';
+    }
 
     $('.section .employee').removeClass('section employee');
 
     $('.sidebar__part').load('../../components/sidebar/sidebar.html', function () {
-    $('.navbar__part').load('../../components/navbar/navbar.html');
-    $('.sidebar__icon__dashboard,  .sidebar__text__dashboard').removeClass('active');
-    $('.sidebar__icon__asset,.sidebar__text__asset').removeClass('active');
-    $('.sidebar__icon__employee,.sidebar__text__employee').addClass('active');
-    $('.sidebar__icon__request,.sidebar__text__request').removeClass('active');
+        $('.navbar__part').load('../../components/navbar/navbar.html');
+        $('.sidebar__icon__dashboard,  .sidebar__text__dashboard').removeClass('active');
+        $('.sidebar__icon__asset,.sidebar__text__asset').removeClass('active');
+        $('.sidebar__icon__employee,.sidebar__text__employee').addClass('active');
+        $('.sidebar__icon__request,.sidebar__text__request').removeClass('active');
     });
-    
-
-    $('.section .employee').removeClass('section employee');
-
 
     $.ajax({
         type: 'GET',
@@ -47,15 +46,23 @@ $(document).ready(function () {
                 } else {
                     $('.employee__preview').css('background-image', 'url(' + data.value.photo + ')');
                 }
-
-            } else {
-                console.log('error');
-            }
+                showExclusiveButton(data);
+                localStorage.setItem('savedDivision',data.value.division);
+            } 
         },
         error: function (data) {
-            alert('failed load data');
+            showExclusiveButton(JSON.parse(data.responseText));
+            if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                window.location.href='../../../../';
+            }
         }
     });
+
+    function showExclusiveButton(data){
+        if(data.components.btnEmployeeDetailEditDelete==false){
+            $('.employee__detail__action__btn__upper').hide();
+        }
+    }
 
     $('#uploadEmployeeImage').change(function () {
         if (this.files[0]) {
@@ -75,27 +82,36 @@ $(document).ready(function () {
     });
 
     $('.btn-employee-detail-delete').click(function () {
-        $.ajax({
-            type: 'DELETE',
-            url: path + '/api/employees/delete?target='+selectedUser,
-            contentType: 'application/json',
-            dataType: 'json',
-            headers: {
-                "X-Auth-Token":userData.authToken
-            },
-            success: function (data) {
-                if (data.code == statusSuccess) {
-                    window.location.href = '../../views/employee/employee.html';
-                }
-            },
-            error: function (data) {
-                if (data.responseJSON.code == 401) {
-                    changeToNewSupervisor();
-                }
-                alert('failed load data');
-            }
+        $('.popup__part').load('../../components/popup/popupDeleteConfirmation.html');
+        $('.popup').css('display','block');
+
+        $(document).on('click','.btn-confirmation-confirm',function(){
+            deleteAnEmployee();
         });
     });
+
+    function deleteAnEmployee() {
+        var selectedUser=localStorage.getItem('selectedUser');
+         $.ajax({
+                type: 'DELETE',
+                url: path + '/api/employees/delete?target='+selectedUser,
+                contentType: 'application/octet-stream',
+                headers: {
+                    "X-Auth-Token":userData.authToken
+                },
+                success: function (data) {
+                    if (data.code == statusSuccess) {
+                        window.location.href = '../../views/employee/employee.html';
+                        localStorage.removeItem('selectedUser');
+                    }
+                },
+                error: function (data) {
+                    if (data.responseJSON.code == 401) {
+                        changeToNewSupervisor();
+                    }
+                }
+        });
+    }
 
     function changeToNewSupervisor() {
         $('.popup__part').load('../../../components/popup/popupChangeSupervisor.html');
@@ -103,7 +119,26 @@ $(document).ready(function () {
        
         $(document).on('click', '.employee__choose__supervisor', function () {
             $('.employee__list__supervisor').toggle();
-        })
+        });
+
+        var savedDivision=localStorage.getItem('savedDivision');
+         $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8085/oasis/api/employees/usernames?division=' + savedDivision+'&username='+selectedUser,
+            contentType: 'application/octet-stream',
+            dataType: 'json',
+            headers: {
+                "X-Auth-Token":userData.authToken
+            },
+            success: function (data) {
+                for (var index = 0; index < data.length; index++) {
+                    var markup = `<option class='option-popup' value='${data[index]}'>${data[index]}</option>`;
+                    document.querySelector('.employee__list__supervisor').insertAdjacentHTML('beforeend', markup);
+                }
+            },
+            error: function (data) {
+            }
+        });
 
         $(document).on('click', '.employee__list__supervisor option', function (e) {
             var selectedSuperior = $(this).html();
@@ -112,42 +147,42 @@ $(document).ready(function () {
             $('.employee__list__supervisor').toggle();
         });
 
+        $(document).on('click', '.btn-confirmation-change', function () {
+            var selectedUser = localStorage.getItem('selectedUser');
+            var deleteData = {
+                oldSupervisorUsername: selectedUser,
+                newSupervisorUsername: $('#form__employee__supervisor').text(),
+            }
+    
+            $.ajax({
+                type: 'POST',
+                url: path + '/api/employees/delete/change-supervisor',
+                data: JSON.stringify(deleteData),
+                contentType: 'application/json',
+                dataType: 'json',
+                headers: {
+                    "X-Auth-Token":userData.authToken
+                },
+                success: function (data) {
+                    if (data.code == statusSuccess) {
+                        deleteAnEmployee();
+                        window.location.href = '../../views/employee/employee.html';
+                    }
+                },
+                error: function (data) {
+                    if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                        window.location.href='../../../../';
+                    }
+                }
+            });
+        });
 
     }
 
-    $(document).on('click', '.btn-confirmation-change', function () {
-        assignNewSuperior();
+    $(document).on('click', '.popup__close__button , .btn-confirmation-cancel', function () {
+        $('.popup').hide();
+        localStorage.removeItem('selectedUser');
+        window.location.href = '../../views/employee/employee.html';
     });
 
-    function assignNewSuperior() {
-        var selectedUser = localStorage.getItem('selectedUser');
-        var deleteData = {
-            oldSupervisorUsername: selectedUser,
-            newSupervisorUsername: $('#form__employee__supervisor').text(),
-        }
-        console.log(deleteData);
-
-        $.ajax({
-            type: 'POST',
-            url: path + '/api/employees/delete/change-supervisor',
-            data: JSON.stringify(deleteData),
-            contentType: 'application/json',
-            dataType: 'json',
-            headers: {
-                "X-Auth-Token":userData.authToken
-            },
-            success: function (data) {
-                console.log(data);
-                if (data.code == statusSuccess) {
-                    deleteAnEmployee();
-                    window.location.href = '../../views/employee/employee.html';
-                } else if (data.code == 401) {
-                    console.log('error');
-                }
-            },
-            error: function (data) {
-                alert('failed load data');
-            }
-        });
-    }
 });

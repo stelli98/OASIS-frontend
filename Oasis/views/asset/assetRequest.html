@@ -21,13 +21,11 @@
                 <h3 class="title asset__title">Asset list</h3>
                 <div class="asset__upper">
                     <div class="cta-button asset__action__button">
-                        <div class="btn btn--small btn-with-icon btn--white btn-asset-list-request">
+                        <div class="btn btn--small btn-with-icon btn--white btn-asset-request-select">
                             <svg class="action-icon-in-btn-white">
                                 <use xlink:href="../../assets/img/sprite.svg#icon-collect"></use>
                             </svg>
-                            <a href="#asset__request__note" class="asset__btn__link">
-                                Request asset
-                            </a>
+                            <span>Request asset</span>
                         </div>
                     </div>
                     <form class="search asset__search">
@@ -40,66 +38,36 @@
                         </div>
                     </form>
                 </div>
-                <div class="asset__middle">
-                    <input type="checkbox" class="asset__middle__checkbox-all">
-                    <h3>
-                        <span class="checkbox__total-text">0</span> assets on this page are selected</h3>
-                    <a href="#" class="cancel__text">Cancel</a>
-                </div>
-                <div class="asset__bottom">
-                    <div class="asset__list">
-                        <div class="table-title-asset-request">
-                            <div class="table-title table-title-asset-request-no">No</div>
-                            <div class="table-title table-title-asset-request-name">Name</div>
-                            <div class="table-title table-title-asset-request-brand">Brand</div>
-                            <div class="table-title table-title-asset-request-type">Type</div>
-                            <div class="table-title table-title-asset-request-location">Location</div>
-                            <div class="table-title table-title-asset-request-qty">Qty</div>
-                            <div class="table-title table-title-asset-request-view"></div>
-                            <div class="table-title table-title-asset-request-edit"></div>
-                            <hr>
-                        </div>
-                        <div class="table-content-asset-request">
+                <div class="asset__footer">
+                    <div class="asset__middle">
+                        <input type="checkbox" class="asset__middle__checkbox-all">
+                        <h3>
+                            <span class="checkbox__total-text">0</span> assets on this page are selected</h3>
+                        <a href="#" class="cancel__text">Cancel</a>
+                    </div>
+                    <div class="asset__bottom">
+                        <div class="asset__list">
+                            <div class="table-title-asset-no-btn">
+                                <div class="table-title table-title-asset-no-btn-no"></div>
+                                <div class="table-title table-title-asset-no-btn-name">Name</div>
+                                <div class="table-title table-title-asset-no-btn-brand">Brand</div>
+                                <div class="table-title table-title-asset-no-btn-type">Type</div>
+                                <div class="table-title table-title-asset-no-btn-location">Location</div>
+                                <div class="table-title table-title-asset-no-btn-qty">Qty</div>
+                                <hr>
+                            </div>
+                            <div class="table-content-asset-no-btn">
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="pagination">
+                    <div class="pagination">
+                    </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <div class="popup__part" id="asset__request__note">
-        <div class="popup popup__confirmation popup__request-note">
-            <div class="popup__confirmation__content popup__confirmation__content--wide">
-                <div class="popup__confirmation__upper">
-                    <h3 class="popup__confirmation__title">Request Note</h3>
-                    <a href="#" class="popup__close__button">
-                        <svg class="popup__close__icon">
-                            <use xlink:href="../../assets/img/sprite.svg#icon-unchecked"></use>
-                        </svg>
-                    </a>
-                </div>
-                <div class="popup__confirmation__bottom">
-
-                    <div class="asset__request__details__title">
-                        <div class="asset__request__details__title__name">Name</div>
-                        <div class="asset__request__details__title__qty">Qty</div>
-                        <div class="asset__request__details__title__note">Request Note</div>
-                    </div>
-
-                    <div class="asset__request__details__content">
-                    </div>
-
-                    <div class="popup__confirmation__button">
-                        <div class="btn btn--small btn--blue" id="btn-confimation-submit">Submit All Request</div>
-                        <div class="btn btn--small btn--blue" id="btn-confimation-cancel">Cancel</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <div class="popup__part">
     </div>
 </body>
 

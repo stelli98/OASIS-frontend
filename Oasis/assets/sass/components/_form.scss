@@ -18,7 +18,6 @@
             font-size: 1.5rem;
             color: inherit;
             width: 100%; 
-            margin-bottom: 1.5rem;
     
             &:focus{
                 outline: $color-primary;
@@ -55,10 +54,10 @@
         }
        
     }
-
-
-
 }
 
+#form__employee__dob::-webkit-inner-spin-button {
+    display: none;
+}
 
 

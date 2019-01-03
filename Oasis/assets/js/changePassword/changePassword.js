@@ -1,10 +1,13 @@
 import {
-    statusSuccess,
+    statusNotAuthenticated,
     path
 } from '../base.js';
 $(document).ready(function () {
 
     var userData = JSON.parse(localStorage.getItem('userData'));
+    if(userData==null){
+        window.location.href='../../../../';
+    }
 
     $('.btn__back').click(function () {
         window.history.back();
@@ -40,18 +43,23 @@ $(document).ready(function () {
                     "X-Auth-Token": userData.authToken
                 },
                 success: function (data) {
-                    window.location.href = '../../views/dashboard/dashboard.html';
+                    if(userData.role=="EMPLOYEE"){
+                        window.location.href = '../../views/dashboard/dashboardMyRequest.html';
+                    }else{
+                        window.location.href = '../../views/dashboard/dashboardOthersRequest.html';
+                    }
                 },
                 error: function (data) {
                     $('.change__password__error').css('display', 'block');
                     $('.form__input').addClass('form__input-error');
-                    if(data.code==404){
+                    if(data.responseJSON.code==404){
                         $('.change__password__error__message').text("You already logged out");
-                    }else if(data.code==401){
-                        console.log("error");
-                        $('.change__password__error__message').text("Incorrect old password");
-                    }else if(data.code==400){
+                    }else if(data.responseJSON.code==401){
+                        $('.change__password__error__message').text("Incorrect old password input");
+                    }else if(data.responseJSON.code==400){
                         $('.change__password__error__message').text("Invalid input. Please try again !");
+                    }else if (data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null) {
+                        window.location.href = '../../../../';
                     }
                 }
             });

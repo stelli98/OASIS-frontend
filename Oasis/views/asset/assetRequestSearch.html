@@ -1,18 +1,17 @@
 <link rel="stylesheet" href="../../assets/css/style.css">
-
-<div class="section asset asset__delete">
+<div class="section asset asset__request">
     <h3 class="title asset__title">Asset list</h3>
     <div class="asset__upper">
         <div class="cta-button asset__action__button">
-            <div class="btn btn--small btn-with-icon btn--white btn-asset-list-delete">
+            <div class="btn btn--small btn-with-icon btn--white btn-asset-request-select">
                 <svg class="action-icon-in-btn-white">
-                    <use xlink:href="../../assets/img/sprite.svg#icon-garbage"></use>
+                    <use xlink:href="../../assets/img/sprite.svg#icon-collect"></use>
                 </svg>
-                <span>Delete asset</span>
+                <span>Request asset</span>
             </div>
         </div>
         <form class="search asset__search">
-            <input type="text" class="search__input" name="search__asset" placeholder="search by sku oe asset name">
+            <input type="text" class="search__input" name="search__asset" placeholder="search by sku & asset name">
             <div class="btn btn--small btn--blue btn__search">
                 <svg class="action-icon-in-btn-blue">
                     <use xlink:href="../../assets/img/sprite.svg#icon-magnifier"></use>
@@ -24,7 +23,8 @@
     <div class="asset__footer">
         <div class="asset__middle">
             <input type="checkbox" class="asset__middle__checkbox-all">
-            <h3><span class="checkbox__total-text">0</span> assets on this page are selected</h3>
+            <h3>
+                <span class="checkbox__total-text">0</span> assets on this page are selected</h3>
             <a href="#" class="cancel__text">Cancel</a>
         </div>
         <div class="asset__bottom">
@@ -42,11 +42,14 @@
                 </div>
             </div>
         </div>
-        <div class="pagination"></div>
+        <div class="pagination">
+        </div>
     </div>
 </div>
-<div class="popup__part"></div>
+<div class="popup__part">
+</div>
+
 
 <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
-<script type="module" src="../../assets/js/asset/assetDeleteSearch.js"></script>
+<script type="module" src="../../assets/js/asset/assetRequestSearch.js"></script>
 <script type="module" src="../../assets/js/base.js"></script>

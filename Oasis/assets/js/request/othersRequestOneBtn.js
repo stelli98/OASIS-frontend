@@ -1,13 +1,18 @@
 import {
-    statusSuccess,
+    statusNotFound,
+    statusNotAuthenticated,
     path,
-    elements
+    dateFormatter,
+    createPagination
 } from '../base.js';
 
 $(document).ready(function () {
 
     var currPage = 1;
     var userData = JSON.parse(localStorage.getItem('userData'));
+    if(userData==null){
+        window.location.href='../../../../';
+    }
 
     $('.sidebar__part').load('../../components/sidebar/sidebar.html', function () {
         $('.navbar__part').load('../../components/navbar/navbar.html');
@@ -31,7 +36,7 @@ $(document).ready(function () {
             } else if (currentTabName == 'DELIVERED') {
                 var actionBtn = 'return';
             }
-            
+
             $.ajax({
                 type: 'GET',
                 url: path + '/api/requests/list/others?' + currentTab + 'page=' + currPage,
@@ -44,12 +49,16 @@ $(document).ready(function () {
                     listData(data, currPage, actionBtn);
                 },
                 error: function (data) {
-                    alert('failed load data');
+                    if (data.responseJSON.code == statusNotFound) {
+                        $('.request__footer').load('../../components/errorPage/errorDataNotFoundPage.html');
+                    }else if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                        window.location.href='../../../../';
+                    }
                 }
             });
         } else {
             let keyword = url.substr(index + 16, url.length - 1);
-            var currentTabName = url.substr(44, url.length - keyword.length-66).toUpperCase();
+            var currentTabName = url.substr(44, url.length - keyword.length - 66).toUpperCase();
             var currentTab = 'status=' + currentTabName + '&';
 
             if (currentTabName == 'ACCEPTED') {
@@ -57,10 +66,10 @@ $(document).ready(function () {
             } else if (currentTabName == 'DELIVERED') {
                 var actionBtn = 'return';
             }
-            
+
             $.ajax({
                 type: 'GET',
-                url: path + '/api/requests/list/others?' + currentTab + 'page=' + currPage +'&query='+keyword,
+                url: path + '/api/requests/list/others?' + currentTab + 'page=' + currPage + '&query=' + keyword,
                 contentType: 'application/octet-stream',
                 dataType: 'json',
                 headers: {
@@ -70,19 +79,16 @@ $(document).ready(function () {
                     listData(data, currPage, actionBtn);
                 },
                 error: function (data) {
-                    alert('failed load data');
+                    if (data.responseJSON.code == statusNotFound) {
+                        $('.request__footer').load('../../components/errorPage/errorDataNotFoundPage.html');
+                    }else if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                        window.location.href='../../../../';
+                    }
                 }
             });
         }
 
     }
-
-    $('.btn__search').click(function(){
-        var keyword=$('.search__input').val();
-        const url = window.location.href.split('.');
-        var currentTabName = url[0].substr(44 , url[0].length-40);
-        window.location.href = '../../views/request/othersRequest'+currentTabName+'.html?search__request='+keyword;
-    });
 
     function listData(data, currPage, actionBtn) {
         for (var index = 0; index < data.value.requests.length; index++) {
@@ -96,9 +102,9 @@ $(document).ready(function () {
             <div class='table-content table-content-request-others-one-btn-asset'>${data.value.requests[index].asset.name}</div>
             <div class='table-content table-content-request-others-one-btn-qty'>${data.value.requests[index].asset.quantity}</div>
             <div class='table-content table-content-request-others-one-btn-notes'>${data.value.requests[index].request.note}</div>
-            <div class='table-content table-content-request-others-one-btn-lastUpdate'>${data.value.requests[index].request.updatedDate}</div>
+            <div class='table-content table-content-request-others-one-btn-lastUpdate'>${dateFormatter(data.value.requests[index].request.updatedDate)}</div>
             <div class='table-content table-content-request-others-one-btn-actionBtn'
-                id='table-content-request-others-one-btn-${actionBtn}' data-value=${data.value.requests[index].request.id}>
+                id='table-content-request-others-one-btn-${actionBtn}' data-value=${data.value.requests[index].request.id} data-expendable=${data.value.requests[index].asset.expendable}>
                 <a href='#' id='action-button-accept'>
                     <svg class='action-icon action-icon-accept'>
                         <use xlink:href='../../assets/img/sprite.svg#icon-${actionBtn}'></use>
@@ -110,9 +116,18 @@ $(document).ready(function () {
         }
 
         var totalPage = data.paging.totalPage;
-        $('.pagination').innerHTML = createPagination(totalPage, currPage);
+        $('.pagination').html(createPagination(totalPage, currPage));
 
     }
+
+    loadAssetList(currPage);
+
+    $('.btn__search').click(function () {
+        var keyword = $('.search__input').val();
+        const url = window.location.href.split('.');
+        var currentTabName = url[0].substr(44, url[0].length - 40);
+        window.location.href = '../../views/request/othersRequest' + currentTabName + '.html?search__request=' + keyword;
+    });
 
     $(document).on('click', '.pagination ul li', function (e) {
         let currPage = parseInt(e.target.closest('.pagination ul li').dataset.goto, 10);
@@ -120,118 +135,63 @@ $(document).ready(function () {
         loadAssetList(currPage);
     })
 
-    function createPagination(totalPage, currPage) {
-        let str = '<ul>';
-        let activate;
-        let pageCutLow = currPage - 1;
-        let pageCutHigh = currPage + 1;
-
-        if (currPage > 1) {
-            str += `<li class='page-item previous no' data-goto=${currPage-1}><a>Previous</a></li>`;
-        }
-
-        if (totalPage < 6) {
-            for (let p = 1; p <= totalPage; p++) {
-                if (currPage == p) {
-                    activate = 'activate';
-                } else {
-                    activate = 'no';
-                }
-
-                str += `<li class='${activate}' data-goto=${p}><a>${p}</a></li>`;
-            }
-        } else {
-            if (currPage > 2) {
-                str += '<li class="no page-item" data-goto=1><a>1</a></li>';
-                if (currPage > 3) {
-                    str += `<li class='out-of-range' data-goto=${currPage-2}><a>...</a></li>`;
-                }
-            }
-
-            if (currPage === 1) {
-                pageCutHigh += 2;
-            } else if (currPage === 2) {
-                pageCutHigh += 1;
-            }
-
-            if (currPage === totalPage) {
-                pageCutLow -= 2;
-            } else if (currPage === totalPage - 1) {
-                pageCutLow -= 1;
-            }
-
-            for (let p = pageCutLow; p <= pageCutHigh; p++) {
-                if (p === 0) {
-                    p += 1;
-                }
-                if (p > totalPage) {
-                    continue
-                }
-                activate = currPage == p ? 'activate' : 'no';
-                str += `<li class='page-item ${activate}' data-goto=${p}><a>${p}</a></li>`;
-            }
-
-            if (currPage < totalPage - 1) {
-                if (currPage < totalPage - 2) {
-                    str += `<li class='out-of-range' data-goto=${currPage+2}><a>...</a></li>`;
-                }
-
-                str += `<li class='page-item no' data-goto=${totalPage}><a>${totalPage}</a></li>`;
-            }
-        }
-
-        if (currPage < totalPage) {
-            str += `<li class='page-item next no' data-goto=${currPage+1}><a>Next</a></li>`;
-        }
-        str += '</ul>';
-
-        document.querySelector('.pagination').innerHTML = str;
-        return str;
-    }
-
     $(document).on('click', '#table-content-request-others-one-btn-deliver', function (e) {
-        let selectedRequest = e.target.closest('#table-content-request-others-one-btn-deliver').dataset.value;
-        $('.popup__part').load('../../../components/popup/popupTransactionNote.html');
-        $('.popup').css('display', 'block');
+        var selectedRequest = e.target.closest('#table-content-request-others-one-btn-deliver').dataset.value;
+        var isExpendable = e.target.closest('#table-content-request-others-one-btn-deliver').dataset.expendable;
+
+        if (isExpendable === "true") {
+            $('.popup__part').load('../../../components/popup/popupAcceptedRequestNote.html');
+            $('.popup').css('display', 'block');
+        } else {
+            $('.popup__part').load('../../../components/popup/popupTransactionNote.html');
+            $('.popup').css('display', 'block');
+        }
+
 
         $(document).on('click', '.btn-confirmation-change-status', function () {
-            console.log('btn click');
-            var transactionNotes = $('.popup__confirmation__textarea').val();
+            var transactionNotes = $('.popup__transaction__notes__textarea').val();
             var selectedRequestedData = {
                 '_id': selectedRequest,
                 'sku': '',
                 'quantity': 0,
-                'status': 'Delivered',
+                'status': 'DELIVERED',
                 'requestNote': '',
                 'transactionNote': transactionNotes,
             }
             var arraySelectedRequest = [selectedRequestedData];
 
-            var acceptRequestedData = {
+            var deliverRequestedData = {
                 'requests': arraySelectedRequest
             }
+
             $.ajax({
                 type: 'POST',
                 url: path + '/api/requests/save',
-                data: JSON.stringify(acceptRequestedData),
+                data: JSON.stringify(deliverRequestedData),
                 contentType: 'application/json',
                 dataType: 'json',
                 headers: {
                     "X-Auth-Token": userData.authToken
                 },
                 success: function (data) {
-                    console.log(data);
                     if (data.code == 201) {
-                        console.log('sucess');
-                        window.location.href = '../../views/request/othersRequestDelivered.html';
+                        if (isExpendable === "true") {
+                            window.location.href = '../../views/request/othersRequestReturned.html';
+                        } else {
+                            window.location.href = '../../views/request/othersRequestDelivered.html';
+                        }
                     }
                 },
                 error: function (data) {
-                    alert('failed load data');
-                    console.log(data);
+                    if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                        window.location.href='../../../../';
+                    }
                 }
             });
+        });
 
+        $(document).on('click', '.popup__close__button , .btn-confirmation-cancel ', function () {
+            window.location.href = '../../views/request/othersRequestAccepted.html';
         });
 
     });
@@ -240,15 +200,15 @@ $(document).ready(function () {
         let selectedRequest = e.target.closest('#table-content-request-others-one-btn-return').dataset.value;
         $('.popup__part').load('../../../components/popup/popupTransactionNote.html');
         $('.popup').css('display', 'block');
+        $('.popup__confirmation__title').text("Returned Transaction Note");
 
         $(document).on('click', '.btn-confirmation-change-status', function () {
-            console.log('btn click');
-            var transactionNotes = $('.popup__confirmation__textarea').val();
+            var transactionNotes = $('.popup__transaction__notes__textarea').val();
             var selectedRequestedData = {
                 '_id': selectedRequest,
                 'sku': '',
                 'quantity': 0,
-                'status': 'Returned',
+                'status': 'RETURNED',
                 'requestNote': '',
                 'transactionNote': transactionNotes,
             }
@@ -267,22 +227,22 @@ $(document).ready(function () {
                     "X-Auth-Token": userData.authToken
                 },
                 success: function (data) {
-                    console.log(data);
                     if (data.code == 201) {
-                        console.log('sucess');
                         window.location.href = '../../views/request/othersRequestReturned.html';
                     }
                 },
                 error: function (data) {
-                    alert('failed load data');
-                    console.log(data);
+                    if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                        window.location.href='../../../../';
+                    }
                 }
             });
 
         });
 
+        $(document).on('click', '.popup__close__button , .btn-confirmation-cancel ', function () {
+            window.location.href = '../../views/request/othersRequestDelivered.html';
+        });
     });
-
-    loadAssetList(currPage);
 
 })

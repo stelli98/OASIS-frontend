@@ -1,9 +1,14 @@
-import { statusSuccess, path } from '../base.js';
+import { statusSuccess, path, statusNotAuthenticated } from '../base.js';
 
 $(document).ready(function () {
 
     var userData=JSON.parse(localStorage.getItem('userData'));
+    if(userData==null){
+        window.location.href='../../../../';
+    }
     var sku = localStorage.getItem('sku');
+
+    $('.section .asset').removeClass('section asset');
 
     $('.sidebar__part').load('../../components/sidebar/sidebar.html', function () {
         $('.navbar__part').load('../../components/navbar/navbar.html');
@@ -12,8 +17,6 @@ $(document).ready(function () {
         $('.sidebar__icon__employee,.sidebar__text__employee').removeClass('active');
         $('.sidebar__icon__request,.sidebar__text__request').removeClass('active');
     });
-
-    $('.section .asset').removeClass('section asset');
 
     $.ajax({
         type: 'GET',
@@ -41,14 +44,22 @@ $(document).ready(function () {
                     $('.asset__preview').css('background-image', 'url(' + data.value.images[0] + ')');
                 }
 
-            } else {
-                console.log('error');
+                showExclusiveButton(data);
             }
         },
         error: function (data) {
-            alert('failed load data');
+            showExclusiveButton(JSON.parse(data.responseText));
+            if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                window.location.href='../../../../';
+            }
         }
     });
+
+    function showExclusiveButton(data){
+        if(data.components.btnAssetDetailEditDelete==false){
+            $('.asset__detail__action__btn__upper').css('display','none');
+        }
+    }
 
     $('#uploadAssetImage').change(function () {
         if (this.files[0]) {
@@ -71,7 +82,6 @@ $(document).ready(function () {
         var deleteData = {
             skus: [sku]
         }
-        console.log(deleteData);
 
         $.ajax({
             type: 'DELETE',
@@ -84,14 +94,13 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.code === 200) {
-                    alert('delete');
                     window.location.href = '../../views/asset/asset.html';
-                } else {
-                    alert('error');
                 }
             },
             error: function (data) {
-                console.log('failed at delete');
+                if(data.responseJSON.value.errorCode==statusNotAuthenticated || userData==null){                
+                    window.location.href='../../../../';
+                }
             }
         });
     });
@@ -99,5 +108,5 @@ $(document).ready(function () {
     $('.btn-asset-detail-print').click(function () {
         window.location.href = path+'/api/assets/' + sku + '/pdf';
     });
-
+    
 });

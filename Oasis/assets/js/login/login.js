@@ -17,23 +17,25 @@ $(document).ready(function () {
 			success: function (data) {
 				var userData = {
 					"authToken": jqxhr.getResponseHeader('X-Auth-Token'),
-					"name": data.value.username,
+					"username": data.value.username,
+					"name": data.value.name,
 					"photo": data.value.photo,
 					"role": data.value.role
 				}
-				localStorage.setItem('userData',JSON.stringify(userData));
-				if(userData.role=="EMPLOYEE"){
+				localStorage.setItem('userData', JSON.stringify(userData));
+
+				if (userData.role === "EMPLOYEE") {
 					window.location.href = '../../views/dashboard/dashboardMyRequest.html';
-				}else{
+				} else {
 					window.location.href = '../../views/dashboard/dashboardOthersRequest.html';
 				}
-				
 			},
 			error: function (data) {
-				console.log(data);
 				$('.login__error').css('display', 'block');
-				$('.login__error__message').text(data.responseJSON.value.errorMessage);
 				$('.form__input').addClass('form__input-error');
+				if(data.status==401){
+					$('.login__error__message').text("You aren't allowed to login. Please try again.");
+				}
 			},
 
 		});
