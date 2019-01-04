@@ -1,0 +1,94 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    height: 12vh;
+    position: relative;
+    background-color: #fff;
+
+
+    &__user {
+        display: flex;
+        align-items: center;
+    }
+
+    &__dropdown__icon {
+        margin-left: .8rem;
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+
+    &__menu {
+
+        &__toggle {
+            width: 6rem;
+            position: absolute;
+            background-color: $color-white;
+            width: 14%;
+            position: absolute;
+            background-color: #fff;
+            right: 0;
+            font-size: 1.4rem;
+
+            & li {
+                margin-bottom: .5rem;
+                list-style: none;
+                padding: 1rem 1.5rem;
+                list-style: none;
+
+                & a {
+                    text-decoration: none;
+                }
+
+                &:hover {
+                    background-color: $color-primary;
+                    color: $color-white;
+                }
+            }
+
+            & a{
+                color: $color-black;
+            } 
+        }
+
+        &__dropdown{
+            &:hover a, 
+            &:hover svg{
+                background-color: $color-primary;
+                fill: $color-white;
+                color: $color-white;
+                cursor: pointer;
+            }
+        }
+
+    }
+
+
+    &__submenu__icon {
+        width: 1.3rem;
+        height: 1.3rem;
+        fill: $color-black;
+        margin-right: 1rem;
+    }
+
+}
+
+
+.logo__pic {
+    height: 4rem;
+}
+
+.user {
+    &__name {
+        font-size: 1.5rem;
+        margin-left: 1.5rem;
+    }
+
+    &__pic {
+        height: 4rem;
+        width: 4rem;
+        border-radius: 100%;
+    }
+}

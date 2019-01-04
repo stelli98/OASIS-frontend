@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="shortcut icon" type="image/png" href="../../assets/img/favicon.png">
+
+    <title>OASIS &mdash; Office Asset Inventory System</title>
+</head>
+
+<body>
+    <nav class="navbar__part"></nav>
+    <div class="content">
+        <div class="sidebar__part"></div>
+        <main class="main-content">
+            <div class="section asset asset__edit">
+                <div class="asset__edit-top">
+                    <h3 class="title asset__title">Edit Asset</h3>
+                </div>
+
+                <div class="asset__edit__content">
+                    <div class="asset__edit__left">
+                        <div class="asset__edit__form">
+                            <div class="asset__edit__name">
+                                <h4 class="title-small">Name</h4>
+                                <input type="text" class="form__input-small" id="form__asset__name" required disabled>
+                                <h4 class="input__error" id="input__error__assetName"></h4>
+                            </div>
+
+                            <div class="asset__edit__brand">
+                                <h4 class="title-small">Brand</h4>
+                                <input type="text" class="form__input-small" id="form__asset__brand" required disabled>
+                                <h4 class="input__error" id="input__error__brand"></h4>
+                            </div>
+
+                            <div class="asset__edit__type">
+                                <h4 class="title-small">Type</h4>
+                                <input type="text" class="form__input-small" id="form__asset__type" required disabled>
+                                <h4 class="input__error" id="input__error__type"></h4>
+                            </div>
+
+                            <div class="asset__edit__location">
+                                <h4 class="title-small">Location</h4>
+                                <input type="text" class="form__input-small" id="form__asset__location" required>
+                                <h4 class="input__error" id="input__error__location"></h4>
+                            </div>
+
+                            <div class="asset__edit__qty">
+                                <h4 class="title-small">Quantity</h4>
+                                <input type="number" class="form__input-small" id="form__asset__qty" required>
+                                <h4 class="input__error" id="input__error__qty"></h4>
+                            </div>
+
+                            <div class="asset__edit__price">
+                                <h4 class="title-small">Price</h4>
+                                <input type="number" min="100" step="100" value="100" class="form__input-small" id="form__asset__price"
+                                    required>
+                                <h4 class="input__error" id="input__error__price"></h4>
+                            </div>
+
+                            <div class="asset__edit__expendable">
+                                <h4 class="title-small">Expendable</h4>
+                                <select class="form__input-small" id="asset__edit__option__expendable">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="btn btn--medium btn--blue center" id="edit__asset-btn">Edit asset</div>
+                    </div>
+                    <div class="asset__edit-right">
+                        <div class="asset__edit__image">
+                            <div class="asset__preview">
+                                <div id="assetPrievewImage"></div>
+                            </div>
+
+                            <div class="asset__upload">
+                                <form id="uploadAssetImageForm" method="POST" enctype="multipart/form-data">
+                                    <input name="file" type="file" id="uploadAssetImage" accept=".png,.jpg,.jpeg" class="asset__upload__file">
+                                    <label for="uploadAssetImage" class="asset__upload__link">
+                                        <svg class="asset__upload__btn">
+                                            <use xlink:href="../../assets/img/sprite.svg#icon-photo-camera"></use>
+                                        </svg>
+                                        <span>Upload photo</span>
+                                    </label>
+                                </form>
+                                <h4 class="input__error input__error-center" id="input__error__assetImage"></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</body>
+
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script type="module" src="../../assets/js/asset/assetEdit.js"></script>
+<script type="module" src="../../assets/js/base.js"></script>
+
+</html>

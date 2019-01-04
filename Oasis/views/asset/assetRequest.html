@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="shortcut icon" type="image/png" href="../../assets/img/favicon.png">
+
+    <title>OASIS &mdash; Office Asset Inventory System</title>
+</head>
+
+<body>
+    <nav class="navbar__part"></nav>
+    <div class="content">
+        <div class="sidebar__part"></div>
+        <main class="main-content">
+            <div class="section asset asset__request">
+                <h3 class="title asset__title">Asset list</h3>
+                <div class="asset__upper">
+                    <div class="cta-button asset__action__button">
+                        <div class="btn btn--small btn-with-icon btn--white btn-asset-request-select">
+                            <svg class="action-icon-in-btn-white">
+                                <use xlink:href="../../assets/img/sprite.svg#icon-collect"></use>
+                            </svg>
+                            <span>Request asset</span>
+                        </div>
+                    </div>
+                    <form class="search asset__search">
+                        <input type="text" class="search__input" name="search__asset" placeholder="search by sku & asset name">
+                        <div class="btn btn--small btn--blue btn__search">
+                            <svg class="action-icon-in-btn-blue">
+                                <use xlink:href="../../assets/img/sprite.svg#icon-magnifier"></use>
+                            </svg>
+                            <span>Search</span>
+                        </div>
+                    </form>
+                </div>
+                <div class="asset__footer">
+                    <div class="asset__middle">
+                        <input type="checkbox" class="asset__middle__checkbox-all">
+                        <h3>
+                            <span class="checkbox__total-text">0</span> assets on this page are selected</h3>
+                        <a href="#" class="cancel__text">Cancel</a>
+                    </div>
+                    <div class="asset__bottom">
+                        <div class="asset__list">
+                            <div class="table-title-asset-no-btn">
+                                <div class="table-title table-title-asset-no-btn-no"></div>
+                                <div class="table-title table-title-asset-no-btn-name">Name</div>
+                                <div class="table-title table-title-asset-no-btn-brand">Brand</div>
+                                <div class="table-title table-title-asset-no-btn-type">Type</div>
+                                <div class="table-title table-title-asset-no-btn-location">Location</div>
+                                <div class="table-title table-title-asset-no-btn-qty">Qty</div>
+                                <hr>
+                            </div>
+                            <div class="table-content-asset-no-btn">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="popup__part">
+    </div>
+</body>
+
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script type="module" src="../../assets/js/asset/assetRequest.js"></script>
+<script type="module" src="../../assets/js/base.js"></script>
+
+</html>

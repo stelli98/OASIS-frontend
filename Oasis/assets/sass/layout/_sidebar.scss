@@ -1,0 +1,74 @@
+
+.sidebar{
+    width:20vw;
+
+    &__part{
+        display: flex;
+        flex-flow: column;
+        align-items: start;
+        height: inherit;
+        background-color:$color-white;
+        min-height: 88vh;
+    }
+    
+    &__menu{
+        list-style: none;
+        margin-top: 1.8rem;
+    }
+    
+    &__content{
+        display: flex;
+        align-items: center;
+     
+        &:not(:last-child){
+            margin-bottom: .5rem;
+        }
+    }
+    
+    &__subcontent{
+        margin-left: 4.5rem;
+        margin-top: -1rem;
+    }
+
+    &__content, 
+    &__subcontent{
+        &:hover a ,
+        &:hover svg
+            {
+            color: $color-primary;
+            fill:$color-primary;
+        }
+    }
+    
+    &__link:link,
+    &__link:visited{
+        display: flex;
+        align-items: center;
+    
+        
+        text-decoration: none;
+        font-size:1.4rem;
+        font-weight: 600;
+        color: $color-black;
+        padding: 1.2rem 3rem;
+    
+    }
+    
+    &__icon{
+        width: 3rem;
+        height: 3rem;
+        margin-right: 1.5rem;
+        fill:$color-black;
+    }
+    
+    &__text__request__my,
+    &__text__request__other{
+        font-size: 1.5rem;
+    }
+   
+}
+
+.active{
+    color: $color-primary;
+    fill:$color-primary;
+}

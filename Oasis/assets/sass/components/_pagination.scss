@@ -1,0 +1,50 @@
+.pagination {
+    display: flex;
+    margin:3.3rem 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    & ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        
+        & li {
+            color: $color-primary;
+            display: flex;
+        
+            &.activate a{
+              background-color: $color-primary;
+              color: $color-white;
+              font-weight: 600;
+            }
+            
+            &:first-child a {
+              border-radius: 0.5rem 0 0 0.5rem;
+            }
+            
+            &:last-child a {
+              border-radius: 0 5px 5px 0;
+              border-right: 0.1rem solid $color-primary;
+            }
+
+            & a {
+                background-color: $color-white;
+                padding: 0.5rem 1rem;
+                border: 0.1rem solid $color-primary;
+                border-right: 0;
+                font-size: 1.05rem;
+
+                &:hover {
+                    cursor: pointer;
+                }
+              }
+        }
+    
+    }
+
+}
+  
+  
